@@ -1,14 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MeFragment">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#f0f0f0">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="我的" />
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/infoLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                >
+                <Button
+                    android:id="@+id/buttonEdit"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/icon_edit"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/background"
+                    android:layout_width="wrap_content"
+                    android:layout_height="230dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/back_org"
+                    tools:ignore="RtlCompat"></ImageView>
+
+                <TextView
+                    android:id="@+id/str_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="26sp"
+                    android:text="联合国儿童基金会\n" />
+                <TextView
+                    android:id="@+id/str_follow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:text="粉丝:1000 关注：20\n" />
+
+
+            </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/naviLayout"
+            android:layout_below="@+id/infoLayout"
+            android:layout_marginTop="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/button_like"
+                android:layout_width="0dip"
+                android:layout_height="72dip"
+                android:layout_weight="1"
+                android:background="#E0FFFF"
+                android:textColor="#79CDCD"
+                android:text="收藏" />
+
+            <Button
+                android:id="@+id/button_useless"
+                android:layout_width="0dip"
+                android:layout_height="72dip"
+                android:layout_weight="1"
+                android:background="#76EEC6"
+                android:textColor="@color/white"
+                android:text="发起项目" />
+            <!--  这个按钮 是 凑数的 有别的 再加-->
+
+
+            <Button
+                android:id="@+id/button_join"
+                android:layout_width="0dip"
+                android:layout_height="72dip"
+                android:layout_weight="1"
+                android:background="#E0FFFF"
+                android:textColor="#79CDCD"
+                android:text="参与项目" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttonLayout"
+            android:layout_below="@+id/naviLayout"
+            android:layout_width="fill_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+        <ImageButton
+            android:id="@+id/button_orgContent"
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:background="@drawable/org_content" />
+        <ImageButton
+            android:id="@+id/button_orgMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:background="@drawable/org_message" />
+        <ImageButton
+            android:id="@+id/button_orgRank"
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:background="@drawable/org_rank" />
+        <ImageView
+            android:id="@+id/button_orgBlank"
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:background="@drawable/org_blank" />
+        <ImageButton
+            android:layout_marginTop="10dip"
+            android:id="@+id/button_orgSetting"
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:background="@drawable/org_setting" />
+        <ImageButton
+            android:id="@+id/button_orgAuthen"
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:background="@drawable/org_authen" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="230dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="#f0f0f0"
+            tools:ignore="RtlCompat"></ImageView>
+    </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#f0f0f0">
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/VolunteerInfoLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                >
+                <Button
+                    android:id="@+id/VButtonEdit"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/icon_edit"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/VBackground"
+                    android:layout_width="wrap_content"
+                    android:layout_height="245dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/back_vol"
+                    tools:ignore="RtlCompat"></ImageView>
+                <ImageButton
+                    android:id="@+id/head"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/VButtonEdit"
+                    android:background="@drawable/kanna"/>
+                <TextView
+                    android:id="@+id/str_VName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="26sp"
+                    android:text="桥本环奈\n" />
+                <TextView
+                    android:id="@+id/str_VFollow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="粉丝:1000 关注：20\n" />
+
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/VNaviLayout"
+                android:layout_below="@+id/VolunteerInfoLayout"
+                android:layout_marginTop="10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/VButton_like"
+                    android:layout_width="0dip"
+                    android:layout_height="72dip"
+                    android:layout_weight="1"
+                    android:background="#E0FFFF"
+                    android:textColor="#79CDCD"
+                    android:text="收藏" />
+
+                <Button
+                    android:id="@+id/VButton_useless"
+                    android:layout_width="0dip"
+                    android:layout_height="72dip"
+                    android:layout_weight="1"
+                    android:background="#76EEC6"
+                    android:textColor="@color/white"
+                    android:text="参与项目" />
+                <!--  这个按钮 是 凑数的 有别的 再加-->
+
+
+                <Button
+                    android:id="@+id/VButton_join"
+                    android:layout_width="0dip"
+                    android:layout_height="72dip"
+                    android:layout_weight="1"
+                    android:background="#E0FFFF"
+                    android:textColor="#79CDCD"
+                    android:text="义工记录" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/VButtonLayout"
+                android:layout_below="@+id/VNaviLayout"
+                android:layout_width="fill_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" >
+                <ImageButton
+                    android:id="@+id/VButton_volCredit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="65dp"
+                    android:background="@drawable/vol_credit" />
+                <ImageButton
+                    android:id="@+id/VButton_volBank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="65dp"
+                    android:background="@drawable/vol_bank" />
+                <ImageButton
+                    android:id="@+id/VButton_volRank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="65dp"
+                    android:background="@drawable/vol_rank" />
+                <ImageView
+                    android:id="@+id/VButton_volMedal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="65dp"
+                    android:background="@drawable/vol_medal" />
+                <ImageButton
+                    android:layout_marginTop="10dip"
+                    android:id="@+id/VButton_volLevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="65dp"
+                    android:background="@drawable/vol_level" />
+                <ImageButton
+                    android:id="@+id/VButton_volAuthen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="65dp"
+                    android:background="@drawable/vol_authen" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="230dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:background="#f0f0f0"
+                    tools:ignore="RtlCompat"></ImageView>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>
