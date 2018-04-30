@@ -1,11 +1,13 @@
 package com.example.hfp.changhaowoer;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -29,6 +31,8 @@ public class MainUIActivity extends AppCompatActivity implements View.OnClickLis
         initUI();
         initTab();
     }
+
+
     /**
      * 初始化UI
      */
@@ -39,14 +43,21 @@ public class MainUIActivity extends AppCompatActivity implements View.OnClickLis
         charityLayout.setOnClickListener(this);
         publishLayout.setOnClickListener(this);
         meLayout.setOnClickListener(this);
-
+        Button button_message = (Button)findViewById(R.id.button_message);
         charityImg = (ImageView) findViewById(R.id.iv_charity);
         publishImg = (ImageView) findViewById(R.id.iv_publish);
         meImg = (ImageView) findViewById(R.id.iv_me);
         charityTv = (TextView) findViewById(R.id.tv_charity);
         meTv = (TextView) findViewById(R.id.tv_me);
+        button_message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainUIActivity.this,MessageActivity.class);
+                startActivity(intent);
+            }
+        });
+        }
 
-    }
 
     /**
      * 初始化底部标签
@@ -95,6 +106,7 @@ public class MainUIActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.rl_me: // 我的
                 clickTab3Layout();
                 break;
+
             default:
                 break;
         }
