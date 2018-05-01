@@ -3,21 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:fillViewport="true"
     android:background="#f0f0f0">
 
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true">
 
             <RelativeLayout
                 android:id="@+id/infoLayout"
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+
                 >
                 <Button
                     android:id="@+id/buttonEdit"
@@ -36,7 +40,9 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:src="@drawable/back_org"
-                    tools:ignore="RtlCompat"></ImageView>
+                    tools:ignore="RtlCompat"
+                    android:adjustViewBounds="true"/>
+
 
                 <TextView
                     android:id="@+id/str_name"
@@ -139,13 +145,7 @@
             android:layout_width="wrap_content"
             android:layout_height="65dp"
             android:background="@drawable/org_authen" />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="230dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:background="#f0f0f0"
-            tools:ignore="RtlCompat"></ImageView>
+
     </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
