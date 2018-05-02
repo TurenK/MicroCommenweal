@@ -2,17 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
     <!--未读消息-->
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/MessageLayout"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@color/white"
-        android:layout_below="@+id/alarm_layout"
         android:layout_marginTop="4dp"
-        android:clickable="true"
+        android:orientation="horizontal"
         >
         <RelativeLayout
             android:id="@+id/massage"
@@ -36,35 +35,42 @@
                 android:layout_width="11dp"
                 android:layout_height="13dp"
                 android:layout_alignBottom="@+id/image_avatar"
+                android:layout_alignRight="@id/image_avatar"
                 android:layout_alignEnd="@+id/image_avatar"
                 app:srcCompat="@drawable/point_red" />
 
-
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/str_addresser"
-            android:layout_width="307dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="19dp"
-            android:gravity="left"
-            android:text="联合国儿童基金委"
-            android:textColor="@color/black" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/str_addresser"
+                android:layout_width="307dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="19dp"
+                android:gravity="left"
+                android:text="联合国儿童基金委"
+                android:textColor="@color/black" />
 
-        <TextView
-            android:id="@+id/str_message"
-            android:layout_width="307dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="17dp"
-            android:gravity="left"
-            android:text="您好！您报名的联合国儿童基金委志愿者…"
-            android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/str_message"
+                android:layout_width="307dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="17dp"
+                android:gravity="left"
+                android:text="您好！您报名的联合国儿童基金委志愿者…"
+                android:textColor="@color/black" />
+        </RelativeLayout>
 
 
-    </RelativeLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

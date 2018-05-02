@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="#f0f0f0">
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical" >
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
             <!--标题栏消息-->
             <RelativeLayout
                 android:id="@+id/title_layout"
@@ -24,7 +21,6 @@
                     android:id="@+id/button_back"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:background="@drawable/icon_back"
                     android:gravity="center_vertical" />
@@ -71,268 +67,6 @@
 
             </RelativeLayout>
 
-            <!--消息一-->
-            <RelativeLayout
-                android:id="@+id/MessageLayout1"
-                android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:layout_below="@+id/alarm_layout"
-                android:layout_marginTop="4dp"
-                android:clickable="true"
-                >
-                <RelativeLayout
-                    android:id="@+id/avatar1"
-                    android:layout_width="80dip"
-                    android:layout_height="80dip"
-                    >
-
-                    <ImageView
-                        android:id="@+id/left_image1"
-                        android:src="@drawable/avatar1"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_centerInParent="true"
-                        android:scaleType="centerInside" />
-
-                    <ImageView
-                        android:id="@+id/redpoint1"
-                        android:layout_width="11dp"
-                        android:layout_height="9dp"
-                        android:layout_alignBottom="@+id/left_image1"
-                        android:layout_alignEnd="@+id/left_image1"
-                        app:srcCompat="@drawable/point_red" />
-
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/str_message1"
-                    android:layout_width="307dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:gravity="left"
-                    android:text="您好！您报名的联合国儿童基金委志愿者…"
-                    android:textColor="@color/black" />
-
-
-
-            </RelativeLayout>
-            <!--消息二-->
-            <RelativeLayout
-                android:id="@+id/MessageLayout2"
-                android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:layout_below="@+id/MessageLayout1"
-                android:layout_marginTop="5dp"
-                >
-                <RelativeLayout
-                    android:id="@+id/avatar2"
-                    android:layout_width="80dip"
-                    android:layout_height="80dip"
-                    android:clickable="true" >
-
-                    <ImageView
-                        android:id="@+id/left_image2"
-                        android:src="@drawable/avatar2"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_centerInParent="true"
-                        android:scaleType="centerInside" />
-
-                    <ImageView
-                        android:id="@+id/redpoint3"
-                        android:layout_width="10dp"
-                        android:layout_height="9dp"
-                        android:layout_alignBottom="@+id/left_image2"
-                        android:layout_alignEnd="@+id/left_image2"
-                        app:srcCompat="@drawable/point_red" />
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/str_message2"
-                    android:layout_width="307dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:gravity="left"
-                    android:text="您好！很遗憾您未通过志愿者审核，本次…"
-                    android:textColor="@color/black" />
-
-
-
-            </RelativeLayout>
-            <!--消息三-->
-            <RelativeLayout
-                android:id="@+id/MessageLayout3"
-                android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:layout_below="@+id/MessageLayout2"
-                android:layout_marginTop="5dp"
-                >
-                <RelativeLayout
-                    android:id="@+id/avatar3"
-                    android:layout_width="80dip"
-                    android:layout_height="80dip"
-                    android:clickable="true" >
-
-                    <ImageView
-                        android:id="@+id/left_image3"
-                        android:src="@drawable/avatar3"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_centerInParent="true"
-                        android:scaleType="centerInside" />
-
-                    <ImageView
-                        android:id="@+id/redpoint2"
-                        android:layout_width="9dp"
-                        android:layout_height="15dp"
-                        android:layout_alignBottom="@+id/left_image3"
-                        android:layout_alignEnd="@+id/left_image3"
-                        app:srcCompat="@drawable/point_red" />
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/str_message3"
-                    android:layout_width="307dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:gravity="left"
-                    android:text="待会儿吃什么啊吃什么啊？小龙虾盖饭？"
-                    android:textColor="@color/black" />
-
-
-
-            </RelativeLayout>
-            <!--消息四-->
-            <RelativeLayout
-                android:id="@+id/MessageLayout4"
-                android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:layout_below="@+id/MessageLayout3"
-                android:layout_marginTop="5dp"
-                >
-                <RelativeLayout
-                    android:id="@+id/avatar4"
-                    android:layout_width="80dip"
-                    android:layout_height="80dip"
-                    android:clickable="true" >
-
-                    <ImageView
-                        android:id="@+id/left_image4"
-                        android:src="@drawable/avatar4"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_centerInParent="true"
-                        android:scaleType="centerInside" />
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/str_message4"
-                    android:layout_width="307dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:gravity="left"
-                    android:text="不清楚具体为什么不通过,不知道中间哪个…"
-                    android:textColor="@color/black" />
-
-
-
-            </RelativeLayout>
-            <!--消息五-->
-            <RelativeLayout
-                android:id="@+id/MessageLayout5"
-                android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:layout_below="@+id/MessageLayout4"
-                android:layout_marginTop="5dp"
-                >
-                <RelativeLayout
-                    android:id="@+id/avatar5"
-                    android:layout_width="80dip"
-                    android:layout_height="80dip"
-                    android:clickable="true" >
-
-                    <ImageView
-                        android:id="@+id/left_image5"
-                        android:src="@drawable/avatar5"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_centerInParent="true"
-                        android:scaleType="centerInside" />
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/str_message5"
-                    android:layout_width="307dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:gravity="left"
-                    android:text="收到您的报名信息，审核时间2至3个工作日…"
-                    android:textColor="@color/black" />
-
-
-
-            </RelativeLayout>
-            <!--消息六-->
-            <RelativeLayout
-                android:id="@+id/MessageLayout6"
-                android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:layout_below="@+id/MessageLayout5"
-                android:layout_marginTop="5dp"
-                >
-                <RelativeLayout
-                    android:id="@+id/avatar6"
-                    android:layout_width="80dip"
-                    android:layout_height="80dip"
-                    android:clickable="true" >
-
-                    <ImageView
-                        android:id="@+id/left_image6"
-                        android:src="@drawable/avatar6"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_centerInParent="true"
-                        android:scaleType="centerInside" />
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/str_message6"
-                    android:layout_width="309dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:gravity="left"
-                    android:text="啥啊"
-                    android:textColor="@color/black" />
-
-            </RelativeLayout>
-
-        </RelativeLayout>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="230dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:background="#f0f0f0"
-            tools:ignore="RtlCompat"></ImageView>
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_message"
             android:layout_width="match_parent"
@@ -340,4 +74,4 @@
 
     </LinearLayout>
 
-</ScrollView>
+</LinearLayout>
