@@ -13,12 +13,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.hfp.changhaowoer.object.Message;
+
 public class MainUIActivity extends AppCompatActivity implements View.OnClickListener {
     // 三个tab布局
     private RelativeLayout charityLayout,publishLayout, meLayout;
     // 底部标签切换的Fragment
     private Fragment charityFragment,meFragment,
-            currentFragment;
+            currentFragment,messageFragment;
     // 底部标签图片
     private ImageView charityImg, publishImg, meImg;
     // 底部标签的文本
@@ -43,19 +45,13 @@ public class MainUIActivity extends AppCompatActivity implements View.OnClickLis
         charityLayout.setOnClickListener(this);
         publishLayout.setOnClickListener(this);
         meLayout.setOnClickListener(this);
-        Button button_message = (Button)findViewById(R.id.button_message);
+
         charityImg = (ImageView) findViewById(R.id.iv_charity);
         publishImg = (ImageView) findViewById(R.id.iv_publish);
         meImg = (ImageView) findViewById(R.id.iv_me);
         charityTv = (TextView) findViewById(R.id.tv_charity);
         meTv = (TextView) findViewById(R.id.tv_me);
-        button_message.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainUIActivity.this,MessageActivity.class);
-                startActivity(intent);
-            }
-        });
+
         }
 
 

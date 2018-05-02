@@ -1,6 +1,7 @@
 package com.example.hfp.changhaowoer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -15,9 +16,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Button;
+import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hfp.changhaowoer.adapter.CharityAdapter;
 import com.example.hfp.changhaowoer.object.Charity;
+import com.example.hfp.changhaowoer.object.Message;
 import com.youth.banner.Banner;
 
 import java.util.ArrayList;
@@ -27,8 +41,10 @@ import java.util.List;
 public class CharityFragment extends Fragment {
     //义工列表
     private List<Charity> charityList = new ArrayList<>();
+    private Button btnMessage;
     //recyclerview控件
     RecyclerView recyclerView;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -37,7 +53,14 @@ public class CharityFragment extends Fragment {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_charity, container, false);
         View charityLayout  = inflater.inflate(R.layout.fragment_charity, container, false);
-
+        btnMessage = (Button)charityLayout.findViewById(R.id.button_message);
+        btnMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View charityLayout) {
+                Intent intent = new Intent(getActivity(),MessageActivity.class);
+                startActivity(intent);
+            }
+        });
         initCharities();//初始化义工
         /*
         ****************************
@@ -49,6 +72,7 @@ public class CharityFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         CharityAdapter adapter = new CharityAdapter(charityList);
         recyclerView.setAdapter(adapter);
+
         return  charityLayout;
     }
 

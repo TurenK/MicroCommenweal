@@ -332,6 +332,12 @@
             android:layout_alignParentTop="true"
             android:background="#f0f0f0"
             tools:ignore="RtlCompat"></ImageView>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_message"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
     </LinearLayout>
 
 </ScrollView>

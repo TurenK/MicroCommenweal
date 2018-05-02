@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CharityFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteY="0dp"
+                tools:layout_editor_absoluteX="8dp"/>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <!--标题栏消息-->
+                    <RelativeLayout
+                        android:id="@+id/title_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:background="@color/colorPrimary">
+
+                        <Button
+                            android:id="@+id/button_back"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/icon_back"
+                            android:gravity="center_vertical" />
+
+                        <TextView
+                            android:id="@+id/title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:textColor="#ffffff"
+                            android:textSize="20sp"
+                            android:text="消息列表"
+                            />
+
+
+                    </RelativeLayout>
+
+                    <!--站内公告-->
+                    <RelativeLayout
+                        android:id="@+id/alarm_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_below="@+id/title_layout"
+                        android:layout_marginTop="4dp"
+                        android:background="@color/white">
+
+                        <ImageView
+                            android:id="@+id/img_alarm"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:gravity="center_vertical"
+                            android:background="@drawable/icon_back" />
+
+                        <TextView
+                            android:id="@+id/alarm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:textColor="#FF4500"
+                            android:textSize="10sp"
+                            android:text="站内公告:白名单提交后将由系统初审,如果备案号正常,请在5分钟后尝试访问。"
+                            />
+
+
+                    </RelativeLayout>
+
+                    <!--消息1-->
+                    <RelativeLayout
+                        android:id="@+id/MessageLayout1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="80dp"
+                        android:background="@color/white"
+                        android:layout_below="@+id/alarm_layout"
+                        android:layout_marginTop="4dp"
+                        android:clickable="true"
+                        >
+                        <RelativeLayout
+                            android:id="@+id/avatar1"
+                            android:layout_width="80dip"
+                            android:layout_height="80dip"
+                            >
+
+                            <ImageView
+                                android:id="@+id/left_image1"
+                                android:src="@drawable/avatar1"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_centerInParent="true"
+                                android:scaleType="centerInside" />
+
+                            <ImageView
+                                android:id="@+id/redpoint1"
+                                android:layout_width="11dp"
+                                android:layout_height="9dp"
+                                android:layout_alignBottom="@+id/left_image1"
+                                android:layout_alignEnd="@+id/left_image1"
+                                android:src="@drawable/point_red" />
+
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/str_message1"
+                            android:layout_width="307dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:gravity="left"
+                            android:text="您好！您报名的联合国儿童基金委志愿者…"
+                            android:textColor="@color/black" />
+
+
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="230dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:background="#f0f0f0"
+                    tools:ignore="RtlCompat"></ImageView>
+
+
+            </LinearLayout>
+
+
+        </FrameLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_message"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+
+</FrameLayout>
