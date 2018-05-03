@@ -13,7 +13,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="32dp"
+            android:layout_height="60dp"
             android:background="@color/colorPrimary"
             android:orientation="vertical">
 
@@ -28,14 +28,6 @@
 
             </Button>
         </LinearLayout>
-
-        android:background="@android:drawable/stat_notify_chat" />
-
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="#81D8CF"></android.support.v7.widget.Toolbar>
-
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -83,11 +75,17 @@
 
 
         </FrameLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_charity_category"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_charity"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+
     </LinearLayout>
 
 
