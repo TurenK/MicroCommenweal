@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="110dp"
+    android:layout_height="100dp"
     android:orientation="vertical">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="100dp"
         android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="130dp"
-            android:layout_height="110dp">
+        <RelativeLayout
+            android:id="@+id/charity_it"
+            android:layout_width="120dp"
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/charity_iamge"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/logo"/>
-        </LinearLayout>
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:layout_centerInParent="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/thumbnail1" />
+
+        </RelativeLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="110dp"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/charity_name"
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
+                android:layout_height="58dp"
+                android:layout_marginTop="19dp"
+                android:gravity="left"
                 android:lineSpacingMultiplier="1.3"
-                android:textStyle="bold"
                 android:text="同饮一湖清水，共享生态文明，保护水库环境做文明市民签名活动"
-                android:textSize="15.5dp" />
+                android:textColor="@color/black"
+                android:textSize="16dp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -43,24 +49,26 @@
 
                 <TextView
                     android:id="@+id/people_num"
-                    android:layout_width="80dp"
-                    android:layout_height="25dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerInParent="true"
-                    android:textSize="15dp"
-                    android:text="10人报名"/>
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:text="10人报名"
+                    android:textSize="15dp" />
 
                 <TextView
                     android:id="@+id/status"
-                    android:layout_width="50dp"
+                    android:layout_width="55dp"
                     android:layout_height="25dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerInParent="true"
-                    android:layout_marginRight="10dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="12dp"
+
                     android:background="#81D8CF"
-                    android:textSize="15dp"
+                    android:gravity="center"
+                    android:text="报名中"
                     android:textColor="#ffffff"
-                    android:text="报名中" />
+                    android:textSize="15dp" />
 
             </RelativeLayout>
 

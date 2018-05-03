@@ -7,4 +7,6 @@
     <color name="bottomtab_press">#81D8CF</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="alpha_blue">#406d95e5</color>
+    <!--这个是半透明的-->
 </resources>
