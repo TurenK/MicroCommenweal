@@ -1,4 +1,4 @@
-package com.example.hfp.changhaowoer;
+package com.example.hfp.changhaowoer.activity;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -13,6 +13,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.hfp.changhaowoer.CharityFragment;
+import com.example.hfp.changhaowoer.MeFragment;
+import com.example.hfp.changhaowoer.R;
 import com.example.hfp.changhaowoer.object.Message;
 
 public class MainUIActivity extends AppCompatActivity implements View.OnClickListener {

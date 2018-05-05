@@ -11,83 +11,112 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="32dp"
+            android:layout_height="50dp"
             android:background="@color/colorPrimary"
-            android:orientation="vertical">
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:text="义工"/>
 
             <Button
                 android:id="@+id/button_message"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_alignParentRight="true"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
                 android:layout_centerVertical="true"
-                android:layout_gravity="right"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
                 android:background="@android:drawable/stat_notify_chat">
 
             </Button>
-        </LinearLayout>
-
-        android:background="@android:drawable/stat_notify_chat" />
-
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="#81D8CF"></android.support.v7.widget.Toolbar>
-
+        </RelativeLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp">
+            android:layout_height="200dip" >
 
             <android.support.v4.view.ViewPager
-                android:id="@+id/viewPager"
+                android:id="@+id/vp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:layout_editor_absoluteX="8dp"
-                tools:layout_editor_absoluteY="0dp" />
+                android:layout_height="match_parent" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="35dip"
                 android:layout_gravity="bottom"
                 android:background="#33000000"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:gravity="center"
+                android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/tv_pager_title"
-                    android:layout_width="0dp"
-                    android:layout_height="35dip"
-                    android:layout_weight="8"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="8dip"
-                    android:text="很长的标题。。。。。你懂我意思吧"
-                    android:textColor="@color/white" />
-                <!--用来动态添加轮播小点-->
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="图片标题"
+                    android:textColor="@android:color/white" />
+
                 <LinearLayout
-                    android:id="@+id/lineLayout_dot"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="2"
-                    android:gravity="center|right"
-                    android:orientation="horizontal"
-                    android:paddingLeft="3dp"
-                    android:paddingRight="3dp"></LinearLayout>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dip"
+                    android:orientation="horizontal" >
 
+                    <View
+                        android:id="@+id/dot_0"
+                        android:layout_width="5dip"
+                        android:layout_height="5dip"
+                        android:layout_marginLeft="2dip"
+                        android:layout_marginRight="2dip"
+                        android:background="@drawable/dot_yes"/>
 
+                    <View
+                        android:id="@+id/dot_1"
+                        android:layout_width="5dip"
+                        android:layout_height="5dip"
+                        android:layout_marginLeft="2dip"
+                        android:layout_marginRight="2dip"
+                        android:background="@drawable/dot_no"/>
+                    <View
+                        android:id="@+id/dot_2"
+                        android:layout_width="5dip"
+                        android:layout_height="5dip"
+                        android:layout_marginLeft="2dip"
+                        android:layout_marginRight="2dip"
+                        android:background="@drawable/dot_no"/>
+                    <View
+                        android:id="@+id/dot_3"
+                        android:layout_width="5dip"
+                        android:layout_height="5dip"
+                        android:layout_marginLeft="2dip"
+                        android:layout_marginRight="2dip"
+                        android:background="@drawable/dot_no"/>
+                    <View
+                        android:id="@+id/dot_4"
+                        android:layout_width="5dip"
+                        android:layout_height="5dip"
+                        android:layout_marginLeft="2dip"
+                        android:layout_marginRight="2dip"
+                        android:background="@drawable/dot_no"/>
+
+                </LinearLayout>
             </LinearLayout>
-
-
         </FrameLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_charity_category"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_charity"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+
     </LinearLayout>
 
 
