@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.hfp.changhaowoer">
+
     <!-- if you want to load images from the internet -->
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -23,7 +24,8 @@
         </activity>
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.MainUIActivity" />
-        <activity android:name=".activity.MessageActivity"></activity>
+        <activity android:name=".activity.MessageActivity" />
+        <activity android:name=".activity.CharityDetailActivity"></activity>
     </application>
 
 </manifest>
