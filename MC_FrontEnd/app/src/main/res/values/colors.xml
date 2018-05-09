@@ -8,5 +8,7 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="alpha_blue">#406d95e5</color>
+    <color name="gray">#ABABAB</color>
+
     <!--这个是半透明的-->
 </resources>
