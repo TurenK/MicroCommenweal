@@ -16,6 +16,7 @@ import java.util.List;
 public class CharityAdapter extends RecyclerView.Adapter<CharityAdapter.ViewHolder>{
     private List<Charity> mCharityList;
 
+
     static  class ViewHolder extends  RecyclerView.ViewHolder{
         ImageView charityIamge;
         TextView charityName;
@@ -55,5 +56,6 @@ public class CharityAdapter extends RecyclerView.Adapter<CharityAdapter.ViewHold
     public  int getItemCount(){
         return mCharityList.size();
     }
+    
 
 }
