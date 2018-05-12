@@ -364,15 +364,18 @@
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_width="50dp"
-                    android:layout_height="51dp"
-                    android:layout_alignEnd="@+id/zuijincanyu"
-                    android:layout_alignRight="@+id/zuijincanyu"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="16dp"
-                    app:srcCompat="@drawable/avatar1" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_recent_join"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/zuijincanyu"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="17dp"
+                    >
+
+
+                </android.support.v7.widget.RecyclerView>
+
 
 
             </RelativeLayout>
