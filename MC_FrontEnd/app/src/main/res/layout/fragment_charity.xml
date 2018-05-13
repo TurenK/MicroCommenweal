@@ -106,6 +106,8 @@
                 </LinearLayout>
             </LinearLayout>
         </FrameLayout>
+
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_charity_category"
             android:layout_width="match_parent"

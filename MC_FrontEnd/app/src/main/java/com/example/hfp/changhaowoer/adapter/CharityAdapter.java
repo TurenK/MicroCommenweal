@@ -1,13 +1,18 @@
 package com.example.hfp.changhaowoer.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hfp.changhaowoer.R;
+import com.example.hfp.changhaowoer.activity.CharityDetailActivity;
+import com.example.hfp.changhaowoer.activity.MainActivity;
+import com.example.hfp.changhaowoer.activity.MainUIActivity;
 import com.example.hfp.changhaowoer.object.Charity;
 
 import java.util.List;
@@ -16,7 +21,9 @@ import java.util.List;
 public class CharityAdapter extends RecyclerView.Adapter<CharityAdapter.ViewHolder>{
     private List<Charity> mCharityList;
 
+
     static  class ViewHolder extends  RecyclerView.ViewHolder{
+        View Charityview;
         ImageView charityIamge;
         TextView charityName;
         TextView peoplenum;
@@ -24,6 +31,7 @@ public class CharityAdapter extends RecyclerView.Adapter<CharityAdapter.ViewHold
 
         public ViewHolder(View view){
             super(view);
+            Charityview = view;
             charityIamge = (ImageView) view.findViewById(R.id.charity_iamge);
             charityName = (TextView)view.findViewById(R.id.charity_name);
             peoplenum  = (TextView)view.findViewById(R.id.people_num);
@@ -38,7 +46,17 @@ public class CharityAdapter extends RecyclerView.Adapter<CharityAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent,int viewType){
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.charity_item,parent,false);
-        ViewHolder holder = new ViewHolder(view);
+        final ViewHolder holder = new ViewHolder(view);
+        holder.Charityview.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public  void onClick(View v){
+                int position = holder.getAdapterPosition();
+                Charity charity = mCharityList.get(position);
+                //Toast.makeText(v.getContext(), "点击了", Toast.LENGTH_SHORT).show();
+                v.getContext().startActivity(new Intent(v.getContext(),CharityDetailActivity.class));
+
+            }
+        });
         return  holder;
 
     }
@@ -55,5 +73,6 @@ public class CharityAdapter extends RecyclerView.Adapter<CharityAdapter.ViewHold
     public  int getItemCount(){
         return mCharityList.size();
     }
+
 
 }
