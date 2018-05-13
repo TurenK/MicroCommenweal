@@ -1,14 +1,14 @@
-package com.example.hfp.changhaowoer.activity;
+package com.example.hfp.MicroCommonweal.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.example.hfp.changhaowoer.R;
-import com.example.hfp.changhaowoer.adapter.MessageAdapter;
-import com.example.hfp.changhaowoer.adapter.RecentjoinAdapter;
-import com.example.hfp.changhaowoer.object.Recentjoin;
+import com.example.hfp.MicroCommonweal.R;
+import com.example.hfp.MicroCommonweal.adapter.MessageAdapter;
+import com.example.hfp.MicroCommonweal.adapter.RecentjoinAdapter;
+import com.example.hfp.MicroCommonweal.object.Recentjoin;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
-package com.example.hfp.changhaowoer.Utils;
+package com.example.hfp.MicroCommonweal.Utils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.hfp.changhaowoer.R;
+import com.example.hfp.MicroCommonweal.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;

@@ -1,4 +1,4 @@
-package com.example.hfp.changhaowoer.activity;
+package com.example.hfp.MicroCommonweal.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,15 +11,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONArray;
-import com.example.hfp.changhaowoer.Utils.AsyncHttpUtil;
-import com.example.hfp.changhaowoer.object.Charity;
+import com.example.hfp.MicroCommonweal.Utils.AsyncHttpUtil;
+import com.example.hfp.MicroCommonweal.object.Charity;
 import com.alibaba.fastjson.JSONObject;
-import com.example.hfp.changhaowoer.object.UserInfo;
+import com.example.hfp.MicroCommonweal.object.UserInfo;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.example.hfp.changhaowoer.R;
+import com.example.hfp.MicroCommonweal.R;
 
 import okhttp3.internal.http2.Header;
 

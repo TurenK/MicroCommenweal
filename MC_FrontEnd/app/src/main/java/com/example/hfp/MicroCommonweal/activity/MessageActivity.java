@@ -1,4 +1,4 @@
-package com.example.hfp.changhaowoer.activity;
+package com.example.hfp.MicroCommonweal.activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
@@ -16,11 +16,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.hfp.changhaowoer.R;
-import com.example.hfp.changhaowoer.adapter.CharityAdapter;
-import com.example.hfp.changhaowoer.adapter.MessageAdapter;
-import com.example.hfp.changhaowoer.object.Charity;
-import com.example.hfp.changhaowoer.object.Message;
+import com.example.hfp.MicroCommonweal.R;
+import com.example.hfp.MicroCommonweal.adapter.CharityAdapter;
+import com.example.hfp.MicroCommonweal.adapter.MessageAdapter;
+import com.example.hfp.MicroCommonweal.object.Charity;
+import com.example.hfp.MicroCommonweal.object.Message;
 
 import java.util.ArrayList;
 import java.util.List;

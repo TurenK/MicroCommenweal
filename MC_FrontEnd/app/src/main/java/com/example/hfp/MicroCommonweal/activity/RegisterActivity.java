@@ -1,9 +1,9 @@
-package com.example.hfp.changhaowoer.activity;
+package com.example.hfp.MicroCommonweal.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.hfp.changhaowoer.R;
+import com.example.hfp.MicroCommonweal.R;
 
 public class RegisterActivity extends AppCompatActivity {
 

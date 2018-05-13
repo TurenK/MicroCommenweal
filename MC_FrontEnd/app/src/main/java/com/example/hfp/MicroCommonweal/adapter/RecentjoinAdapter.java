@@ -1,4 +1,4 @@
-package com.example.hfp.changhaowoer.adapter;
+package com.example.hfp.MicroCommonweal.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.hfp.changhaowoer.R;
-import com.example.hfp.changhaowoer.object.Recentjoin;
+import com.example.hfp.MicroCommonweal.R;
+import com.example.hfp.MicroCommonweal.object.Recentjoin;
 
 import java.util.List;
 

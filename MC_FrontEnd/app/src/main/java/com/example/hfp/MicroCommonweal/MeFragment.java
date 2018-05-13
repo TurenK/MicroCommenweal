@@ -1,4 +1,4 @@
-package com.example.hfp.changhaowoer;
+package com.example.hfp.MicroCommonweal;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,9 +12,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.hfp.changhaowoer.activity.MainActivity;
-import com.example.hfp.changhaowoer.activity.MainUIActivity;
-import com.example.hfp.changhaowoer.activity.RegisterActivity;
+import com.example.hfp.MicroCommonweal.activity.MainActivity;
+import com.example.hfp.MicroCommonweal.activity.MainUIActivity;
+import com.example.hfp.MicroCommonweal.activity.RegisterActivity;
 
 
 public class MeFragment extends Fragment implements View.OnClickListener  {

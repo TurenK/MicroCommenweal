@@ -1,4 +1,4 @@
-package com.example.hfp.changhaowoer;
+package com.example.hfp.MicroCommonweal;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,12 +20,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.hfp.changhaowoer.Utils.AsyncHttpUtil;
-import com.example.hfp.changhaowoer.activity.MessageActivity;
-import com.example.hfp.changhaowoer.adapter.CategoryAdapter;
-import com.example.hfp.changhaowoer.adapter.CharityAdapter;
-import com.example.hfp.changhaowoer.object.Category;
-import com.example.hfp.changhaowoer.object.Charity;
+import com.example.hfp.MicroCommonweal.Utils.AsyncHttpUtil;
+import com.example.hfp.MicroCommonweal.activity.MessageActivity;
+import com.example.hfp.MicroCommonweal.adapter.CategoryAdapter;
+import com.example.hfp.MicroCommonweal.adapter.CharityAdapter;
+import com.example.hfp.MicroCommonweal.object.Category;
+import com.example.hfp.MicroCommonweal.object.Charity;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;

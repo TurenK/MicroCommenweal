@@ -1,4 +1,4 @@
-package com.example.hfp.changhaowoer.activity;
+package com.example.hfp.MicroCommonweal.activity;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -13,10 +13,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.hfp.changhaowoer.CharityFragment;
-import com.example.hfp.changhaowoer.MeFragment;
-import com.example.hfp.changhaowoer.R;
-import com.example.hfp.changhaowoer.object.Message;
+import com.example.hfp.MicroCommonweal.CharityFragment;
+import com.example.hfp.MicroCommonweal.MeFragment;
+import com.example.hfp.MicroCommonweal.R;
+import com.example.hfp.MicroCommonweal.object.Message;
 
 public class MainUIActivity extends AppCompatActivity implements View.OnClickListener {
     // 三个tab布局

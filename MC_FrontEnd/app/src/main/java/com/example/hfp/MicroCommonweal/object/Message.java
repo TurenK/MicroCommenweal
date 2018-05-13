@@ -1,4 +1,4 @@
-package com.example.hfp.changhaowoer.object;
+package com.example.hfp.MicroCommonweal.object;
 
 public class Message {
     private String str_addresser;
