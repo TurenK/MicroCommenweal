@@ -9,6 +9,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONObject;
+import com.example.hfp.changhaowoer.Utils.AsyncHttpUtil;
 import com.example.hfp.changhaowoer.activity.MessageActivity;
 import com.example.hfp.changhaowoer.adapter.CategoryAdapter;
 import com.example.hfp.changhaowoer.adapter.CharityAdapter;
 import com.example.hfp.changhaowoer.object.Category;
 import com.example.hfp.changhaowoer.object.Charity;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +36,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-
 public class CharityFragment extends Fragment {
+    private static String TAG = "CharityFragment";
 
     private View charityLayout;
     private ViewPager mViewPaper;
@@ -138,7 +145,6 @@ public class CharityFragment extends Fragment {
         mViewPaper.setAdapter(adapter);
 
         mViewPaper.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
 
             @Override
             public void onPageSelected(int position) {
@@ -254,8 +260,40 @@ public class CharityFragment extends Fragment {
         for(int i =0;i<5;i++){
             Category category = new Category(R.drawable.thumbnail21,"青少年服务");
             categoryList.add(category);
-
         }
+    }
+
+    private boolean requireCharity(){
+        AsyncHttpUtil.post(this.getString(R.string.URL_MAIN_FRAME), null, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(String content) {
+                JSONObject jsonObject = JSONObject.parseObject(content);
+                int code = jsonObject.getInteger("code");
+                String info = jsonObject.getString("message");
+                Log.d(TAG, info);
+                if (code == 200){
+                    //TODO get more JSON object!
+                    JSONObject object = jsonObject.getJSONObject("data");
+                    String actName = object.getString("activityName");
+                    String actImage = object.getString("activityImage");
+                    String aSQ = object.getString("aSurplusQuota");
+                    String actStatus = object.getString("activityStatus");
+                    //TODO create a Charity object
+
+                }else if(code == 400){
+                    Toast.makeText(getContext(), "wrong account or password!", Toast.LENGTH_LONG).show();
+                }
+//                super.onSuccess(content);
+            }
+
+            @Override
+            public void onFailure(Throwable error, String content) {
+                Log.d(TAG, "cannot connect to server!");
+                Toast.makeText(getContext(), "cannot connect to server!", Toast.LENGTH_LONG).show();
+//                super.onFailure(error, content);
+            }
+        });
+        return true;
     }
 
 }

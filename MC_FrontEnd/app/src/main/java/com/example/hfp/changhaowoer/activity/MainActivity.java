@@ -10,13 +10,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONArray;
+import com.example.hfp.changhaowoer.Utils.AsyncHttpUtil;
 import com.example.hfp.changhaowoer.object.Charity;
 import com.alibaba.fastjson.JSONObject;
 import com.example.hfp.changhaowoer.object.UserInfo;
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.example.hfp.changhaowoer.R;
+
+import okhttp3.internal.http2.Header;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView reg_text;
@@ -62,20 +67,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean login(){
         String s_username = username.getText().toString().trim();
         String s_pwd = pwd.getText().toString();
-        String url = "http://172.31.34.141:8080/hobby_group_djbgxz";
+        //only for testing now
+        String url = this.getString(R.string.URL_SERVER) + this.getString(R.string.URL_LOGIN);
 
         btn_login.setEnabled(true);
         btn_login.setText("登录");
 
         //创建网络访问对象
-        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+//        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         params.put("userName", s_username);
         params.put("Password", s_pwd);
         Log.d(TAG, "im here!");
 
-
-        asyncHttpClient.post(url, params, new AsyncHttpResponseHandler(){
+        AsyncHttpUtil.post(this.getString(R.string.URL_LOGIN), params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String content) {
                 JSONObject jsonObject = JSONObject.parseObject(content);
@@ -102,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(new Intent(MainActivity.this,MainUIActivity.class));
                     finish();
                 }else if(code == 400){
+                    Toast.makeText(MainActivity.this, "wrong account or password!", Toast.LENGTH_LONG).show();
                     btn_login.setEnabled(true);
                     btn_login.setText("登录");
                 }
