@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(new Intent(MainActivity.this,MainUIActivity.class));
                     finish();
                 }else if(code == 400){
-                    Toast.makeText(MainActivity.this, "wrong account or password!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "用户名与密码不匹配！", Toast.LENGTH_LONG).show();
                     btn_login.setEnabled(true);
                     btn_login.setText("登录");
                 }
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onFailure(Throwable error, String content) {
                 Log.d(TAG, "cannot connect to server!");
-                Toast.makeText(MainActivity.this, "cannot connect to server!", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "无法连接到服务器！", Toast.LENGTH_LONG).show();
 //                super.onFailure(error, content);
                 btn_login.setEnabled(true);
                 btn_login.setText("登录");

@@ -272,7 +272,7 @@ public class CharityFragment extends Fragment {
                 String info = jsonObject.getString("message");
                 Log.d(TAG, info);
                 if (code == 200){
-                    //TODO get more JSON object!
+                    //TODO get more JSON objects!
                     JSONObject object = jsonObject.getJSONObject("data");
                     String actName = object.getString("activityName");
                     String actImage = object.getString("activityImage");
