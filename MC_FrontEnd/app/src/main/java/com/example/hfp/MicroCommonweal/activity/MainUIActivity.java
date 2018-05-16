@@ -96,11 +96,7 @@ public class MainUIActivity extends AppCompatActivity implements View.OnClickLis
                 clickTab1Layout();
                 break;
             case R.id.rl_publish: // 发布
-                new AlertDialog.Builder(this)
-                        .setTitle("标题")
-                        .setMessage("简单的消息提示框")
-                        .setPositiveButton("确定", null)
-                        .show();
+                startActivity(new Intent(MainUIActivity.this,PublishActivity.class));
                 break;
             case R.id.rl_me: // 我的
                 clickTab3Layout();
