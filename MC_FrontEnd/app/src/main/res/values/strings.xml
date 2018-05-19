@@ -6,7 +6,7 @@
     <string name="title_activity_message">MessageActivity</string>
     <string name="action_settings">Settings</string>
     <string name="URL_SERVER">http://172.31.34.141:8080/hobby_group_djbgxz</string>
-    <string name="URL_REG">/reg.php</string>
+    <string name="URL_REG">/personRegistered.php</string>
     <string name="URL_LOGIN">/login.php</string>
     <string name="URL_MAIN_FRAME">/mainframelist.php</string>
     <string name="URL_PUBLISH">/activityCreate.php</string>
