@@ -264,7 +264,7 @@ public class CharityFragment extends Fragment {
     }
 
     private boolean requireCharity(){
-        AsyncHttpUtil.post(this.getString(R.string.URL_MAIN_FRAME), null, new AsyncHttpResponseHandler() {
+        AsyncHttpUtil.post(getContext(), this.getString(R.string.URL_MAIN_FRAME), null, null, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String content) {
                 JSONObject jsonObject = JSONObject.parseObject(content);

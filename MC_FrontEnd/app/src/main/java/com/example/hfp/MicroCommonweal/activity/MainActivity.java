@@ -26,6 +26,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
+import org.apache.http.entity.StringEntity;
+
+import java.io.UnsupportedEncodingException;
+
 import okhttp3.internal.http2.Header;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -78,13 +82,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.loginbtn:
-//                login();
+                login();
                 //TODO: 判断输入格式
                 Log.d(TAG, "trying login!");
-                startActivity(new Intent(MainActivity.this,MainUIActivity.class));
-                btn_login.setEnabled(false);
-                btn_login.setText("登录中...");
-                finish();
+//                startActivity(new Intent(MainActivity.this,MainUIActivity.class));
+//                btn_login.setEnabled(false);
+//                btn_login.setText("登录中...");
+//                finish();
                 break;
         }
 
@@ -93,22 +97,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean login(){
         String s_username = username.getText().toString().trim();
         String s_pwd = pwd.getText().toString();
-        //only for testing now
-        String url = this.getString(R.string.URL_SERVER) + this.getString(R.string.URL_LOGIN);
 
-        btn_login.setEnabled(true);
-        btn_login.setText("登录");
+//        btn_login.setEnabled(true);
+//        btn_login.setText("登录");
 
         //创建网络访问对象
-//        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-        params.put("userName", s_username);
-        params.put("Password", s_pwd);
-        Log.d(TAG, "im here!");
+        JSONObject login_json = new JSONObject();
+        login_json.put("username", s_username);
+        login_json.put("userPassword", s_pwd);
 
-        AsyncHttpUtil.post(this.getString(R.string.URL_LOGIN), params, new AsyncHttpResponseHandler() {
+        StringEntity stringEntity = null;
+        try {
+            stringEntity = new StringEntity(login_json.toString());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        Log.d(TAG, "prepare to send!");
+
+
+        AsyncHttpUtil.post(this, this.getString(R.string.URL_LOGIN), stringEntity, "application/json", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String content) {
+                Log.d(TAG, content);
                 JSONObject jsonObject = JSONObject.parseObject(content);
                 int code = jsonObject.getInteger("code");
                 String info = jsonObject.getString("message");
@@ -130,8 +141,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     userInfo.setuAvatar(uAvatar);
                     userInfo.setuLable(uLabel);
                     userInfo.setuAttention(uAttention);
-                    startActivity(new Intent(MainActivity.this,MainUIActivity.class));
-                    finish();
+                    Toast.makeText(MainActivity.this, "成功了！", Toast.LENGTH_LONG).show();
+//                    startActivity(new Intent(MainActivity.this,MainUIActivity.class));
+//                    finish();
                 }else if(code == 400){
                     Toast.makeText(MainActivity.this, "用户名与密码不匹配！", Toast.LENGTH_LONG).show();
                     btn_login.setEnabled(true);

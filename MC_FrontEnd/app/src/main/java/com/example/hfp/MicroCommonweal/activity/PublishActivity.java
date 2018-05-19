@@ -27,6 +27,9 @@ import com.example.hfp.MicroCommonweal.object.UserInfo;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.apache.http.entity.StringEntity;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -167,15 +170,24 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
         Log.d("PublishActivity", et_position.getText().toString().trim());
         Log.d("PublishActivity", et_detail.getText().toString().trim());
         Log.d("PublishActivity", et_people_num.getText().toString().trim());
-        RequestParams params = new RequestParams();
-        params.put("activitySponsor", UserInfo.getUserInfo().getuId());
-        params.put("activityName", et_title.getText().toString().trim());
-        params.put("activityDeadline", et_end.getText().toString().trim());
-        params.put("activityTime", et_begin.getText().toString().trim());
-        params.put("activityAddress", et_position.getText().toString().trim());
-        params.put("activityIntroduction", et_detail.getText().toString().trim());
-        params.put("aNeedNumOfPerson", et_people_num.getText().toString().trim());
-        AsyncHttpUtil.post(this.getString(R.string.URL_MAIN_FRAME), null, new AsyncHttpResponseHandler() {
+
+        JSONObject pub_info = new JSONObject();
+        pub_info.put("activitySponsor", UserInfo.getUserInfo().getuId());
+        pub_info.put("activityName", et_title.getText().toString().trim());
+        pub_info.put("activityDeadline", et_end.getText().toString().trim());
+        pub_info.put("activityTime", et_begin.getText().toString().trim());
+        pub_info.put("activityAddress", et_position.getText().toString().trim());
+        pub_info.put("activityIntroduction", et_detail.getText().toString().trim());
+        pub_info.put("aNeedNumOfPerson", et_people_num.getText().toString().trim());
+
+        StringEntity stringEntity = null;
+        try {
+            stringEntity = new StringEntity(pub_info.toString());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        AsyncHttpUtil.post(this, this.getString(R.string.URL_MAIN_FRAME), stringEntity, "application/json", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String content) {
                 JSONObject jsonObject = JSONObject.parseObject(content);
