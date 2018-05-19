@@ -73,7 +73,8 @@
                     android:layout_width="50dp"
                     android:layout_height="20dp"
                     android:layout_marginLeft="20dp"
-                    android:text="注册" />
+                    android:text="注册"
+                    android:textColor="#63B8FF"/>
 
             </LinearLayout>
         </RelativeLayout>

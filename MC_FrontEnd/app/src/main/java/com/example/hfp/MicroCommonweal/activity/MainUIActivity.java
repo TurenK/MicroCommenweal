@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.Button;
 import android.view.View;
 import android.widget.ImageView;
@@ -70,12 +71,6 @@ public class MainUIActivity extends AppCompatActivity implements View.OnClickLis
             // 提交事务
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.content_layout, charityFragment).commit();
-//开启一个事务
-//            FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-//            fragmentTransaction.add(R.id.content_layout, charityFragment);
-//            fragmentTransaction.addToBackStack(null);
-//            //提交事务
-//            fragmentTransaction.commit();
             // 记录当前Fragment
             currentFragment = charityFragment;
             // 设置图片文本的变化
@@ -88,6 +83,18 @@ public class MainUIActivity extends AppCompatActivity implements View.OnClickLis
         }
 
     }
+
+
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        String statuCar = intent.getStringExtra("statuCar");
+        if (!TextUtils.isEmpty(statuCar)) {
+            addOrShowFragment(getSupportFragmentManager().beginTransaction(), charityFragment);
+        }
+    }
+
 
     @Override
     public void onClick(View view) {
