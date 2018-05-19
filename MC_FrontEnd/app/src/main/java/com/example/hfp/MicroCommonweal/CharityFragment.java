@@ -264,7 +264,7 @@ public class CharityFragment extends Fragment {
     }
 
     private boolean requireCharity(){
-        AsyncHttpUtil.post(this.getString(R.string.URL_MAIN_FRAME), null, new AsyncHttpResponseHandler() {
+        AsyncHttpUtil.post(getContext(), this.getString(R.string.URL_MAIN_FRAME), null, null, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String content) {
                 JSONObject jsonObject = JSONObject.parseObject(content);
@@ -272,7 +272,7 @@ public class CharityFragment extends Fragment {
                 String info = jsonObject.getString("message");
                 Log.d(TAG, info);
                 if (code == 200){
-                    //TODO get more JSON object!
+                    //TODO get more JSON objects!
                     JSONObject object = jsonObject.getJSONObject("data");
                     String actName = object.getString("activityName");
                     String actImage = object.getString("activityImage");

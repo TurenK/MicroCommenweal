@@ -37,5 +37,6 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
     // https://mvnrepository.com/artifact/com.alibaba/fastjson
     compile 'com.alibaba:fastjson:1.2.47'
+    compile 'org.apache.httpcomponents:httpcore:4.4.2'
     implementation files('libs/android-async-http-master.jar')
 }

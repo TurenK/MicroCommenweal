@@ -20,8 +20,16 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.hfp.MicroCommonweal.R;
+import com.example.hfp.MicroCommonweal.Utils.AsyncHttpUtil;
+import com.example.hfp.MicroCommonweal.object.UserInfo;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
+import org.apache.http.entity.StringEntity;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +43,7 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
     private String charity_category;
 
     private Button selectpic;
+    private Button btn_submit;
     private Spinner spDown;
     private ImageView charity_iamge;
     private EditText et_title;
@@ -61,7 +70,9 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
         et_phone = (EditText)findViewById(R.id.et_phone);
         et_detail = (EditText)findViewById(R.id.et_detail);
         charity_iamge = (ImageView)findViewById(R.id.charity_iamge);
+        btn_submit = findViewById(R.id.charity_submit);
         selectpic.setOnClickListener(this);
+        btn_submit.setOnClickListener(this);
 
 
 
@@ -96,6 +107,10 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
                 Intent intent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, IMAGE_REQUEST_CODE);
+                break;
+            case R.id.charity_submit:
+                Toast.makeText(PublishActivity.this, "创建中...", Toast.LENGTH_LONG).show();
+                sendInfo();
                 break;
         }
     }
@@ -136,11 +151,7 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
                         pic_path = cursor.getString(columnIndex);  //获取照片路径
                         cursor.close();
                         Bitmap bitmap = BitmapFactory.decodeFile(pic_path);
-                        Log.d("PublishActivity",columnIndex+"");
                         Log.d("PublishActivity:",pic_path );
-                        if(bitmap !=null){
-                            Toast.makeText(PublishActivity.this, "不空", Toast.LENGTH_SHORT).show();
-                        }
                         charity_iamge.setImageBitmap(bitmap);
                     } catch (Exception e) {
                         // TODO Auto-generatedcatch block
@@ -149,6 +160,55 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
         }
+    }
+
+    private void sendInfo(){
+        //封装需要传递的参数
+        Log.d("PublishActivity", et_title.getText().toString().trim());
+        Log.d("PublishActivity", et_end.getText().toString().trim());
+        Log.d("PublishActivity", et_begin.getText().toString().trim());
+        Log.d("PublishActivity", et_position.getText().toString().trim());
+        Log.d("PublishActivity", et_detail.getText().toString().trim());
+        Log.d("PublishActivity", et_people_num.getText().toString().trim());
+
+        JSONObject pub_info = new JSONObject();
+        pub_info.put("activitySponsor", UserInfo.getUserInfo().getuId());
+        pub_info.put("activityName", et_title.getText().toString().trim());
+        pub_info.put("activityDeadline", et_end.getText().toString().trim());
+        pub_info.put("activityTime", et_begin.getText().toString().trim());
+        pub_info.put("activityAddress", et_position.getText().toString().trim());
+        pub_info.put("activityIntroduction", et_detail.getText().toString().trim());
+        pub_info.put("aNeedNumOfPerson", et_people_num.getText().toString().trim());
+
+        StringEntity stringEntity = null;
+        try {
+            stringEntity = new StringEntity(pub_info.toString());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        AsyncHttpUtil.post(this, this.getString(R.string.URL_MAIN_FRAME), stringEntity, "application/json", new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(String content) {
+                JSONObject jsonObject = JSONObject.parseObject(content);
+                int code = jsonObject.getInteger("code");
+                String info = jsonObject.getString("message");
+                if (code == 200){
+                    //TODO Intent
+                    Toast.makeText(PublishActivity.this, "创建成功！", Toast.LENGTH_LONG).show();
+                }else if(code == 400){
+                    Toast.makeText(PublishActivity.this, "创建活动失败！请稍后再试", Toast.LENGTH_LONG).show();
+                }
+//                super.onSuccess(content);
+            }
+
+            @Override
+            public void onFailure(Throwable error, String content) {
+                Log.d("PublishActivity", "cannot connect to server!");
+                Toast.makeText(PublishActivity.this, "无法连接到服务器！", Toast.LENGTH_LONG).show();
+//                super.onFailure(error, content);
+            }
+        });
     }
 
 }
