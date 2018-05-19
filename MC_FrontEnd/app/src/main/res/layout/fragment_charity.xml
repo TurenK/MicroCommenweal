@@ -31,7 +31,7 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
-                android:background="@android:drawable/stat_notify_chat">
+                android:background="@drawable/stat_notify_chat">
 
             </Button>
         </RelativeLayout>
