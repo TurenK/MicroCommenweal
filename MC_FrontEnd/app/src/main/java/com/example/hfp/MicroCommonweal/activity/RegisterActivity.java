@@ -106,7 +106,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     Toast.makeText(RegisterActivity.this, "注册成功！", Toast.LENGTH_LONG).show();
 //                    startActivity(new Intent(MainActivity.this,MainUIActivity.class));
 //                    finish();
-                }else if(code == 400){
+                }else if(code == 404){
                     Toast.makeText(RegisterActivity.this, "用户名与密码不匹配！", Toast.LENGTH_LONG).show();
                     register_btn.setEnabled(true);
                     register_btn.setText("注册");

@@ -84,13 +84,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.loginbtn:
-                login();
+               // login();
                 //TODO: 判断输入格式
                 Log.d(TAG, "trying login!");
-//                startActivity(new Intent(MainActivity.this,MainUIActivity.class));
-//                btn_login.setEnabled(false);
-//                btn_login.setText("登录中...");
-//                finish();
+                startActivity(new Intent(MainActivity.this,MainUIActivity.class));
+                btn_login.setEnabled(false);
+                btn_login.setText("登录中...");
+                finish();
                 break;
         }
 
