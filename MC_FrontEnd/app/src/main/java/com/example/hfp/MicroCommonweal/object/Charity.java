@@ -6,25 +6,38 @@ public class Charity {
     private  String peoplenum;
     private  String status;
 
-    public Charity(String name ,int iamgeId,String peoplenum,String status){
-        this.name = name;
-        this.iamgeId = iamgeId;
-        this.peoplenum = peoplenum;
-        this.status = status;
+    public Charity(){
     }
 
+    public void setName(String name){
+        this.name = name;
+    }
     public String getName(){
+
         return name;
     }
 
+    public void setIamgeId(int iamgeId){
+        this.iamgeId = iamgeId;
+    }
     public int getIamgeId(){
+
         return  iamgeId;
     }
 
+    public void setPeoplenum(String peoplenum){
+        this.peoplenum = peoplenum;
+    }
     public String getPeoplenum(){
+
         return  peoplenum;
     }
+
+    public void setStatus(String status){
+        this.status = status;
+    }
     public String getStatus(){
+
         return  status;
     }
 }

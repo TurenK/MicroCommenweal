@@ -38,6 +38,9 @@ import java.util.concurrent.TimeUnit;
 
 public class CharityFragment extends Fragment {
     private static String TAG = "CharityFragment";
+    private String JOINING = "报名中";
+    private String JOINED = "已结束";
+
 
     private View charityLayout;
     private ViewPager mViewPaper;
@@ -250,10 +253,7 @@ public class CharityFragment extends Fragment {
 
 
     private  void initCharities(){
-        for(int i =0;i<7;i++){
-            Charity charity = new Charity("同饮一湖清水，共享生态文明，保护水库环境做文明市民签名活动",R.drawable.thumbnail1,"10人报名","报名中");
-            charityList.add(charity);
-        }
+        requireCharity();
     }
 
     private  void initCategories(){
@@ -273,12 +273,25 @@ public class CharityFragment extends Fragment {
                 Log.d(TAG, info);
                 if (code == 200){
                     //TODO get more JSON objects!
-                    JSONObject object = jsonObject.getJSONObject("data");
-                    String actName = object.getString("activityName");
-                    String actImage = object.getString("activityImage");
-                    String aSQ = object.getString("aSurplusQuota");
-                    String actStatus = object.getString("activityStatus");
-                    //TODO create a Charity object
+                    JSONObject objectdata =jsonObject.getJSONObject("data");
+                    if (objectdata.containsKey("1")) {
+                        JSONObject object = objectdata.getJSONObject("1");
+                        String actName = object.getString("activityName");
+                        String actImage = object.getString("activityImage");
+                        String aSQ = object.getString("aSurplusQuota");
+                        String actStatus = object.getString("activityStatus");
+                        //TODO create a Charity object
+                        Charity charity = new Charity();
+                        charity.setName(actName);
+                        charity.setIamgeId(R.drawable.thumbnail1);
+                        charity.setPeoplenum(aSQ);
+                        if(actStatus.equals("1")){
+                            charity.setStatus(JOINING);
+                        }else if(actStatus.equals("0")){
+                            charity.setStatus(JOINED);
+                        }
+                        charityList.add(charity);
+                    }
 
                 }else if(code == 400){
                     Toast.makeText(getContext(), "wrong account or password!", Toast.LENGTH_LONG).show();
