@@ -274,23 +274,26 @@ public class CharityFragment extends Fragment {
                 if (code == 200){
                     //TODO get more JSON objects!
                     JSONObject objectdata =jsonObject.getJSONObject("data");
-                    if (objectdata.containsKey("1")) {
-                        JSONObject object = objectdata.getJSONObject("1");
-                        String actName = object.getString("activityName");
-                        String actImage = object.getString("activityImage");
-                        String aSQ = object.getString("aSurplusQuota");
-                        String actStatus = object.getString("activityStatus");
-                        //TODO create a Charity object
-                        Charity charity = new Charity();
-                        charity.setName(actName);
-                        charity.setIamgeId(R.drawable.thumbnail1);
-                        charity.setPeoplenum(aSQ);
-                        if(actStatus.equals("1")){
-                            charity.setStatus(JOINING);
-                        }else if(actStatus.equals("0")){
-                            charity.setStatus(JOINED);
+                    for (int i = 1; i <= 10; i++){
+                        if (objectdata.containsKey(String.valueOf(i))) {
+                            JSONObject object = objectdata.getJSONObject(String.valueOf(i));
+                            String actName = object.getString("activityName");
+                            String actImage = object.getString("activityImage");
+                            String aSQ = object.getString("aSurplusQuota");
+                            String aPN = object.getString("aParticipateNum");
+                            String actStatus = object.getString("activityStatus");
+                            //TODO create a Charity object
+                            Charity charity = new Charity();
+                            charity.setName(actName);
+                            charity.setIamgeId(R.drawable.thumbnail1);
+                            charity.setPeoplenum(aPN+"人报名");
+                            if(actStatus.equals("1")){
+                                charity.setStatus(JOINING);
+                            }else if(actStatus.equals("0")){
+                                charity.setStatus(JOINED);
+                            }
+                            charityList.add(charity);
                         }
-                        charityList.add(charity);
                     }
 
                 }else if(code == 400){

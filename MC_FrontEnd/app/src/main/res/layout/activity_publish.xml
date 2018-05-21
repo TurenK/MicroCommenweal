@@ -144,6 +144,7 @@
                     android:textSize="15sp"
                     android:maxLength="11"
                     android:hint="如：2018年05月06日"
+                    android:text="2018-05-20"
                     android:background="@null"/>
             </LinearLayout>
 
@@ -170,6 +171,7 @@
                     android:textSize="15sp"
                     android:maxLength="11"
                     android:hint="如：2018年05月10日"
+                    android:text="2018-05-20"
                     android:background="@null"/>
             </LinearLayout>
 

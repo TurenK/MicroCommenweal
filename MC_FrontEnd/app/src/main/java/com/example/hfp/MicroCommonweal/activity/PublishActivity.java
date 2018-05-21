@@ -109,8 +109,24 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
                 startActivityForResult(intent, IMAGE_REQUEST_CODE);
                 break;
             case R.id.charity_submit:
-                Toast.makeText(PublishActivity.this, "创建中...", Toast.LENGTH_LONG).show();
-                sendInfo();
+                if (et_title.getText().toString().trim().equals("")){
+                    Toast.makeText(PublishActivity.this, "义工标题不能为空！", Toast.LENGTH_LONG).show();
+                }else if (et_people_num.getText().toString().trim().equals("")){
+                    Toast.makeText(PublishActivity.this, "义工人数不能为空！", Toast.LENGTH_LONG).show();
+                }else if (et_begin.getText().toString().trim().equals("")){
+                    Toast.makeText(PublishActivity.this, "开始时间不能为空！", Toast.LENGTH_LONG).show();
+                }else if (et_end.getText().toString().trim().equals("")){
+                    Toast.makeText(PublishActivity.this, "结束时间不能为空！", Toast.LENGTH_LONG).show();
+                }else if (et_position.getText().toString().trim().equals("")){
+                    Toast.makeText(PublishActivity.this, "义工地点不能为空！", Toast.LENGTH_LONG).show();
+                }else if (et_phone.getText().toString().trim().equals("")){
+                    Toast.makeText(PublishActivity.this, "联系方式不能为空！", Toast.LENGTH_LONG).show();
+                }else if (et_detail.getText().toString().trim().equals("")){
+                    Toast.makeText(PublishActivity.this, "义工详情不能为空！", Toast.LENGTH_LONG).show();
+                }else{
+                    sendInfo();
+                    btn_submit.setEnabled(false);
+                }
                 break;
         }
     }
@@ -171,14 +187,23 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
         Log.d("PublishActivity", et_detail.getText().toString().trim());
         Log.d("PublishActivity", et_people_num.getText().toString().trim());
 
+
+        Log.d("PublishActivity", "Data is ok! Ready to send.");
+
         JSONObject pub_info = new JSONObject();
         pub_info.put("activitySponsor", UserInfo.getUserInfo().getuId());
+        pub_info.put("activityType",charity_category);
         pub_info.put("activityName", et_title.getText().toString().trim());
         pub_info.put("activityDeadline", et_end.getText().toString().trim());
-        pub_info.put("activityTime", et_begin.getText().toString().trim());
+        pub_info.put("activityStartTime", et_begin.getText().toString().trim());
+        pub_info.put("activityEndTime", et_end.getText().toString().trim());
         pub_info.put("activityAddress", et_position.getText().toString().trim());
+        pub_info.put("activityTel",et_phone.getText().toString().trim());
         pub_info.put("activityIntroduction", et_detail.getText().toString().trim());
         pub_info.put("aNeedNumOfPerson", et_people_num.getText().toString().trim());
+        pub_info.put("activityImage", et_title.getText().toString().trim() + "_" + et_end.getText().toString().trim());
+
+        Log.d("PublishActivity", pub_info.toString());
 
         StringEntity stringEntity = null;
         try {
@@ -187,17 +212,22 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
             e.printStackTrace();
         }
 
-        AsyncHttpUtil.post(this, this.getString(R.string.URL_MAIN_FRAME), stringEntity, "application/json", new AsyncHttpResponseHandler() {
+        AsyncHttpUtil.post(this, this.getString(R.string.URL_PUBLISH), stringEntity, "application/json", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String content) {
                 JSONObject jsonObject = JSONObject.parseObject(content);
                 int code = jsonObject.getInteger("code");
                 String info = jsonObject.getString("message");
+                Log.d("PublishActivity", jsonObject.toString());
+
                 if (code == 200){
                     //TODO Intent
                     Toast.makeText(PublishActivity.this, "创建成功！", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(PublishActivity.this,MainUIActivity.class));
+                    finish();
                 }else if(code == 400){
                     Toast.makeText(PublishActivity.this, "创建活动失败！请稍后再试", Toast.LENGTH_LONG).show();
+                    btn_submit.setEnabled(true);
                 }
 //                super.onSuccess(content);
             }
@@ -206,6 +236,7 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
             public void onFailure(Throwable error, String content) {
                 Log.d("PublishActivity", "cannot connect to server!");
                 Toast.makeText(PublishActivity.this, "无法连接到服务器！", Toast.LENGTH_LONG).show();
+                btn_submit.setEnabled(true);
 //                super.onFailure(error, content);
             }
         });
