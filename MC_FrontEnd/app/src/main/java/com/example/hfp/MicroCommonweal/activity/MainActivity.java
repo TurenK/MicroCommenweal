@@ -84,13 +84,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.loginbtn:
-               // login();
                 //TODO: 判断输入格式
-                Log.d(TAG, "trying login!");
-                startActivity(new Intent(MainActivity.this,MainUIActivity.class));
-                btn_login.setEnabled(false);
-                btn_login.setText("登录中...");
-                finish();
+//                if (username.getText().toString().length() < 5){
+//                    Toast.makeText(MainActivity.this, "用户名至少需要5位！", Toast.LENGTH_LONG).show();
+//                }else if (pwd.getText().toString().length() < 6){
+//                    Toast.makeText(MainActivity.this, "密码至少需要6位！", Toast.LENGTH_LONG).show();
+//                }else{
+                    Log.d(TAG, "trying login!");
+                    btn_login.setEnabled(false);
+                    btn_login.setText("登录中...");
+                    login();
+//                }
+//                startActivity(new Intent(MainActivity.this,MainUIActivity.class));
+//                btn_login.setEnabled(false);
+//                btn_login.setText("登录中...");
+//                finish();
                 break;
         }
 
@@ -107,6 +115,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         JSONObject login_json = new JSONObject();
         login_json.put("userName", s_username);
         login_json.put("Password", s_pwd);
+
+        Log.d(TAG, s_username + " " + s_pwd);
 
         StringEntity stringEntity = null;
         try {
@@ -143,9 +153,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     userInfo.setuAvatar(uAvatar);
                     userInfo.setuLable(uLabel);
                     userInfo.setuAttention(uAttention);
-                    Toast.makeText(MainActivity.this, "成功了！", Toast.LENGTH_LONG).show();
-//                    startActivity(new Intent(MainActivity.this,MainUIActivity.class));
-//                    finish();
+//                    Toast.makeText(MainActivity.this, "成功了！", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(MainActivity.this,MainUIActivity.class));
+                    finish();
                 }else if(code == 400){
                     Toast.makeText(MainActivity.this, "用户名与密码不匹配！", Toast.LENGTH_LONG).show();
                     btn_login.setEnabled(true);

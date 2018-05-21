@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,6 +21,8 @@ import com.example.hfp.MicroCommonweal.R;
 import com.example.hfp.MicroCommonweal.object.Message;
 
 public class MainUIActivity extends AppCompatActivity implements View.OnClickListener {
+    private static String TAG = "MainUIActivity";
+
     // 三个tab布局
     private RelativeLayout charityLayout,publishLayout, meLayout;
     // 底部标签切换的Fragment
@@ -37,7 +40,11 @@ public class MainUIActivity extends AppCompatActivity implements View.OnClickLis
         initUI();
         initTab();
     }
-
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Log.d(TAG, "I'm back!");
+    }
 
     /**
      * 初始化UI
