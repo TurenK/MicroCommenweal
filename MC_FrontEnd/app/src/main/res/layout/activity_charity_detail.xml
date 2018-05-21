@@ -411,18 +411,6 @@
 
             </RelativeLayout>
 
-            <!--空-->
-            <RelativeLayout
-                android:id="@+id/blanklayout"
-                android:layout_width="match_parent"
-                android:layout_height="166dp"
-                android:layout_below="@+id/detail_layout"
-                android:layout_marginTop="4dp">
-
-
-
-            </RelativeLayout>
-
         </LinearLayout>
 
     </ScrollView>

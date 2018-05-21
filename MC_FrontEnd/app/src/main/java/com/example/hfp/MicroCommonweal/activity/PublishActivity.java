@@ -1,6 +1,8 @@
 package com.example.hfp.MicroCommonweal.activity;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -15,9 +17,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
@@ -31,6 +35,7 @@ import org.apache.http.entity.StringEntity;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class PublishActivity extends AppCompatActivity implements View.OnClickListener,AdapterView.OnItemSelectedListener {
@@ -41,6 +46,10 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
     private List<String> list;
     private ArrayAdapter<String> adapter;
     private String charity_category;
+    int mYear, mMonth, mDay;
+    int eYear,eMonth,eDay;
+    final int DATE_DIALOG = 1;
+    final int END_DATE_DIALOG = 2;
 
     private Button selectpic;
     private Button btn_submit;
@@ -48,8 +57,8 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
     private ImageView charity_iamge;
     private EditText et_title;
     private EditText et_people_num;
-    private EditText et_begin;
-    private EditText et_end;
+    private TextView et_begin;
+    private TextView et_end;
     private EditText et_position;
     private EditText et_phone;
     private EditText et_detail;
@@ -64,8 +73,8 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
         spDown=(Spinner) findViewById(R.id.et_charity_category);
         et_title = (EditText)findViewById(R.id.et_title);
         et_people_num = (EditText)findViewById(R.id.et_people_num);
-        et_begin = (EditText)findViewById(R.id.et_begin);
-        et_end = (EditText)findViewById(R.id.et_end);
+        et_begin = (TextView)findViewById(R.id.et_begin);
+        et_end = (TextView)findViewById(R.id.et_end);
         et_position = (EditText)findViewById(R.id.et_position);
         et_phone = (EditText)findViewById(R.id.et_phone);
         et_detail = (EditText)findViewById(R.id.et_detail);
@@ -73,6 +82,8 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
         btn_submit = findViewById(R.id.charity_submit);
         selectpic.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
+        et_begin.setOnClickListener(this);
+        et_end.setOnClickListener(this);
 
 
 
@@ -96,7 +107,55 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
 
         /*soDown的监听器*/
         spDown.setOnItemSelectedListener(this);
+
+
+        final Calendar begin = Calendar.getInstance();
+        mYear = begin.get(Calendar.YEAR);
+        mMonth = begin.get(Calendar.MONTH);
+        mDay = begin.get(Calendar.DAY_OF_MONTH);
+
+        final Calendar end = Calendar.getInstance();
+        eYear = end.get(Calendar.YEAR);
+        eMonth = end.get(Calendar.MONTH);
+        eDay = end.get(Calendar.DAY_OF_MONTH);
     }
+
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case DATE_DIALOG:
+                return new DatePickerDialog(this, mdateListener, mYear, mMonth, mDay);
+            case END_DATE_DIALOG:
+                return new DatePickerDialog(this, edateListener, eYear, eMonth, eDay);
+        }
+        return null;
+    }
+
+    private DatePickerDialog.OnDateSetListener mdateListener = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            mYear = year;
+            mMonth = monthOfYear;
+            mDay = dayOfMonth;
+            et_begin.setText(new StringBuffer().append(mYear).append("-").append(mMonth+1).append("-").append(mDay).append(" "));
+        }
+    };
+
+    private DatePickerDialog.OnDateSetListener edateListener = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            eYear = year;
+            eMonth = monthOfYear;
+            eDay = dayOfMonth;
+            et_end.setText(new StringBuffer().append(eYear).append("-").append(eMonth+1).append("-").append(eDay).append(" "));
+        }
+    };
+
 
 
     @Override
@@ -111,6 +170,12 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.charity_submit:
                 Toast.makeText(PublishActivity.this, "创建中...", Toast.LENGTH_LONG).show();
                 sendInfo();
+                break;
+            case R.id.et_begin:
+                showDialog(DATE_DIALOG);
+                break;
+            case R.id.et_end:
+                showDialog(END_DATE_DIALOG);
                 break;
         }
     }
