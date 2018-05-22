@@ -31,7 +31,7 @@
         <activity android:name=".activity.CharityDetailActivity" />
         <activity android:name=".activity.PublishActivity" />
         <activity android:name=".activity.PersonalInfoActivity" />
-        <activity android:name=".activity.IdentifyInfoActivity"></activity>
+        <activity android:name=".activity.IdentifyInfoActivity" />
     </application>
 
 </manifest>
