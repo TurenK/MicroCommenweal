@@ -42,6 +42,7 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
         btn_share = (ImageButton)findViewById(R.id.btn_share);
         btn_chat = (ImageButton)findViewById(R.id.btn_chat);
         btn_collect = (ImageButton)findViewById(R.id.btn_collect);
+        //设置监听器
         button_back.setOnClickListener(this);
         btn_share.setOnClickListener(this);
         btn_join.setOnClickListener(this);

@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.hfp.MicroCommonweal.activity.MainActivity;
 import com.example.hfp.MicroCommonweal.activity.MainUIActivity;
+import com.example.hfp.MicroCommonweal.activity.PersonalInfoActivity;
 import com.example.hfp.MicroCommonweal.activity.RegisterActivity;
 
 
@@ -84,6 +85,7 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
                 break;
             case R.id.button_orgSetting:
                 Toast.makeText(getContext(), "账号设置", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(),PersonalInfoActivity.class));
                 break;
             case R.id.button_orgAuthen:
                 Toast.makeText(getContext(), "认证消息", Toast.LENGTH_SHORT).show();
