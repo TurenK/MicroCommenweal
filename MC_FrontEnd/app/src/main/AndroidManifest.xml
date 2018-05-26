@@ -32,6 +32,10 @@
         <activity android:name=".activity.PublishActivity" />
         <activity android:name=".activity.PersonalInfoActivity" />
         <activity android:name=".activity.IdentifyInfoActivity" />
+        <activity android:name=".activity.RankActivity" />
+        <activity android:name=".activity.CollectionActivity" />
+        <activity android:name=".activity.PublishedCharityActivity" />
+        <activity android:name=".activity.JoinedCharityActivity"></activity>
     </application>
 
 </manifest>

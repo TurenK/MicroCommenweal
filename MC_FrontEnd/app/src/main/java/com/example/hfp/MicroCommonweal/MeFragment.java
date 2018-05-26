@@ -12,9 +12,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.hfp.MicroCommonweal.activity.CollectionActivity;
+import com.example.hfp.MicroCommonweal.activity.IdentifyInfoActivity;
+import com.example.hfp.MicroCommonweal.activity.JoinedCharityActivity;
 import com.example.hfp.MicroCommonweal.activity.MainActivity;
 import com.example.hfp.MicroCommonweal.activity.MainUIActivity;
+import com.example.hfp.MicroCommonweal.activity.MessageActivity;
 import com.example.hfp.MicroCommonweal.activity.PersonalInfoActivity;
+import com.example.hfp.MicroCommonweal.activity.PublishedCharityActivity;
+import com.example.hfp.MicroCommonweal.activity.RankActivity;
 import com.example.hfp.MicroCommonweal.activity.RegisterActivity;
 
 
@@ -64,31 +70,28 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.button_like:
-                //startActivity(new Intent(MainActivity.this,RegisterActivity.class));
-                //切换界面效果
-                Toast.makeText(getContext(), "收藏", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(),CollectionActivity.class));
                 break;
             case R.id.button_useless:
-                Toast.makeText(getContext(), "发起项目", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(),PublishedCharityActivity.class));
                 break;
             case R.id.button_join:
-                Toast.makeText(getContext(), "参与项目", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(),JoinedCharityActivity.class));
                 break;
             case R.id.button_orgContent:
                 Toast.makeText(getContext(), "评价处理", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.button_orgMessage:
-                Toast.makeText(getContext(), "消息处理", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(),MessageActivity.class));
                 break;
             case R.id.button_orgRank:
-                Toast.makeText(getContext(), "排行榜", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(),RankActivity.class));
                 break;
             case R.id.button_orgSetting:
-                Toast.makeText(getContext(), "账号设置", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getContext(),PersonalInfoActivity.class));
                 break;
             case R.id.button_orgAuthen:
-                Toast.makeText(getContext(), "认证消息", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(),IdentifyInfoActivity.class));
                 break;
         }
 
