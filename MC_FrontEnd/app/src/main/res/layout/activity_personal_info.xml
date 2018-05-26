@@ -157,9 +157,9 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:gravity="center"
-                    android:textSize="15sp"
+                    android:text="新垣结衣"
                     android:textColor="@color/black"
-                    android:text="新垣结衣我草拟吗"/>
+                    android:textSize="15sp" />
             </RelativeLayout>
 
             <RelativeLayout
