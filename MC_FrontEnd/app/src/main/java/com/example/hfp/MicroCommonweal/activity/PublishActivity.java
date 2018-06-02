@@ -273,6 +273,7 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
         StringEntity stringEntity = null;
         try {
             stringEntity = new StringEntity(pub_info.toString());
+            stringEntity.setContentEncoding("UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

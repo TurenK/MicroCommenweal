@@ -39,7 +39,7 @@ import java.util.concurrent.TimeUnit;
 public class CharityFragment extends Fragment {
     private static String TAG = "CharityFragment";
     private String JOINING = "报名中";
-    private String JOINED = "已结束";
+    private String JOINED = "已报名";
 
 
     private View charityLayout;
@@ -270,26 +270,29 @@ public class CharityFragment extends Fragment {
                 JSONObject jsonObject = JSONObject.parseObject(content);
                 int code = jsonObject.getInteger("code");
                 String info = jsonObject.getString("message");
-                Log.d(TAG, info);
+                Log.d(TAG, jsonObject.toString());
                 if (code == 200){
                     //TODO get more JSON objects!
                     JSONObject objectdata =jsonObject.getJSONObject("data");
                     for (int i = 1; i <= 10; i++){
                         if (objectdata.containsKey(String.valueOf(i))) {
                             JSONObject object = objectdata.getJSONObject(String.valueOf(i));
+                            String actID = object.getString("activityId");
                             String actName = object.getString("activityName");
                             String actImage = object.getString("activityImage");
                             String aSQ = object.getString("aSurplusQuota");
-                            String aPN = object.getString("aParticipateNum");
+                            String aNN = object.getString("aNeedNumOfPerson");
                             String actStatus = object.getString("activityStatus");
+                            int userStatus = object.getInteger("userStatus");
                             //TODO create a Charity object
                             Charity charity = new Charity();
+                            charity.setaID(actID);
                             charity.setName(actName);
                             charity.setIamgeId(R.drawable.thumbnail1);
-                            charity.setPeoplenum(aPN+"人报名");
-                            if(actStatus.equals("1")){
+                            charity.setPeoplenum("剩余"+aSQ+"人");
+                            if(actStatus.equals("1") && userStatus==0){
                                 charity.setStatus(JOINING);
-                            }else if(actStatus.equals("0")){
+                            }else if(actStatus.equals("1") && userStatus==1){
                                 charity.setStatus(JOINED);
                             }
                             charityList.add(charity);

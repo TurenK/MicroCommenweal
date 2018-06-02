@@ -53,8 +53,10 @@ public class CharityAdapter extends RecyclerView.Adapter<CharityAdapter.ViewHold
                 int position = holder.getAdapterPosition();
                 Charity charity = mCharityList.get(position);
                 //Toast.makeText(v.getContext(), "点击了", Toast.LENGTH_SHORT).show();
-                v.getContext().startActivity(new Intent(v.getContext(),CharityDetailActivity.class));
-
+                Intent intent=new Intent();
+                intent.setClass(v.getContext(), CharityDetailActivity.class);
+                intent.putExtra("activityID", charity.getaID());
+                v.getContext().startActivity(intent);
             }
         });
         return  holder;

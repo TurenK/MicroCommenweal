@@ -114,9 +114,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //创建网络访问对象
         JSONObject login_json = new JSONObject();
         login_json.put("userName", s_username);
-        login_json.put("Password", s_pwd);
+        login_json.put("password", s_pwd);
 
-        Log.d(TAG, s_username + " " + s_pwd);
+        Log.d(TAG, login_json.toString());
 
         StringEntity stringEntity = null;
         try {
