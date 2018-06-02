@@ -3,11 +3,11 @@
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/num_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="75dip"
-        android:layout_marginTop="4dp"
-        android:background="@color/white"
-        android:orientation="horizontal">
+    android:layout_width="fill_parent"
+    android:layout_height="75dip"
+    android:layout_marginTop="4dp"
+    android:background="@color/white"
+    android:orientation="horizontal">
 
     <RelativeLayout
         android:id="@+id/massage"
@@ -101,5 +101,5 @@
         </LinearLayout>
 
 
-</LinearLayout>
+    </LinearLayout>
 </LinearLayout>
