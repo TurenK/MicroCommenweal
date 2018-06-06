@@ -35,7 +35,7 @@
         <activity android:name=".activity.RankActivity" />
         <activity android:name=".activity.CollectionActivity" />
         <activity android:name=".activity.PublishedCharityActivity" />
-        <activity android:name=".activity.JoinedCharityActivity"></activity>
+        <activity android:name=".activity.JoinedCharityActivity" />
     </application>
 
 </manifest>
