@@ -540,13 +540,6 @@
                             android:text="|"
                             android:textColor="@color/gray"
                             android:textSize="16sp" />
-                    <Spinner
-                        android:layout_weight="5"
-                        android:id="@+id/et_contact_phone_category"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    </Spinner>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -592,13 +585,6 @@
                             android:text="|"
                             android:textColor="@color/gray"
                             android:textSize="16sp" />
-                        <Spinner
-                            android:layout_weight="5"
-                            android:id="@+id/et_contact_qq_category"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                        </Spinner>
                     </LinearLayout>
 
 
@@ -646,13 +632,6 @@
                             android:text="|"
                             android:textColor="@color/gray"
                             android:textSize="16sp" />
-                        <Spinner
-                            android:layout_weight="5"
-                            android:id="@+id/et_contact_email_category"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                        </Spinner>
                     </LinearLayout>
 
 

@@ -92,15 +92,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                }else if (pwd.getText().toString().length() < 6){
 //                    Toast.makeText(MainActivity.this, "密码至少需要6位！", Toast.LENGTH_LONG).show();
 //                }else{
-//                    Log.d(TAG, "trying login!");
-//                    btn_login.setEnabled(false);
-//                    btn_login.setText("登录中...");
-//                    login();
+                    Log.d(TAG, "trying login!");
+                    btn_login.setEnabled(false);
+                    btn_login.setText("登录中...");
+                    login();
 //                }
-                startActivity(new Intent(MainActivity.this,MainUIActivity.class));
-                btn_login.setEnabled(false);
-                btn_login.setText("登录中...");
-                finish();
+//                startActivity(new Intent(MainActivity.this,MainUIActivity.class));
+//                btn_login.setEnabled(false);
+//                btn_login.setText("登录中...");
+//                finish();
                 break;
         }
 
