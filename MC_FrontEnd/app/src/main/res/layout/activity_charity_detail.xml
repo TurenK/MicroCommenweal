@@ -130,7 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:text=" 致力为公·爱满星河 | 爱的任务单全面启动"
+                    android:text=" 加载中..."
                     android:textColor="@color/black"
                     android:textSize="14sp" />
                 <!--岗位ID-->
@@ -226,7 +226,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_marginTop="11dp"
                         android:gravity="center_horizontal"
-                        android:text="24"
+                        android:text=""
                         android:textColor="@color/black" />
 
                     <TextView
@@ -254,7 +254,7 @@
                         android:layout_marginBottom="0dp"
                         android:layout_marginTop="11dp"
                         android:gravity="center_horizontal"
-                        android:text="101"
+                        android:text=""
                         android:textColor="@color/black" />
 
                     <TextView
@@ -291,7 +291,7 @@
                         android:layout_marginBottom="0dp"
                         android:layout_marginTop="11dp"
                         android:gravity="center_horizontal"
-                        android:text="21"
+                        android:text=""
                         android:textColor="@color/black" />
                 </RelativeLayout>
 
@@ -335,7 +335,7 @@
                     android:layout_marginStart="17dp"
                     android:layout_marginLeft="17dp"
 
-                    android:text="联合国儿童基金会（United Nations International Children's Emergency Fund，简称UNICEF），原名“联合国国际儿童紧急救助基金会”，于1946年12月11日创建，最初目的是满足第二次世界大战之后欧洲与中国儿童的紧急需求。"
+                    android:text=""
                     android:textColor="@color/gray"
                     android:textSize="14sp" />
 

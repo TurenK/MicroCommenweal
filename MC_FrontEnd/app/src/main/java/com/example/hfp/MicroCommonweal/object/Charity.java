@@ -1,12 +1,21 @@
 package com.example.hfp.MicroCommonweal.object;
 
 public class Charity {
+    private String aID;
     private String name;
     private  int iamgeId;
     private  String peoplenum;
     private  String status;
 
     public Charity(){
+    }
+
+    public void setaID(String aID) {
+        this.aID = aID;
+    }
+
+    public String getaID() {
+        return aID;
     }
 
     public void setName(String name){

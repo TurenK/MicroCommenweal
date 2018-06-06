@@ -27,12 +27,14 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSONObject;
 import com.example.hfp.MicroCommonweal.R;
 import com.example.hfp.MicroCommonweal.Utils.AsyncHttpUtil;
+import com.example.hfp.MicroCommonweal.Utils.EncodingUtil;
 import com.example.hfp.MicroCommonweal.object.UserInfo;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.entity.StringEntity;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -184,6 +186,7 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
                     Toast.makeText(PublishActivity.this, "义工详情不能为空！", Toast.LENGTH_LONG).show();
                 }else{
                     sendInfo();
+//                    Log.d("PublishActivity", EncodingUtil.gbEncoding(et_title.getText().toString().trim()));
                     btn_submit.setEnabled(false);
                 }
                 break;
@@ -251,13 +254,16 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
         Log.d("PublishActivity", et_position.getText().toString().trim());
         Log.d("PublishActivity", et_detail.getText().toString().trim());
         Log.d("PublishActivity", et_people_num.getText().toString().trim());
+        Log.d("PublishActivity", UserInfo.getUserInfo().getuId());
 
 
         Log.d("PublishActivity", "Data is ok! Ready to send.");
 
         JSONObject pub_info = new JSONObject();
         pub_info.put("activitySponsor", UserInfo.getUserInfo().getuId());
-        pub_info.put("activityType",charity_category);
+//        pub_info.put("activityType",EncodingUtil.gbEncoding(charity_category));
+        pub_info.put("activityType", charity_category);
+//        pub_info.put("activityName", EncodingUtil.gbEncoding(et_title.getText().toString().trim()));
         pub_info.put("activityName", et_title.getText().toString().trim());
         pub_info.put("activityDeadline", et_end.getText().toString().trim());
         pub_info.put("activityStartTime", et_begin.getText().toString().trim());
@@ -271,13 +277,9 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
         Log.d("PublishActivity", pub_info.toString());
 
         StringEntity stringEntity = null;
-        try {
-            stringEntity = new StringEntity(pub_info.toString());
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        stringEntity = new StringEntity(pub_info.toString(), "UTF-8");
 
-        AsyncHttpUtil.post(this, this.getString(R.string.URL_PUBLISH), stringEntity, "application/json", new AsyncHttpResponseHandler() {
+        AsyncHttpUtil.post(this, this.getString(R.string.URL_PUBLISH), stringEntity, "application/x-www-form-urlencoded", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String content) {
                 JSONObject jsonObject = JSONObject.parseObject(content);
@@ -287,6 +289,8 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
 
                 if (code == 200){
                     //TODO Intent
+//                    JSONObject jObject = jsonObject.getJSONObject("data");
+//                    Log.d("PublishActivity", EncodingUtil.decodeUnicode(jObject.getString("activityName")));
                     Toast.makeText(PublishActivity.this, "创建成功！", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(PublishActivity.this,MainUIActivity.class));
                     finish();

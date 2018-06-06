@@ -26,10 +26,14 @@ import com.example.hfp.MicroCommonweal.adapter.CategoryAdapter;
 import com.example.hfp.MicroCommonweal.adapter.CharityAdapter;
 import com.example.hfp.MicroCommonweal.object.Category;
 import com.example.hfp.MicroCommonweal.object.Charity;
+import com.example.hfp.MicroCommonweal.object.UserInfo;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.apache.http.entity.StringEntity;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -39,7 +43,7 @@ import java.util.concurrent.TimeUnit;
 public class CharityFragment extends Fragment {
     private static String TAG = "CharityFragment";
     private String JOINING = "报名中";
-    private String JOINED = "已结束";
+    private String JOINED = "已报名";
 
 
     private View charityLayout;
@@ -264,32 +268,54 @@ public class CharityFragment extends Fragment {
     }
 
     private boolean requireCharity(){
-        AsyncHttpUtil.post(getContext(), this.getString(R.string.URL_MAIN_FRAME), null, null, new AsyncHttpResponseHandler() {
+
+        String uid = UserInfo.getUserInfo().getuId();
+
+//        btn_login.setEnabled(true);
+//        btn_login.setText("登录");
+
+        //创建网络访问对象
+        JSONObject main_json = new JSONObject();
+        main_json.put("userId", uid);
+
+        Log.d(TAG, main_json.toString());
+
+        StringEntity stringEntity = null;
+        try {
+            stringEntity = new StringEntity(main_json.toJSONString());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        AsyncHttpUtil.post(getContext(), this.getString(R.string.URL_MAIN_FRAME), stringEntity, "application/json", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String content) {
                 JSONObject jsonObject = JSONObject.parseObject(content);
                 int code = jsonObject.getInteger("code");
                 String info = jsonObject.getString("message");
-                Log.d(TAG, info);
+                Log.d(TAG, jsonObject.toString());
                 if (code == 200){
                     //TODO get more JSON objects!
                     JSONObject objectdata =jsonObject.getJSONObject("data");
                     for (int i = 1; i <= 10; i++){
                         if (objectdata.containsKey(String.valueOf(i))) {
                             JSONObject object = objectdata.getJSONObject(String.valueOf(i));
+                            String actID = object.getString("activityId");
                             String actName = object.getString("activityName");
                             String actImage = object.getString("activityImage");
                             String aSQ = object.getString("aSurplusQuota");
-                            String aPN = object.getString("aParticipateNum");
+                            String aNN = object.getString("aNeedNumOfPerson");
                             String actStatus = object.getString("activityStatus");
+                            int userStatus = object.getInteger("userStatus");
                             //TODO create a Charity object
                             Charity charity = new Charity();
+                            charity.setaID(actID);
                             charity.setName(actName);
                             charity.setIamgeId(R.drawable.thumbnail1);
-                            charity.setPeoplenum(aPN+"人报名");
-                            if(actStatus.equals("1")){
+                            charity.setPeoplenum("剩余"+aSQ+"人");
+                            if(actStatus.equals("1") && userStatus==0){
                                 charity.setStatus(JOINING);
-                            }else if(actStatus.equals("0")){
+                            }else if(actStatus.equals("1") && userStatus==1){
                                 charity.setStatus(JOINED);
                             }
                             charityList.add(charity);

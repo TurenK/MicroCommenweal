@@ -24,7 +24,7 @@ public class MainUIActivity extends AppCompatActivity implements View.OnClickLis
     private static String TAG = "MainUIActivity";
 
     // 三个tab布局
-    private RelativeLayout charityLayout,publishLayout, meLayout;
+    private RelativeLayout charityLayout, publishLayout, meLayout;
     // 底部标签切换的Fragment
     private Fragment charityFragment,meFragment,
             currentFragment,messageFragment;
