@@ -108,10 +108,7 @@ public class CharityFragment extends Fragment {
 
         //初始化义工列表的recycle和adapter
         recyclerView = (RecyclerView) charityLayout.findViewById(R.id.rv_charity);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
-        CharityAdapter adapter = new CharityAdapter(charityList);
-        recyclerView.setAdapter(adapter);
+
 
 
         //初始化分類列表recycle和adpater
@@ -257,6 +254,16 @@ public class CharityFragment extends Fragment {
 
 
     private  void initCharities(){
+//        for(int i = 0;i<10;i++){
+//            Charity charity = new Charity();
+//            charity.setaID(""+i);
+//            charity.setName("小桔灯");
+//            charity.setIamgeId(R.drawable.thumbnail1);
+//            charity.setPeoplenum("剩余10人");
+//                charity.setStatus(JOINING);
+//            charityList.add(charity);
+//        }
+
         requireCharity();
     }
 
@@ -267,7 +274,7 @@ public class CharityFragment extends Fragment {
         }
     }
 
-    private boolean requireCharity(){
+    private void requireCharity(){
 
         String uid = UserInfo.getUserInfo().getuId();
 
@@ -320,6 +327,10 @@ public class CharityFragment extends Fragment {
                             }
                             charityList.add(charity);
                         }
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+                        recyclerView.setLayoutManager(layoutManager);
+                        CharityAdapter adapter = new CharityAdapter(charityList);
+                        recyclerView.setAdapter(adapter);
                     }
 
                 }else if(code == 400){
@@ -335,7 +346,6 @@ public class CharityFragment extends Fragment {
 //                super.onFailure(error, content);
             }
         });
-        return true;
     }
 
 }

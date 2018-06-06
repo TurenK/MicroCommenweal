@@ -15,7 +15,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.hfp.MicroCommonweal.R;
 import com.example.hfp.MicroCommonweal.adapter.CharityAdapter;
 import com.example.hfp.MicroCommonweal.adapter.MessageAdapter;
@@ -29,6 +31,7 @@ public class MessageActivity extends AppCompatActivity {
     private List<Message> messageList = new ArrayList<>();
 
     RecyclerView recyclerView;
+    private  MessageAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +41,20 @@ public class MessageActivity extends AppCompatActivity {
         recyclerView = (RecyclerView)findViewById(R.id.rv_message);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        MessageAdapter adapter = new MessageAdapter(messageList);
+//        MessageAdapter adapter = new MessageAdapter(messageList);
+//        recyclerView.setAdapter(adapter);
+        //创建适配器
+        adapter = new MessageAdapter(R.layout.message_item, messageList);
+
+        //给RecyclerView设置适配器
         recyclerView.setAdapter(adapter);
+        //条目点击事件
+        adapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(MessageActivity.this, "点击了第" + (position + 1) + "条条目", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private  void initMessages(){
