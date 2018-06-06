@@ -26,10 +26,14 @@ import com.example.hfp.MicroCommonweal.adapter.CategoryAdapter;
 import com.example.hfp.MicroCommonweal.adapter.CharityAdapter;
 import com.example.hfp.MicroCommonweal.object.Category;
 import com.example.hfp.MicroCommonweal.object.Charity;
+import com.example.hfp.MicroCommonweal.object.UserInfo;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.apache.http.entity.StringEntity;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -264,7 +268,26 @@ public class CharityFragment extends Fragment {
     }
 
     private boolean requireCharity(){
-        AsyncHttpUtil.post(getContext(), this.getString(R.string.URL_MAIN_FRAME), null, null, new AsyncHttpResponseHandler() {
+
+        String uid = UserInfo.getUserInfo().getuId();
+
+//        btn_login.setEnabled(true);
+//        btn_login.setText("登录");
+
+        //创建网络访问对象
+        JSONObject main_json = new JSONObject();
+        main_json.put("userId", uid);
+
+        Log.d(TAG, main_json.toString());
+
+        StringEntity stringEntity = null;
+        try {
+            stringEntity = new StringEntity(main_json.toJSONString());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        AsyncHttpUtil.post(getContext(), this.getString(R.string.URL_MAIN_FRAME), stringEntity, "application/json", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String content) {
                 JSONObject jsonObject = JSONObject.parseObject(content);
