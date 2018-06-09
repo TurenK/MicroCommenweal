@@ -46,7 +46,6 @@ public class CollectionActivity extends AppCompatActivity implements View.OnClic
 
     }
     private  void initCharities(){
-        Charity charity = new Charity();
 //        Charity charity = new Charity();
 //        charity.setName("支教活动");
 //        charity.setIamgeId(R.drawable.thumbnail1);

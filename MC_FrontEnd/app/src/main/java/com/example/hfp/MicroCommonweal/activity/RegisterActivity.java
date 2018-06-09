@@ -1,6 +1,12 @@
 package com.example.hfp.MicroCommonweal.activity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -16,6 +22,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSONObject;
 import com.example.hfp.MicroCommonweal.R;
 import com.example.hfp.MicroCommonweal.Utils.AsyncHttpUtil;
+import com.example.hfp.MicroCommonweal.Utils.ImageUpAndDownUtil;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.apache.http.entity.StringEntity;
@@ -27,6 +34,7 @@ import java.util.regex.Pattern;
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     //声明控件
+    private static final int IMAGE_REQUEST_CODE = 0;
     private ImageButton avatar;
     private EditText name;
     private EditText phone;
@@ -34,12 +42,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText password_reg_again;
     private TextView login_text;
     private Button register_btn;
+    private ImageUpAndDownUtil imageUpAndDownUtil;
+    private String received_filepath;
+    private String pic_path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        imageUpAndDownUtil = new ImageUpAndDownUtil(getApplicationContext());
         //初始化控件
         avatar = (ImageButton) findViewById(R.id.avatar);
         name = (EditText) findViewById(R.id.name);
@@ -94,12 +106,48 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         editText.setFilters(new InputFilter[]{filter});
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+        //在相册里面选择好相片之后调回到现在的这个activity中
+        switch (requestCode) {
+            case IMAGE_REQUEST_CODE://这里的requestCode是我自己设置的，就是确定返回到那个Activity的标志
+                if (resultCode == RESULT_OK) {//resultcode是setResult里面设置的code值
+                    try {
+                        Uri selectedImage = data.getData(); //获取系统返回的照片的Uri
+                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                        Cursor cursor = getContentResolver().query(selectedImage,
+                                filePathColumn, null, null, null);//从系统表中查询指定Uri对应的照片
+                        cursor.moveToFirst();
+                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                        pic_path = cursor.getString(columnIndex);  //获取照片路径
+                        cursor.close();
+                        Bitmap bitmap = BitmapFactory.decodeFile(pic_path);
+                        Log.d("PublishActivity:", pic_path);
+                        avatar.setImageBitmap(bitmap);
+                        //Thread.sleep(2000);
+
+                        imageUpAndDownUtil.testPostImage(pic_path);
+                        Log.d("PublishActivity:", received_filepath);
+                    } catch (Exception e) {
+                        // TODO Auto-generatedcatch block
+                        e.printStackTrace();
+                    }
+                }
+                break;
+        }
+    }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.avatar: // 头像
-                Toast.makeText(RegisterActivity.this, "点击头像", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(RegisterActivity.this, "点击头像", Toast.LENGTH_SHORT).show();
+                // 调用android自带的图库
+                Intent intent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, IMAGE_REQUEST_CODE);
                 break;
             case R.id.register_btn: // 注册
                 if(password_reg.getText().toString().equals(password_reg_again.getText().toString())){
@@ -128,6 +176,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         register_json.put("username", s_username);
         register_json.put("password", s_pwd);
         register_json.put("phone",s_phone);
+        received_filepath = imageUpAndDownUtil.getReceived_filepath();
+        register_json.put("imageurl",received_filepath);
 
         StringEntity stringEntity = null;
         stringEntity = new StringEntity(register_json.toString(),"utf-8");
@@ -169,8 +219,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         });
 
         return true;
-
-
     }
 
 }

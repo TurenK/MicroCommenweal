@@ -275,7 +275,7 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
                         charity_iamge.setImageBitmap(bitmap);
                         //Thread.sleep(2000);
 
-                        imageUpAndDownUtil.testPostImage(pic_path,"1");
+                        imageUpAndDownUtil.testPostImage(pic_path);
                         Log.d("PublishActivity:", received_filepath);
                     } catch (Exception e) {
                         // TODO Auto-generatedcatch block
