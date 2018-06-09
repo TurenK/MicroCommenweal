@@ -1,5 +1,6 @@
 package com.example.hfp.MicroCommonweal.adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,16 +11,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hfp.MicroCommonweal.R;
+import com.example.hfp.MicroCommonweal.Utils.ImageUpAndDownUtil;
 import com.example.hfp.MicroCommonweal.activity.CharityDetailActivity;
 import com.example.hfp.MicroCommonweal.activity.MainActivity;
 import com.example.hfp.MicroCommonweal.activity.MainUIActivity;
 import com.example.hfp.MicroCommonweal.object.Charity;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
 
 
 public class CharityAdapter extends RecyclerView.Adapter<CharityAdapter.ViewHolder>{
     private List<Charity> mCharityList;
+    private Context context;
 
 
     static  class ViewHolder extends  RecyclerView.ViewHolder{
@@ -29,7 +34,7 @@ public class CharityAdapter extends RecyclerView.Adapter<CharityAdapter.ViewHold
         TextView peoplenum;
         TextView status;
 
-        public ViewHolder(View view){
+        ViewHolder(View view){
             super(view);
             Charityview = view;
             charityIamge = (ImageView) view.findViewById(R.id.charity_iamge);
@@ -39,7 +44,8 @@ public class CharityAdapter extends RecyclerView.Adapter<CharityAdapter.ViewHold
         }
     }
 
-    public CharityAdapter(List<Charity> charityList){
+    public CharityAdapter(List<Charity> charityList,Context context){
+        this.context = context;
         mCharityList = charityList;
     }
 
@@ -66,15 +72,21 @@ public class CharityAdapter extends RecyclerView.Adapter<CharityAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder,int position){
         Charity charity = mCharityList.get(position);
-        holder.charityIamge.setImageResource(charity.getIamgeId());
         holder.charityName.setText(charity.getName());
         holder.peoplenum.setText(charity.getPeoplenum());
         holder.status.setText(charity.getStatus());
+        try {
+            getImages(charity,holder.charityIamge);
+        }catch (Exception e){
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
     @Override
     public  int getItemCount(){
         return mCharityList.size();
     }
 
-
+    private void getImages(Charity charity, ImageView imageView){
+        new ImageUpAndDownUtil(context).testDownloadImage(charity.getImagepath(),imageView);
+    }
 }

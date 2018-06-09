@@ -3,7 +3,7 @@ package com.example.hfp.MicroCommonweal.object;
 public class Charity {
     private String aID;
     private String name;
-    private  int iamgeId;
+    private  String imagepath;
     private  String peoplenum;
     private  String status;
 
@@ -26,14 +26,6 @@ public class Charity {
         return name;
     }
 
-    public void setIamgeId(int iamgeId){
-        this.iamgeId = iamgeId;
-    }
-    public int getIamgeId(){
-
-        return  iamgeId;
-    }
-
     public void setPeoplenum(String peoplenum){
         this.peoplenum = peoplenum;
     }
@@ -48,5 +40,13 @@ public class Charity {
     public String getStatus(){
 
         return  status;
+    }
+
+    public String getImagepath() {
+        return imagepath;
+    }
+
+    public void setImagepath(String imagepath) {
+        this.imagepath = imagepath;
     }
 }

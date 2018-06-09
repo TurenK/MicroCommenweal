@@ -30,14 +30,14 @@ public class PublishedCharityActivity extends AppCompatActivity {
         recyclerView = (RecyclerView)findViewById(R.id.rv_published_charity);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        CharityAdapter adapter = new CharityAdapter(charityList);
+        CharityAdapter adapter = new CharityAdapter(charityList,getApplicationContext());
         recyclerView.setAdapter(adapter);
     }
 
     private  void initCharities(){
         Charity charity = new Charity();
         charity.setName("支教活动");
-        charity.setIamgeId(R.drawable.thumbnail1);
+        //charity.setIamgeId(R.drawable.thumbnail1);
         charity.setPeoplenum("10人报名");
         charity.setStatus("报名中");
         charityList.add(charity);
