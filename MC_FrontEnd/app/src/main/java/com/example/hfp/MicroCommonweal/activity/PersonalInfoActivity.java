@@ -127,6 +127,9 @@ public class PersonalInfoActivity extends AppCompatActivity  implements View.OnC
             case R.id.iv_avator:
                 break;
             case R.id.btn_back:
+                //提交信息
+
+                finish();
                 break;
         }
     }

@@ -24,38 +24,44 @@ import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
-
+public class RegisterTeamActivity extends AppCompatActivity implements View.OnClickListener{
     //声明控件
-    private ImageButton avatar;
-    private EditText name;
-    private EditText phone;
-    private EditText password_reg;
-    private EditText password_reg_again;
+    private ImageButton team_avatar;
+    private EditText team_name;
+    private EditText team_email;
+    private EditText password_reg_team;
+    private EditText password_reg_team_again;
+    private EditText groupadress;
+    private EditText groupintro;
     private TextView login_text;
     private Button register_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_register_team);
 
         //初始化控件
-        avatar = (ImageButton) findViewById(R.id.avatar);
-        name = (EditText) findViewById(R.id.name);
-        phone = (EditText) findViewById(R.id.email);
-        password_reg = (EditText) findViewById(R.id.password_reg);
-        password_reg_again = (EditText) findViewById(R.id.password_reg_again);
-        login_text = (TextView) findViewById(R.id.login_text);
-        register_btn = (Button) findViewById(R.id.register_btn);
+        team_avatar = (ImageButton)findViewById(R.id.team_avatar);
+        team_name =(EditText)findViewById(R.id.team_name);
+        team_email =(EditText)findViewById(R.id.team_email);
+        password_reg_team =(EditText)findViewById(R.id.password_reg_team);
+        password_reg_team_again =(EditText)findViewById(R.id.password_reg_team_again);
+        groupadress =(EditText)findViewById(R.id.groupadress);
+        groupintro =(EditText)findViewById(R.id.groupintro);
+        login_text =(TextView)findViewById(R.id.login_text);
+        register_btn = (Button)findViewById(R.id.register_btn);
+
         //控件事件监听器
-        avatar.setOnClickListener(this);
+        team_avatar.setOnClickListener(this);
         register_btn.setOnClickListener(this);
         login_text.setOnClickListener(this);
+
         //设置不能输入特殊字符和空格
-        setEditTextInhibitInputSpeChat(name);
-        setEditTextInhibitInputSpace(name);
+        setEditTextInhibitInputSpeChat(team_name);
+        setEditTextInhibitInputSpace(team_name);
     }
+
     /**
      * 禁止EditText输入空格
      * @param editText
@@ -99,17 +105,26 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.avatar: // 头像
-                Toast.makeText(RegisterActivity.this, "点击头像", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterTeamActivity.this, "点击头像", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.register_btn: // 注册
-                if(password_reg.getText().toString().equals(password_reg_again.getText().toString())){
+                if(!password_reg_team.getText().toString().equals(password_reg_team_again.getText().toString())){
+                    Toast.makeText(RegisterTeamActivity.this, "密码不匹配！", Toast.LENGTH_LONG).show();
+                } else if (team_name.getText().toString().trim().equals("")){
+                    Toast.makeText(RegisterTeamActivity.this, "组织名不能为空！", Toast.LENGTH_LONG).show();
+                }else if (team_email.getText().toString().trim().equals("")){
+                    Toast.makeText(RegisterTeamActivity.this, "组织邮箱不能为空！", Toast.LENGTH_LONG).show();
+                }else if (groupadress.getText().toString().trim().equals("")){
+                    Toast.makeText(RegisterTeamActivity.this, "组织地址不能为空！", Toast.LENGTH_LONG).show();
+                }else if (groupintro.getText().toString().trim().equals("")){
+                    Toast.makeText(RegisterTeamActivity.this, "组织介绍不能为空！", Toast.LENGTH_LONG).show();
+                }
+                else{
                     register();
-                }else{
-                    Toast.makeText(RegisterActivity.this, "密码不匹配！", Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.login_text: // 登录
-                startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                startActivity(new Intent(RegisterTeamActivity.this, MainActivity.class));
                 finish();
                 break;
             default:
@@ -119,39 +134,40 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
     private boolean register() {
-        String s_username = name.getText().toString().trim();
-        String s_pwd = password_reg.getText().toString();
-        String s_phone = phone.getText().toString().trim();
+        String g_name = team_name.getText().toString().trim();
+        String g_pwd = password_reg_team.getText().toString();
+        String g_email = team_email.getText().toString().trim();
+        String g_adress = groupadress.getText().toString().trim();
+        String g_intro = groupintro.getText().toString().trim();
 
         //创建网络访问对象
         JSONObject register_json = new JSONObject();
-        register_json.put("username", s_username);
-        register_json.put("password", s_pwd);
-        register_json.put("phone",s_phone);
+        register_json.put("groupName", g_name);
+        register_json.put("groupPassword", g_pwd);
+        register_json.put("groupMail",g_email);
+        register_json.put("groupAddress",g_adress);
+        register_json.put("groupIntro",g_intro);
+        register_json.put("groupType","");
 
         StringEntity stringEntity = null;
         stringEntity = new StringEntity(register_json.toString(),"utf-8");
 
-        Log.d("RegisterActivity", "prepare to send!");
+        Log.d("RegisterTeamActivity", "prepare to send!");
 
-        AsyncHttpUtil.post(this, this.getString(R.string.URL_REG), stringEntity, "application/json", new AsyncHttpResponseHandler() {
+        AsyncHttpUtil.post(this, this.getString(R.string.URL_GROUP_REG), stringEntity, "application/json", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String content) {
-                Log.d("RegisterActivity", content);
+                Log.d("RegisterTeamActivity", content);
                 JSONObject jsonObject = JSONObject.parseObject(content);
                 int code = jsonObject.getInteger("code");
                 String info = jsonObject.getString("message");
-                Log.d("RegisterActivity", info);
+                Log.d("RegisterTeamActivity", info);
                 if (code == 200){
-                    Toast.makeText(RegisterActivity.this, "注册成功！", Toast.LENGTH_LONG).show();
-//                    startActivity(new Intent(MainActivity.this,MainUIActivity.class));
-//                    finish();
-                }else if(code == 404){
-                    Toast.makeText(RegisterActivity.this, "用户名与密码不匹配！", Toast.LENGTH_LONG).show();
-                    register_btn.setEnabled(true);
-                    register_btn.setText("注册");
-                }else if(code == 405){
-                    Toast.makeText(RegisterActivity.this, "该用户注册过！", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterTeamActivity.this, "注册成功！", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(RegisterTeamActivity.this,MainActivity.class));
+                    finish();
+                }else if(code == 400){
+                    Toast.makeText(RegisterTeamActivity.this, "注册失败！", Toast.LENGTH_LONG).show();
                     register_btn.setEnabled(true);
                     register_btn.setText("注册");
                 }
@@ -160,8 +176,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void onFailure(Throwable error, String content) {
-                Log.d("RegisterActivity", "cannot connect to server!");
-                Toast.makeText(RegisterActivity.this, "无法连接到服务器！", Toast.LENGTH_LONG).show();
+                Log.d("RegisterTeamActivity", "cannot connect to server!");
+                Toast.makeText(RegisterTeamActivity.this, "无法连接到服务器！", Toast.LENGTH_LONG).show();
 //                super.onFailure(error, content);
                 register_btn.setEnabled(true);
                 register_btn.setText("注册");
@@ -172,5 +188,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
     }
+
 
 }

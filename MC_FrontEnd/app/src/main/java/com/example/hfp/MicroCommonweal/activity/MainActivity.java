@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.reg_text:
-                startActivity(new Intent(MainActivity.this,RegisterActivity.class));
+                startActivity(new Intent(MainActivity.this,ChoseRoleActivity.class));
                 //切换界面效果
                 overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
                 finish();

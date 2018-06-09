@@ -20,31 +20,22 @@
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
                 >
-                <Button
-                    android:id="@+id/VButtonEdit"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/icon_edit"
-                    android:visibility="visible" />
-
                 <ImageView
                     android:id="@+id/VBackground"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="245dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:src="@drawable/back_vol"
-                    tools:ignore="RtlCompat"></ImageView>
+                    tools:ignore="RtlCompat">
+
+                </ImageView>
                 <ImageButton
                     android:id="@+id/head"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginTop="20dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/VButtonEdit"
                     android:background="@drawable/kanna"/>
                 <TextView
                     android:id="@+id/str_VName"
@@ -134,7 +125,7 @@
 
                     <Button
                         android:id="@+id/VButton_volCredit"
-                        android:layout_width="344dp"
+                        android:layout_width="match_parent"
                         android:layout_height="fill_parent"
                         android:layout_toRightOf="@+id/color1"
                         android:background="@color/white"
@@ -142,17 +133,6 @@
                         android:text="      信用得分"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
-
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="32dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="23dp"
-                        android:layout_marginRight="23dp"
-                        app:srcCompat="@drawable/icon_right" />
 
 
                 </RelativeLayout>
@@ -173,7 +153,7 @@
 
                     <Button
                         android:id="@+id/VButton_volBank"
-                        android:layout_width="344dp"
+                        android:layout_width="match_parent"
                         android:layout_height="fill_parent"
                         android:layout_toRightOf="@+id/color2"
                         android:background="@color/white"
@@ -181,16 +161,6 @@
                         android:text="      时间银行"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="32dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="23dp"
-                        android:layout_marginRight="23dp"
-                        android:layout_alignParentRight="true"
-                        app:srcCompat="@drawable/icon_right" />
 
                 </RelativeLayout>
                 <RelativeLayout
@@ -210,7 +180,7 @@
 
                     <Button
                         android:id="@+id/VButton_volRank"
-                        android:layout_width="344dp"
+                        android:layout_width="match_parent"
                         android:layout_height="fill_parent"
                         android:layout_toRightOf="@+id/color3"
                         android:background="@color/white"
@@ -218,16 +188,6 @@
                         android:text="      排行榜"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="32dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginRight="23dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="23dp"
-                        app:srcCompat="@drawable/icon_right" />
 
                 </RelativeLayout>
                 <RelativeLayout
@@ -247,7 +207,7 @@
 
                     <Button
                         android:id="@+id/VButton_volMedal"
-                        android:layout_width="344dp"
+                        android:layout_width="match_parent"
                         android:layout_height="fill_parent"
                         android:layout_toRightOf="@+id/color4"
                         android:background="@color/white"
@@ -255,16 +215,6 @@
                         android:text="      公益勋章"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="32dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="23dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginEnd="23dp"
-                        app:srcCompat="@drawable/icon_right" />
 
                 </RelativeLayout>
                 <RelativeLayout
@@ -285,7 +235,7 @@
 
                     <Button
                         android:id="@+id/VButton_volLevel"
-                        android:layout_width="344dp"
+                        android:layout_width="match_parent"
                         android:layout_height="fill_parent"
                         android:layout_toRightOf="@+id/color5"
                         android:background="@color/white"
@@ -293,16 +243,6 @@
                         android:text="      等级"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="32dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginRight="23dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="23dp"
-                        app:srcCompat="@drawable/icon_right" />
 
                 </RelativeLayout>
                 <RelativeLayout
@@ -322,7 +262,7 @@
 
                     <Button
                         android:id="@+id/VButton_volAuthen"
-                        android:layout_width="344dp"
+                        android:layout_width="match_parent"
                         android:layout_height="fill_parent"
                         android:layout_toRightOf="@+id/color6"
                         android:background="@color/white"
@@ -330,16 +270,6 @@
                         android:text="      实名认证"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="32dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginRight="23dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="23dp"
-                        app:srcCompat="@drawable/icon_right" />
 
                 </RelativeLayout>
             </LinearLayout>
