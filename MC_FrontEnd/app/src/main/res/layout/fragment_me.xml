@@ -19,20 +19,11 @@
 
             <RelativeLayout
                 android:id="@+id/infoLayout"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentTop="true"
 
                 >
-                <Button
-                    android:id="@+id/buttonEdit"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/icon_edit"
-                    android:visibility="visible" />
 
                 <ImageView
                     android:id="@+id/background"
@@ -43,8 +34,6 @@
                     android:src="@drawable/back_org"
                     tools:ignore="RtlCompat"
                     android:adjustViewBounds="true"/>
-
-
                 <TextView
                     android:id="@+id/str_name"
                     android:layout_width="match_parent"

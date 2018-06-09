@@ -11,6 +11,7 @@
     <string name="URL_MAIN_FRAME">/mainframelist.php</string>
     <string name="URL_PUBLISH">/activityCreate.php</string>
     <string name="URL_JOIN">/applyJoin.php</string>
+    <string name="URL_GROUP_REG">/groupRegistered.php</string>
     <string name="URL_DETAIL_ACTIVITY">/detailInfor.php</string>
     <string name="title_activity_tstst">tstst</string>
     <string name="title_home">Home</string>

@@ -54,6 +54,7 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
     final int END_DATE_DIALOG = 2;
 
     private Button selectpic;
+    private Button button_back;
     private Button btn_submit;
     private Spinner spDown;
     private ImageView charity_iamge;
@@ -82,10 +83,13 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
         et_detail = (EditText)findViewById(R.id.et_detail);
         charity_iamge = (ImageView)findViewById(R.id.charity_iamge);
         btn_submit = findViewById(R.id.charity_submit);
+        button_back = (Button)findViewById(R.id.button_back);
+
         selectpic.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
         et_begin.setOnClickListener(this);
         et_end.setOnClickListener(this);
+        button_back.setOnClickListener(this);
 
 
 
@@ -195,6 +199,9 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.et_end:
                 showDialog(END_DATE_DIALOG);
+                break;
+            case  R.id.button_back:
+                finish();
                 break;
         }
     }
