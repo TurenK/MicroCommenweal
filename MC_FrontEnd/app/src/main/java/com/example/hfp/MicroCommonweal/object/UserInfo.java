@@ -1,6 +1,8 @@
 package com.example.hfp.MicroCommonweal.object;
 
 public class UserInfo {
+    public static int CHARITY_USER = 1;
+    public static int CHARITY_ORG = 2;
     private String uId;
     private String uName;
     private String uPhone;
@@ -8,6 +10,10 @@ public class UserInfo {
     private String uAvatar;
     private String uLabel;
     private String uAttention;
+    private String uAddr;
+    private String uMail;
+    private String uIntro;
+    private int type;
 
     private static UserInfo userInfo = null;
 
@@ -46,6 +52,22 @@ public class UserInfo {
         this.uPhone = uPhone;
     }
 
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public void setuAddr(String uAddr) {
+        this.uAddr = uAddr;
+    }
+
+    public void setuMail(String uMail) {
+        this.uMail = uMail;
+    }
+
+    public void setuIntro(String uIntro) {
+        this.uIntro = uIntro;
+    }
+
     public String getuAge() {
         return uAge;
     }
@@ -72,5 +94,21 @@ public class UserInfo {
 
     public String getuPhone() {
         return uPhone;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public String getuAddr() {
+        return uAddr;
+    }
+
+    public String getuMail() {
+        return uMail;
+    }
+
+    public String getuIntro() {
+        return uIntro;
     }
 }
