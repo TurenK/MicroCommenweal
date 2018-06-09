@@ -121,11 +121,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d(TAG, login_json.toString());
 
         StringEntity stringEntity = null;
-        try {
-            stringEntity = new StringEntity(login_json.toString(), "UTF-8");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        stringEntity = new StringEntity(login_json.toString(), "UTF-8");
 
         Log.d(TAG, login_json.toJSONString());
         Log.d(TAG, "prepare to send!");
@@ -149,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     String uLabel = object.getString("userLabel");
                     String uAttention = object.getString("userAttention");
                     UserInfo userInfo = UserInfo.getUserInfo();
+                    userInfo.setType(UserInfo.CHARITY_USER);
                     userInfo.setuId(uId);
                     userInfo.setuName(uName);
                     userInfo.setuPhone(uPhone);
@@ -157,6 +155,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     userInfo.setuLable(uLabel);
                     userInfo.setuAttention(uAttention);
                     Log.d("PublishActivity", "userid: " + userInfo.getuId());
+
+//                    Toast.makeText(MainActivity.this, "成功了！", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(MainActivity.this,MainUIActivity.class));
+                    finish();
+                }else if(code == 202){
+                    JSONObject object = jsonObject.getJSONObject("data");
+                    String gId = object.getString("groupId");
+                    String gName = object.getString("groupName");
+                    String gMail = object.getString("groupmail");
+                    String gCreateTime = object.getString("groupCreateTime");
+                    String gAddr = object.getString("groupAddress");
+                    String gIntro = object.getString("groupIntro");
+                    String gType = object.getString("groupType");
+                    String gAttention = object.getString("groupAttention");
+                    String gImage = object.getString("groupImage");
+                    UserInfo userInfo = UserInfo.getUserInfo();
+                    userInfo.setType(UserInfo.CHARITY_USER);
+                    userInfo.setuId(gId);
+                    userInfo.setuName(gName);
+                    userInfo.setuMail(gMail);
+                    userInfo.setuAddr(gAddr);
+                    userInfo.setuAvatar(gIntro);
+                    userInfo.setuLable(gType);
+                    userInfo.setuAttention(gAttention);
+                    userInfo.setuAvatar(gImage);
+                    Log.d("PublishActivity", "groupid: " + userInfo.getuId());
 
 //                    Toast.makeText(MainActivity.this, "成功了！", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(MainActivity.this,MainUIActivity.class));
