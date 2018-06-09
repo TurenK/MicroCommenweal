@@ -1,10 +1,14 @@
 package com.example.hfp.MicroCommonweal;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -90,6 +94,7 @@ public class CharityFragment extends Fragment {
         //return inflater.inflate(R.layout.fragment_charity, container, false);
          charityLayout  = inflater.inflate(R.layout.fragment_charity, container, false);
 
+         getPermission();
 
         btnMessage = (Button)charityLayout.findViewById(R.id.button_message);
         btnMessage.setOnClickListener(new View.OnClickListener() {
@@ -318,7 +323,7 @@ public class CharityFragment extends Fragment {
                             Charity charity = new Charity();
                             charity.setaID(actID);
                             charity.setName(actName);
-                            charity.setIamgeId(R.drawable.thumbnail1);
+                            charity.setImagepath(actImage);
                             charity.setPeoplenum("剩余"+aSQ+"人");
                             if(actStatus.equals("1") && userStatus==0){
                                 charity.setStatus(JOINING);
@@ -327,9 +332,9 @@ public class CharityFragment extends Fragment {
                             }
                             charityList.add(charity);
                         }
-                        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                         recyclerView.setLayoutManager(layoutManager);
-                        CharityAdapter adapter = new CharityAdapter(charityList);
+                        CharityAdapter adapter = new CharityAdapter(charityList,getContext());
                         recyclerView.setAdapter(adapter);
                     }
 
@@ -346,6 +351,16 @@ public class CharityFragment extends Fragment {
 //                super.onFailure(error, content);
             }
         });
+    }
+
+    private void getPermission() {
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                ||ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                ||ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    1);
+        }
     }
 
 }
