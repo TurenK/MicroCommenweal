@@ -119,6 +119,7 @@ public class ImageUpAndDownUtil {
     }
 
     public void testDownloadImage(String filepath, final ImageView imageView){
+        if(filepath!=null){
         OkHttpUtils//
                 .get()//
                 .url(receiveurl+filepath.substring(2))//
@@ -149,6 +150,11 @@ public class ImageUpAndDownUtil {
                         }
                     }
                 });
+        }else {
+            Picasso.with(context)
+                    .load(R.drawable.loadfail)
+                    .into(imageView);
+        }
     }
 
     public String getReceived_filepath() {

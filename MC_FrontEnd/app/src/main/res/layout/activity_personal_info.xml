@@ -29,6 +29,15 @@
             android:text="基本信息"
             android:textColor="#ffffff"
             android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btn_submit_personal_info"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight = "true"
+            android:background="@drawable/icon_submit"
+            android:gravity="end"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
     <ScrollView
