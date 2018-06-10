@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.hfp.MicroCommonweal.CharityFragment;
 import com.example.hfp.MicroCommonweal.R;
 import com.example.hfp.MicroCommonweal.Utils.AsyncHttpUtil;
+import com.example.hfp.MicroCommonweal.Utils.ImageUpAndDownUtil;
 import com.example.hfp.MicroCommonweal.adapter.MessageAdapter;
 import com.example.hfp.MicroCommonweal.adapter.RecentjoinAdapter;
 import com.example.hfp.MicroCommonweal.object.Recentjoin;
@@ -42,11 +44,13 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
     private ImageButton btn_share;
     private ImageButton btn_chat;
     private ImageButton btn_collect;
+    private ImageView VBackground;
     private TextView tv_title;
     private TextView tv_joinNum;
     private TextView tv_targetNum;
     private TextView tv_dayLeft;
     private TextView tv_detailInfo;
+    private ImageUpAndDownUtil imageUpAndDownUtil;
 
     private String aID;
     private int uStatus;
@@ -60,6 +64,7 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
         aID = intent.getStringExtra("activityID");
 
         //初始化控件
+        VBackground = (ImageView) findViewById(R.id.VBackground);
         button_back = (Button)findViewById(R.id.button_back);
         btn_join = (Button)findViewById(R.id.btn_join);
         btn_share = (ImageButton)findViewById(R.id.btn_share);
@@ -70,6 +75,7 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
         tv_targetNum = findViewById(R.id.str_numaim);
         tv_dayLeft = findViewById(R.id.str_dayleft);
         tv_detailInfo = findViewById(R.id.str_detail);
+        imageUpAndDownUtil = new ImageUpAndDownUtil(getApplicationContext());
 
         //设置监听器
         button_back.setOnClickListener(this);
@@ -139,9 +145,9 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
         Log.d("CharityDetailActivity", detail_info.toString());
         StringEntity stringEntity = null;
         try {
-            stringEntity = new StringEntity(detail_info.toString());
+            stringEntity = new StringEntity(detail_info.toString(), "UTF-8");
 //            stringEntity.setContentEncoding("UTF-8");
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -163,6 +169,7 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
                     String activityType = object.getString("activityType");
                     String activityName = object.getString("activityName");
                     String activityImage = object.getString("activityImage");
+                    imageUpAndDownUtil.testDownloadImage(activityImage,VBackground);
                     String activityReleaseTime = object.getString("activityReleaseTime");
                     String activityDeadline = object.getString("activityDeadline");
                     String activityStartTime = object.getString("activityStartTime");

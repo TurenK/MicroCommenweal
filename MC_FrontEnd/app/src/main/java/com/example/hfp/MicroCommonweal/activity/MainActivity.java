@@ -87,16 +87,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.loginbtn:
                 //TODO: 判断输入格式
-                if (username.getText().toString().length() < 5){
-                    Toast.makeText(MainActivity.this, "用户名至少需要5位！", Toast.LENGTH_LONG).show();
-                }else if (pwd.getText().toString().length() < 6){
-                    Toast.makeText(MainActivity.this, "密码至少需要6位！", Toast.LENGTH_LONG).show();
-                }else{
+//                if (username.getText().toString().length() < 5){
+//                    Toast.makeText(MainActivity.this, "用户名至少需要5位！", Toast.LENGTH_LONG).show();
+//                }else if (pwd.getText().toString().length() < 6){
+//                    Toast.makeText(MainActivity.this, "密码至少需要6位！", Toast.LENGTH_LONG).show();
+//                }else{
                     Log.d(TAG, "trying login!");
                     btn_login.setEnabled(false);
                     btn_login.setText("登录中...");
                     login();
-                }
+                //}
 //                startActivity(new Intent(MainActivity.this,MainUIActivity.class));
 //                btn_login.setEnabled(false);
 //                btn_login.setText("登录中...");
@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d(TAG, login_json.toString());
 
         StringEntity stringEntity = null;
+
         stringEntity = new StringEntity(login_json.toString(), "UTF-8");
 
         Log.d(TAG, login_json.toJSONString());

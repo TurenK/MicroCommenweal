@@ -1,6 +1,11 @@
 package com.example.hfp.MicroCommonweal.activity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -16,6 +21,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSONObject;
 import com.example.hfp.MicroCommonweal.R;
 import com.example.hfp.MicroCommonweal.Utils.AsyncHttpUtil;
+import com.example.hfp.MicroCommonweal.Utils.ImageUpAndDownUtil;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.apache.http.entity.StringEntity;
@@ -26,6 +32,7 @@ import java.util.regex.Pattern;
 
 public class RegisterTeamActivity extends AppCompatActivity implements View.OnClickListener{
     //声明控件
+    private static final int IMAGE_REQUEST_CODE = 0;
     private ImageButton team_avatar;
     private EditText team_name;
     private EditText team_email;
@@ -33,14 +40,18 @@ public class RegisterTeamActivity extends AppCompatActivity implements View.OnCl
     private EditText password_reg_team_again;
     private EditText groupadress;
     private EditText groupintro;
+    private ImageUpAndDownUtil imageUpAndDownUtil;
     private TextView login_text;
     private Button register_btn;
+    private String received_filepath;
+    private String pic_path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_team);
 
+        imageUpAndDownUtil = new ImageUpAndDownUtil(getApplicationContext());
         //初始化控件
         team_avatar = (ImageButton)findViewById(R.id.team_avatar);
         team_name =(EditText)findViewById(R.id.team_name);
@@ -60,6 +71,39 @@ public class RegisterTeamActivity extends AppCompatActivity implements View.OnCl
         //设置不能输入特殊字符和空格
         setEditTextInhibitInputSpeChat(team_name);
         setEditTextInhibitInputSpace(team_name);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+        //在相册里面选择好相片之后调回到现在的这个activity中
+        switch (requestCode) {
+            case IMAGE_REQUEST_CODE://这里的requestCode是我自己设置的，就是确定返回到那个Activity的标志
+                if (resultCode == RESULT_OK) {//resultcode是setResult里面设置的code值
+                    try {
+                        Uri selectedImage = data.getData(); //获取系统返回的照片的Uri
+                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                        Cursor cursor = getContentResolver().query(selectedImage,
+                                filePathColumn, null, null, null);//从系统表中查询指定Uri对应的照片
+                        cursor.moveToFirst();
+                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                        pic_path = cursor.getString(columnIndex);  //获取照片路径
+                        cursor.close();
+                        Bitmap bitmap = BitmapFactory.decodeFile(pic_path);
+                        Log.d("PublishActivity:", pic_path);
+                        team_avatar.setImageBitmap(bitmap);
+                        //Thread.sleep(2000);
+
+                        imageUpAndDownUtil.testPostImage(pic_path);
+                        Log.d("PublishActivity:", received_filepath);
+                    } catch (Exception e) {
+                        // TODO Auto-generatedcatch block
+                        e.printStackTrace();
+                    }
+                }
+                break;
+        }
     }
 
     /**
@@ -104,8 +148,12 @@ public class RegisterTeamActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.avatar: // 头像
-                Toast.makeText(RegisterTeamActivity.this, "点击头像", Toast.LENGTH_SHORT).show();
+            case R.id.team_avatar: // 头像
+                //Toast.makeText(RegisterActivity.this, "点击头像", Toast.LENGTH_SHORT).show();
+                // 调用android自带的图库
+                Intent intent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, IMAGE_REQUEST_CODE);
                 break;
             case R.id.register_btn: // 注册
                 if(!password_reg_team.getText().toString().equals(password_reg_team_again.getText().toString())){
@@ -148,13 +196,15 @@ public class RegisterTeamActivity extends AppCompatActivity implements View.OnCl
         register_json.put("groupAddress",g_adress);
         register_json.put("groupIntro",g_intro);
         register_json.put("groupType","");
+        received_filepath = imageUpAndDownUtil.getReceived_filepath();
+        register_json.put("groupImage",received_filepath);
 
         StringEntity stringEntity = null;
         stringEntity = new StringEntity(register_json.toString(),"utf-8");
 
         Log.d("RegisterTeamActivity", "prepare to send!");
 
-        AsyncHttpUtil.post(this, this.getString(R.string.URL_GROUP_REG), stringEntity, "application/json", new AsyncHttpResponseHandler() {
+        AsyncHttpUtil.post(this, this.getString(R.string.URL_GROUP_REG), stringEntity, "application/x-www-form-urlencoded", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String content) {
                 Log.d("RegisterTeamActivity", content);
