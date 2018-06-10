@@ -339,7 +339,7 @@ public class CharityFragment extends Fragment {
                     }
 
                 }else if(code == 400){
-                    Toast.makeText(getContext(), "wrong account or password!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "获取活动失败！请稍后再试", Toast.LENGTH_LONG).show();
                 }
 //                super.onSuccess(content);
             }
@@ -347,7 +347,7 @@ public class CharityFragment extends Fragment {
             @Override
             public void onFailure(Throwable error, String content) {
                 Log.d(TAG, "cannot connect to server!");
-                Toast.makeText(getContext(), "cannot connect to server!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "无法连接到服务器！", Toast.LENGTH_LONG).show();
 //                super.onFailure(error, content);
             }
         });

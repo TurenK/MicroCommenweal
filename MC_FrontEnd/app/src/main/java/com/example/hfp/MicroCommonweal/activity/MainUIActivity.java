@@ -14,11 +14,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hfp.MicroCommonweal.CharityFragment;
 import com.example.hfp.MicroCommonweal.MeFragment;
 import com.example.hfp.MicroCommonweal.R;
 import com.example.hfp.MicroCommonweal.object.Message;
+import com.example.hfp.MicroCommonweal.object.UserInfo;
 
 public class MainUIActivity extends AppCompatActivity implements View.OnClickListener {
     private static String TAG = "MainUIActivity";
@@ -110,7 +112,11 @@ public class MainUIActivity extends AppCompatActivity implements View.OnClickLis
                 clickTab1Layout();
                 break;
             case R.id.rl_publish: // 发布
-                startActivity(new Intent(MainUIActivity.this,PublishActivity.class));
+                if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_ORG){
+                    startActivity(new Intent(MainUIActivity.this,PublishActivity.class));
+                }else{
+                    Toast.makeText(MainUIActivity.this, "个人用户无法创建活动！", Toast.LENGTH_LONG).show();
+                }
                 break;
             case R.id.rl_me: // 我的
                 clickTab3Layout();

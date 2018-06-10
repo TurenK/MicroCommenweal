@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hfp.MicroCommonweal.activity.CollectionActivity;
@@ -22,6 +23,7 @@ import com.example.hfp.MicroCommonweal.activity.PersonalInfoActivity;
 import com.example.hfp.MicroCommonweal.activity.PublishedCharityActivity;
 import com.example.hfp.MicroCommonweal.activity.RankActivity;
 import com.example.hfp.MicroCommonweal.activity.RegisterActivity;
+import com.example.hfp.MicroCommonweal.object.UserInfo;
 
 
 public class MeFragment extends Fragment implements View.OnClickListener  {
@@ -35,7 +37,7 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
     private Button btn_rank;
     private Button btn_set_account;
     private Button btn_approve_info;
-
+    private TextView uname;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -52,6 +54,7 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
         btn_rank= (Button)meLayout.findViewById(R.id.button_orgRank);
         btn_set_account= (Button)meLayout.findViewById(R.id.button_orgSetting);
         btn_approve_info= (Button)meLayout.findViewById(R.id.button_orgAuthen);
+        uname = meLayout.findViewById(R.id.str_name);
 
         //设置控件监听器
         btn_collection.setOnClickListener(this);
@@ -62,6 +65,7 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
         btn_rank.setOnClickListener(this);
         btn_set_account.setOnClickListener(this);
         btn_approve_info.setOnClickListener(this);
+        initInfo();
         return meLayout;
     }
 
@@ -73,10 +77,18 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
                 startActivity(new Intent(getContext(),CollectionActivity.class));
                 break;
             case R.id.button_useless:
-                startActivity(new Intent(getContext(),PublishedCharityActivity.class));
+                if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_USER){
+                    Toast.makeText(getContext(), "该功能只对组织用户开放", Toast.LENGTH_SHORT).show();
+                }else{
+                    startActivity(new Intent(getContext(),PublishedCharityActivity.class));
+                }
                 break;
             case R.id.button_join:
-                startActivity(new Intent(getContext(),JoinedCharityActivity.class));
+                if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_ORG){
+                    Toast.makeText(getContext(), "该功能只对个人用户开放", Toast.LENGTH_SHORT).show();
+                }else{
+                    startActivity(new Intent(getContext(),JoinedCharityActivity.class));
+                }
                 break;
             case R.id.button_orgContent:
                 Toast.makeText(getContext(), "评价处理", Toast.LENGTH_SHORT).show();
@@ -95,6 +107,10 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
                 break;
         }
 
+    }
+
+    private void initInfo(){
+        uname.setText(String.format("%s\n", UserInfo.getUserInfo().getuName()));
     }
 
 }

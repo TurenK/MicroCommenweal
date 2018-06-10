@@ -49,6 +49,8 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
     private TextView tv_detailInfo;
 
     private String aID;
+    private int uStatus;
+    private String aStatus;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,7 +105,13 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
                 Toast.makeText(CharityDetailActivity.this, "分享", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_join:
-                joinActivity();
+                if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_USER && uStatus == 0){
+                    joinActivity();
+                }else if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_USER && uStatus == 1){
+                    Toast.makeText(CharityDetailActivity.this, "您已报名此活动！", Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(CharityDetailActivity.this, "组织用户无法报名！", Toast.LENGTH_SHORT).show();
+                }
 //                Toast.makeText(CharityDetailActivity.this, "报名", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_chat:
@@ -164,6 +172,8 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
                     String activityIntroduction = object.getString("activityIntroduction");
                     String aNeedNumOfPerson = object.getString("aNeedNumOfPerson");
                     String aSurplusQuota = object.getString("aSurplusQuota");
+                    uStatus = object.getInteger("userStatus");
+                    aStatus = object.getString("activityStatus");
                     tv_title.setText(activityName);
                     tv_detailInfo.setText(activityIntroduction);
                     tv_joinNum.setText(String.valueOf(Integer.parseInt(aNeedNumOfPerson)-Integer.parseInt(aSurplusQuota)));
@@ -171,11 +181,14 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
                     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
                     String nowDate = df.format(new Date());// new Date()为获取当前系统时间
                     tv_dayLeft.setText(String.valueOf(daysBetween(nowDate, activityDeadline)));
+                    if (uStatus == 1){
+                        btn_join.setText("已报名");
+                    }
                     Log.d("CharityDetailActivity", activityName + " " + activityDeadline + " " + activityIntroduction + " "
                             + (Integer.parseInt(aNeedNumOfPerson)-Integer.parseInt(aSurplusQuota)) + " " + daysBetween(nowDate, activityDeadline));
 
                 }else if(code == 400){
-                    Toast.makeText(CharityDetailActivity.this, "创建活动失败！请稍后再试", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CharityDetailActivity.this, "获取信息失败！请稍后再试", Toast.LENGTH_LONG).show();
                 }
 //                super.onSuccess(content);
             }

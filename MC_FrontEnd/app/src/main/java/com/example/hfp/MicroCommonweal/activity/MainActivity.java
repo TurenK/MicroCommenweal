@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     String gAttention = object.getString("groupAttention");
                     String gImage = object.getString("groupImage");
                     UserInfo userInfo = UserInfo.getUserInfo();
-                    userInfo.setType(UserInfo.CHARITY_USER);
+                    userInfo.setType(UserInfo.CHARITY_ORG);
                     userInfo.setuId(gId);
                     userInfo.setuName(gName);
                     userInfo.setuMail(gMail);

@@ -13,6 +13,7 @@
     <string name="URL_JOIN">/applyJoin.php</string>
     <string name="URL_GROUP_REG">/groupRegistered.php</string>
     <string name="URL_DETAIL_ACTIVITY">/detailInfor.php</string>
+    <string name="URL_MY_JOIN">/historyListUser.php</string>
     <string name="title_activity_tstst">tstst</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
