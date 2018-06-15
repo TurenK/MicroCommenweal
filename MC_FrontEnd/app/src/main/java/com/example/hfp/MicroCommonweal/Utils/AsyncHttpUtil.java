@@ -12,7 +12,7 @@ import com.loopj.android.http.RequestParams;
 import org.apache.http.HttpEntity;
 
 public class AsyncHttpUtil {
-    private static final String BASR_URL = "http://39.106.206.187/dscj";
+    private static final String BASR_URL = "http://39.106.113.247/dscj";
     private static AsyncHttpClient client = new AsyncHttpClient();
 
     public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {

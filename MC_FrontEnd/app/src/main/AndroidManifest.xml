@@ -40,7 +40,9 @@
         <activity android:name=".activity.PublishedCharityActivity" />
         <activity android:name=".activity.JoinedCharityActivity" />
         <activity android:name=".activity.ChoseRoleActivity" />
-        <activity android:name=".activity.RegisterTeamActivity"></activity>
+        <activity android:name=".activity.RegisterTeamActivity" />
+        <activity android:name=".activity.OrgRateActivity" />
+        <activity android:name=".activity.PreRateActivity"></activity>
     </application>
 
 </manifest>

@@ -19,7 +19,9 @@ import com.example.hfp.MicroCommonweal.activity.JoinedCharityActivity;
 import com.example.hfp.MicroCommonweal.activity.MainActivity;
 import com.example.hfp.MicroCommonweal.activity.MainUIActivity;
 import com.example.hfp.MicroCommonweal.activity.MessageActivity;
+import com.example.hfp.MicroCommonweal.activity.OrgRateActivity;
 import com.example.hfp.MicroCommonweal.activity.PersonalInfoActivity;
+import com.example.hfp.MicroCommonweal.activity.PreRateActivity;
 import com.example.hfp.MicroCommonweal.activity.PublishedCharityActivity;
 import com.example.hfp.MicroCommonweal.activity.RankActivity;
 import com.example.hfp.MicroCommonweal.activity.RegisterActivity;
@@ -91,7 +93,11 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
                 }
                 break;
             case R.id.button_orgContent:
-                Toast.makeText(getContext(), "评价处理", Toast.LENGTH_SHORT).show();
+                if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_ORG){
+                    startActivity(new Intent(getContext(),OrgRateActivity.class));
+                }else{
+                    startActivity(new Intent(getContext(),PreRateActivity.class));
+                }
                 break;
             case R.id.button_orgMessage:
                 startActivity(new Intent(getContext(),MessageActivity.class));
