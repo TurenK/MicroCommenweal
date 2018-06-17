@@ -41,8 +41,8 @@ public class ImageUpAndDownUtil {
 
     private Context context;
     private String received_filepath = null;
-    private final String receiveurl = "http://39.106.206.187/dscj/";
-    private final String handleurl = "http://39.106.206.187/dscj/handleImage.php";
+    private final String receiveurl = "http://39.106.113.247/dscj/";
+    private final String handleurl = "http://39.106.113.247/dscj/handleImage.php";
 
     public ImageUpAndDownUtil(Context context){
         this.context = context;
