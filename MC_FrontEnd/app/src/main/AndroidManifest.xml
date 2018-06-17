@@ -42,7 +42,8 @@
         <activity android:name=".activity.ChoseRoleActivity" />
         <activity android:name=".activity.RegisterTeamActivity" />
         <activity android:name=".activity.OrgRateActivity" />
-        <activity android:name=".activity.PreRateActivity"></activity>
+        <activity android:name=".activity.PreRateActivity" />
+        <activity android:name=".activity.CommitOrgActivity"></activity>
     </application>
 
 </manifest>
