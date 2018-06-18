@@ -119,7 +119,7 @@ public class ImageUpAndDownUtil {
     }
 
     public void testDownloadImage(String filepath, final ImageView imageView){
-        if(filepath!=null){
+        if(filepath!=null&&!filepath.isEmpty()){
         OkHttpUtils//
                 .get()//
                 .url(receiveurl+filepath.substring(2))//
