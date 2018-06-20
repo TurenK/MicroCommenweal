@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.mob.sdk'
 
 android {
     compileSdkVersion 27
@@ -49,4 +50,11 @@ dependencies {
     //picasso
     implementation 'com.squareup.picasso:picasso:2.5.2'
 
+}
+
+MobSDK {
+    appKey "26782d8e85ca8"
+    appSecret "75c65cbedf6ac607fd74c4e47ec15980"
+
+    SMSSDK {}
 }
