@@ -37,21 +37,6 @@ public class MessageActivity extends AppCompatActivity implements SwipeRefreshLa
 
         initMessages();//初始化消息
         initView();
-//        //初始化消息列表的recycle和adapter
-//        recyclerView = (RecyclerView)findViewById(R.id.rv_message);
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-//        recyclerView.setLayoutManager(layoutManager);
-//        //创建适配器
-//        adapter = new MessageAdapter(R.layout.message_item, messageList);
-//        //给RecyclerView设置适配器
-//        recyclerView.setAdapter(adapter);
-//        //条目点击事件
-//        adapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
-//            @Override
-//            public void onItemClick(View view, int position) {
-//                Toast.makeText(MessageActivity.this, "点击了第" + (position + 1) + "条条目", Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
     }
 

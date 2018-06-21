@@ -25,6 +25,7 @@
     <style name="mRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/ratingbar</item>
         <item name="android:minHeight">38dp</item>
-        <item name="android:maxHeight">38dp</item> //这里是图片的高度
+        <item name="android:maxHeight">38dp</item>
+        //这里是图片的高度
     </style>
 </resources>
