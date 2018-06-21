@@ -48,9 +48,6 @@ public class CharityFragment extends Fragment {
     private static String TAG = "CharityFragment";
     private String JOINING = "报名中";
     private String JOINED = "已报名";
-    private String OPENING = "报名中";
-    private String CLOSED = "已结束";
-    private String DUE = "已截止";
 
 
     private View charityLayout;
@@ -328,25 +325,10 @@ public class CharityFragment extends Fragment {
                             charity.setName(actName);
                             charity.setImagepath(actImage);
                             charity.setPeoplenum("剩余"+aSQ+"人");
-                            switch (actStatus) {
-                                case "0":
-                                    charity.setStatus(CLOSED);
-                                    break;
-                                case "1":
-                                    charity.setStatus(OPENING);
-                                    break;
-                                case "2":
-                                    charity.setStatus(DUE);
-                                    break;
-                            }
                             if(actStatus.equals("1") && userStatus==0){
                                 charity.setStatus(JOINING);
                             }else if(actStatus.equals("1") && userStatus==1){
                                 charity.setStatus(JOINED);
-                            }else if (actStatus.equals("0")){
-                                charity.setStatus(CLOSED);
-                            }else if (actStatus.equals("2")){
-                                charity.setStatus(DUE);
                             }
                             charityList.add(charity);
                         }

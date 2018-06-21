@@ -123,11 +123,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     }
                 } else {
                     code.setText("");
+//                    now.setText("提示信息");
                     time = 60;
+//                    now.setVisibility(View.GONE);
                     setcodeen();
+                    //getCode.setVisibility(View.VISIBLE);
                 }
             } else {
                 setcodedis();
+                //getCode.setVisibility(View.GONE);
             }
         }
 
@@ -258,26 +262,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 startActivityForResult(intent, IMAGE_REQUEST_CODE);
                 break;
             case R.id.register_btn: // 注册
-                if(!password_reg.getText().toString().equals(password_reg_again.getText().toString())){
-                    Toast.makeText(RegisterActivity.this, "密码不匹配！", Toast.LENGTH_LONG).show();
-                }else if (name.getText().toString().isEmpty()){
-                    Toast.makeText(RegisterActivity.this, "请输入用户名！", Toast.LENGTH_LONG).show();
-                    name.requestFocus();
-                }else if (phone.getText().toString().isEmpty()){
-                    Toast.makeText(RegisterActivity.this, "请输入手机号！", Toast.LENGTH_LONG).show();
-                    phone.requestFocus();
-                }else if (password_reg.getText().toString().isEmpty()){
-                    Toast.makeText(RegisterActivity.this, "请输入密码！", Toast.LENGTH_LONG).show();
-                    password_reg.requestFocus();
-                }else if (password_reg_again.getText().toString().isEmpty()){
-                    Toast.makeText(RegisterActivity.this, "请再次输入密码！", Toast.LENGTH_LONG).show();
-                    password_reg_again.requestFocus();
-                }else if (code.getText().toString().isEmpty()){
-                    Toast.makeText(RegisterActivity.this, "请输入验证码！", Toast.LENGTH_LONG).show();
-                    code.requestFocus();
-                }else{
+                if(password_reg.getText().toString().equals(password_reg_again.getText().toString())){
                     SMSSDK.submitVerificationCode("86", phone.getText().toString().trim(), code.getText().toString().trim());
                     flag = false;
+//                    register();
+                }else{
+                    Toast.makeText(RegisterActivity.this, "密码不匹配！", Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.login_text: // 登录
@@ -292,6 +282,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         sendedcode = true;
                         code.requestFocus();
                         setcodedis();
+                        //getCode.setVisibility(View.GONE);
                     } else {
                         Toast.makeText(RegisterActivity.this, "请输入完整手机号码", Toast.LENGTH_LONG).show();
                         phone.requestFocus();
