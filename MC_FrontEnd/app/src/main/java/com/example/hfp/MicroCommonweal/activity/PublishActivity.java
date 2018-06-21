@@ -5,15 +5,19 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.SyncStateContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -56,7 +60,9 @@ import okhttp3.Response;
 public class PublishActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private static final int IMAGE_REQUEST_CODE = 0;
+    private static final int CUT_PICTURE = 1000;
 
+    private Uri selectedImage;
     private String pic_path;
     private String received_filepath;
     private List<String> list;
@@ -197,7 +203,7 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
                 // 调用android自带的图库
                 Intent intent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, IMAGE_REQUEST_CODE);
+                startActivityForResult(intent, CUT_PICTURE);
                 break;
             case R.id.charity_submit:
                 if (et_title.getText().toString().trim().equals("")) {
@@ -256,19 +262,34 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
         super.onActivityResult(requestCode, resultCode, data);
         //在相册里面选择好相片之后调回到现在的这个activity中
         switch (requestCode) {
+            case CUT_PICTURE:
+                if (resultCode == RESULT_OK) {
+                    selectedImage = data.getData(); //获取系统返回的照片的Uri
+                    //此处启动裁剪程序
+                    Intent intent = new Intent("com.android.camera.action.CROP");
+                    //添加这一句表示对目标应用临时授权该Uri所代表的文件
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    intent.setDataAndType(data.getData(), "image/*");
+                    intent.putExtra("scale", true);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, selectedImage);
+                    startActivityForResult(intent, IMAGE_REQUEST_CODE);
+                }
+                break;
             case IMAGE_REQUEST_CODE://这里的requestCode是我自己设置的，就是确定返回到那个Activity的标志
                 if (resultCode == RESULT_OK) {//resultcode是setResult里面设置的code值
                     try {
-                        Uri selectedImage = data.getData(); //获取系统返回的照片的Uri
-                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                        Cursor cursor = getContentResolver().query(selectedImage,
-                                filePathColumn, null, null, null);//从系统表中查询指定Uri对应的照片
-                        cursor.moveToFirst();
-                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                        pic_path = cursor.getString(columnIndex);  //获取照片路径
-                        cursor.close();
-                        Bitmap bitmap = BitmapFactory.decodeFile(pic_path);
-                        Log.d("PublishActivity:", pic_path);
+                        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver()
+                                .openInputStream(selectedImage));
+//                        picture.setImageBitmap(bitmap);
+//                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+//                        Cursor cursor = getContentResolver().query(selectedImage,
+//                                filePathColumn, null, null, null);//从系统表中查询指定Uri对应的照片
+//                        cursor.moveToFirst();
+//                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+//                        pic_path = cursor.getString(columnIndex);  //获取照片路径
+//                        cursor.close();
+//                        Bitmap bitmap = BitmapFactory.decodeFile(pic_path);
+//                        Log.d("PublishActivity:", pic_path);
                         charity_iamge.setImageBitmap(bitmap);
                         //Thread.sleep(2000);
 

@@ -14,7 +14,7 @@
     <string name="URL_GROUP_REG">/groupRegistered.php</string>
     <string name="URL_DETAIL_ACTIVITY">/detailInfor.php</string>
     <string name="URL_MY_JOIN">/historyListUser.php</string>
-    <string name="URL_PRE_RATE">historyListUser.php</string>
+    <string name="URL_PRE_RATE">/historyListUser.php</string>
     <string name="URL_GET_ORGINFO">/??.php</string>
     <string name="URL_SEND_P2OCOMMIT">/??.php</string>
     <string name="title_activity_tstst">tstst</string>

@@ -35,7 +35,7 @@ public class CommitOrgActivity extends AppCompatActivity implements View.OnClick
     private TextView charity_description;
     private TextInputEditText P2O_Commit;
     private RatingBar star_rating;
-    private int orgId;
+    private int actId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +50,7 @@ public class CommitOrgActivity extends AppCompatActivity implements View.OnClick
         button_back.setOnClickListener(this);
         button_submit = (Button)findViewById(R.id.button_submit);
         button_submit.setOnClickListener(this);
-        orgId = getIntent().getIntExtra("orgId",-1);
+        actId = getIntent().getIntExtra("actId",-1);
         initialize();
     }
 
@@ -60,7 +60,7 @@ public class CommitOrgActivity extends AppCompatActivity implements View.OnClick
 
     private void initialize(){
         JSONObject join_info = new JSONObject();
-        join_info.put("orgId", orgId);
+        join_info.put("actId", actId);
 
         Log.d("CommitOrgActivity", join_info.toString());
 
@@ -115,7 +115,7 @@ public class CommitOrgActivity extends AppCompatActivity implements View.OnClick
 
     private void submit(){
         JSONObject join_info = new JSONObject();
-        join_info.put("orgId", orgId);
+        join_info.put("actId", actId);
         join_info.put("userId", UserInfo.getUserInfo().getuId());
         join_info.put("ratnum", star_rating.getNumStars());
         String desc = P2O_Commit.getText().toString();
