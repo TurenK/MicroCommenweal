@@ -111,10 +111,10 @@ public class JoinedCharityActivity extends AppCompatActivity implements View.OnC
                             charity.setPeoplenum("剩余"+aSQ+"人");
                             switch (actStatus) {
                                 case "0":
-                                    charity.setStatus(OPENING);
+                                    charity.setStatus(CLOSED);
                                     break;
                                 case "1":
-                                    charity.setStatus(CLOSED);
+                                    charity.setStatus(OPENING);
                                     break;
                                 case "2":
                                     charity.setStatus(DUE);

@@ -44,33 +44,40 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
+            <TextView
+                android:id="@+id/blank"
+                android:layout_width="match_parent"
+                android:layout_height="9dp"
+                android:background="@color/white"
+                />
             <RatingBar
                 android:id="@+id/ratingbar"
                 style="@style/mRatingBar"
+                android:layout_below="@id/blank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="16dp"
                 android:numStars="5"
+                android:layout_gravity="center_vertical"
                 android:orientation="vertical"
                 android:progressTint="@android:color/holo_orange_dark"
-                android:rating="3"
-                android:stepSize="2" />
+                android:rating="1.0"
+                android:stepSize="1" />
 
-            <TextView
+            <EditText
                 android:id="@+id/str_message"
                 android:layout_width="307dp"
+                android:layout_below="@+id/ratingbar"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginBottom="17dp"
                 android:gravity="left"
-                android:text="亲爱的志愿者们: 感谢您对志愿事业的大力支持…"
-                android:textColor="@color/black" />
+                android:text="亲爱的志愿者们: 感谢您对志愿事业的大力支持"
+                android:textColor="@color/black"
+                android:background="@null"
+                android:textSize="17sp"/>
         </RelativeLayout>
 
 
