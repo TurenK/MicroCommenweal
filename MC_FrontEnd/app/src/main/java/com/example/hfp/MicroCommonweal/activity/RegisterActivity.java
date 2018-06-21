@@ -1,16 +1,20 @@
 package com.example.hfp.MicroCommonweal.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,12 +28,19 @@ import com.example.hfp.MicroCommonweal.R;
 import com.example.hfp.MicroCommonweal.Utils.AsyncHttpUtil;
 import com.example.hfp.MicroCommonweal.Utils.ImageUpAndDownUtil;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.mob.MobSDK;
 
 import org.apache.http.entity.StringEntity;
 
 import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import cn.smssdk.EventHandler;
+import cn.smssdk.SMSSDK;
+import cn.smssdk.utils.SMSLog;
+
+import static com.mob.tools.utils.ResHelper.getStringRes;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -40,34 +51,135 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText phone;
     private EditText password_reg;
     private EditText password_reg_again;
+    private EditText code;
     private TextView login_text;
     private Button register_btn;
+    private Button btn_getCode;
     private ImageUpAndDownUtil imageUpAndDownUtil;
     private String received_filepath;
     private String pic_path;
+
+    private int time = 60;
+    private boolean sendedcode;
+    private boolean flag = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        MobSDK.init(this);
+
         imageUpAndDownUtil = new ImageUpAndDownUtil(getApplicationContext());
+        sendedcode = false;
         //初始化控件
         avatar = (ImageButton) findViewById(R.id.avatar);
         name = (EditText) findViewById(R.id.name);
-        phone = (EditText) findViewById(R.id.email);
+        phone = (EditText) findViewById(R.id.reg_phone);
+        code = findViewById(R.id.input_code);
         password_reg = (EditText) findViewById(R.id.password_reg);
         password_reg_again = (EditText) findViewById(R.id.password_reg_again);
         login_text = (TextView) findViewById(R.id.login_text);
         register_btn = (Button) findViewById(R.id.register_btn);
+        btn_getCode = findViewById(R.id.get_code);
         //控件事件监听器
         avatar.setOnClickListener(this);
         register_btn.setOnClickListener(this);
         login_text.setOnClickListener(this);
+        btn_getCode.setOnClickListener(this);
         //设置不能输入特殊字符和空格
         setEditTextInhibitInputSpeChat(name);
         setEditTextInhibitInputSpace(name);
+
+        EventHandler eh = new EventHandler() {
+            @Override
+            public void afterEvent(int event, int result1, Object data) {
+                Message msg = new Message();
+                msg.arg1 = event;
+                msg.arg2 = result1;
+                msg.obj = data;
+                mHandler.sendMessage(msg);
+            }
+        };
+        SMSSDK.registerEventHandler(eh);
     }
+    private void reminderText() {
+//        now.setVisibility(View.VISIBLE);
+        handlerText.sendEmptyMessageDelayed(1, 1000);
+    }
+
+    @SuppressLint("HandlerLeak")
+    Handler handlerText = new Handler() {
+        public void handleMessage(Message msg) {
+            if (sendedcode) {
+                if (msg.what == 1) {
+                    if (time > 0) {
+                        btn_getCode.setText("重新发送(" + time + ")");
+                        time--;
+                        handlerText.sendEmptyMessageDelayed(1, 1000);
+                    } else {
+                        time = 60;
+                        setcodeen();
+                    }
+                } else {
+                    code.setText("");
+//                    now.setText("提示信息");
+                    time = 60;
+//                    now.setVisibility(View.GONE);
+                    setcodeen();
+                    //getCode.setVisibility(View.VISIBLE);
+                }
+            } else {
+                setcodedis();
+                //getCode.setVisibility(View.GONE);
+            }
+        }
+
+        ;
+    };
+
+    @SuppressLint("HandlerLeak")
+    Handler mHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            int event = msg.arg1;
+            int result1 = msg.arg2;
+            Object data = msg.obj;
+            Log.e("event", "event=" + event);
+            if (result1 == SMSSDK.RESULT_COMPLETE) {
+// 短信注册成功后，返回MainActivity,然后提示新好友
+                if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {//提交验证码成功,验证通过
+                    //Toast.makeText(getApplicationContext(), "验证码校验成功", Toast.LENGTH_SHORT).show();
+                    handlerText.sendEmptyMessage(2);
+                    register_btn.setEnabled(false);
+                    register_btn.setText("注册中...");
+                    register_btn.setBackgroundColor(0xD9BFBFBF);
+                    register_btn.setTextColor(0xFF000000);
+                    // 注册方法
+                    register();
+
+                } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {//服务器验证码发送成功
+                    reminderText();
+                    Toast.makeText(getApplicationContext(), "验证码已经发送", Toast.LENGTH_SHORT).show();
+                } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {//返回支持发送验证码的国家列表
+                    Toast.makeText(getApplicationContext(), "获取国家列表成功", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                if (flag) {
+                    setcodeen();
+                    //getCode.setVisibility(View.VISIBLE);
+                    sendedcode = false;
+                    Toast.makeText(RegisterActivity.this, "验证码获取失败，请重新获取", Toast.LENGTH_SHORT).show();
+                    phone.requestFocus();
+                } else {
+                    ((Throwable) data).printStackTrace();
+                    Toast.makeText(RegisterActivity.this, "验证码错误", Toast.LENGTH_SHORT).show();
+                    code.selectAll();
+                }
+            }
+        }
+    };
+
     /**
      * 禁止EditText输入空格
      * @param editText
@@ -151,7 +263,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.register_btn: // 注册
                 if(password_reg.getText().toString().equals(password_reg_again.getText().toString())){
-                    register();
+                    SMSSDK.submitVerificationCode("86", phone.getText().toString().trim(), code.getText().toString().trim());
+                    flag = false;
+//                    register();
                 }else{
                     Toast.makeText(RegisterActivity.this, "密码不匹配！", Toast.LENGTH_LONG).show();
                 }
@@ -159,6 +273,24 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             case R.id.login_text: // 登录
                 startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                 finish();
+                break;
+            case R.id.get_code:
+                Log.d("Register", "push");
+                if (!TextUtils.isEmpty(phone.getText().toString().trim())) {
+                    if (phone.getText().toString().trim().length() == 11) {
+                        SMSSDK.getVerificationCode("86", phone.getText().toString().trim());
+                        sendedcode = true;
+                        code.requestFocus();
+                        setcodedis();
+                        //getCode.setVisibility(View.GONE);
+                    } else {
+                        Toast.makeText(RegisterActivity.this, "请输入完整手机号码", Toast.LENGTH_LONG).show();
+                        phone.requestFocus();
+                    }
+                } else {
+                    Toast.makeText(RegisterActivity.this, "请输入您的手机号码", Toast.LENGTH_LONG).show();
+                    phone.requestFocus();
+                }
                 break;
             default:
                 break;
@@ -194,8 +326,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 Log.d("RegisterActivity", info);
                 if (code == 200){
                     Toast.makeText(RegisterActivity.this, "注册成功！", Toast.LENGTH_LONG).show();
-//                    startActivity(new Intent(MainActivity.this,MainUIActivity.class));
-//                    finish();
+                    startActivity(new Intent(RegisterActivity.this,MainActivity.class));
+                    finish();
                 }else if(code == 404){
                     Toast.makeText(RegisterActivity.this, "用户名与密码不匹配！", Toast.LENGTH_LONG).show();
                     register_btn.setEnabled(true);
@@ -219,6 +351,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         });
 
         return true;
+    }
+
+    private void setcodedis() {
+        btn_getCode.setEnabled(false);
+        btn_getCode.setBackgroundColor(0xD9BFBFBF);
+    }
+
+    private void setcodeen() {
+        btn_getCode.setEnabled(true);
+        btn_getCode.setBackgroundResource(R.drawable.login_btn_bg);
+        btn_getCode.setText("发送验证码");
     }
 
 }
