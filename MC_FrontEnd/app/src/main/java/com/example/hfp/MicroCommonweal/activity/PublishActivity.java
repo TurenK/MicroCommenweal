@@ -304,6 +304,50 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    /**
+     * 调用系统剪裁功能
+     */
+    public void cropPicture(Activity activity, String path)
+    {
+        File file = new File(path);
+        if (!file.getParentFile().exists())
+        {
+            file.getParentFile().mkdirs();
+        }
+        Uri imageUri;
+        Uri outputUri;
+        String crop_image = file.getParent()+"_crop_"+"temp";
+
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+        {
+            //添加这一句表示对目标应用临时授权该Uri所代表的文件
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            //TODO:访问相册需要被限制，需要通过FileProvider创建一个content类型的Uri
+            imageUri = FileProvider.getUriForFile(activity,  "com.solux.furniture.fileprovider", file);
+            outputUri = Uri.fromFile(new File(crop_image));
+            //TODO:裁剪整个流程，估计授权一次就好outputUri不需要ContentUri,否则失败
+            //outputUri = FileProvider.getUriForFile(activity, "com.solux.furniture.fileprovider", new File(crop_image));
+        } else
+        {
+            imageUri = Uri.fromFile(file);
+            outputUri = Uri.fromFile(new File(crop_image));
+        }
+        intent.setDataAndType(imageUri, "image/*");
+        intent.putExtra("crop", "true");
+        //设置宽高比例
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        //设置裁剪图片宽高
+        intent.putExtra("outputX", 300);
+        intent.putExtra("outputY", 300);
+        intent.putExtra("scale", true);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        intent.putExtra("noFaceDetection", true);
+        activity.startActivityForResult(intent, IMAGE_REQUEST_CODE);
+    }
+
     private void sendInfo() {
         //封装需要传递的参数
         Log.d("PublishActivity", et_title.getText().toString().trim());
