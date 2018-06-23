@@ -276,10 +276,17 @@ public class CharityFragment extends Fragment {
     }
 
     private  void initCategories(){
-        for(int i =0;i<5;i++){
+
             Category category = new Category(R.drawable.thumbnail21,"青少年服务");
+            Category category1 = new Category(R.drawable.thumbnail22,"医疗服务");
+            Category category2 = new Category(R.drawable.thumbnail23,"儿童服务");
+            Category category3 = new Category(R.drawable.thumbnail24,"老年服务");
             categoryList.add(category);
-        }
+            categoryList.add(category1);
+            categoryList.add(category2);
+            categoryList.add(category3);
+
+
     }
 
     private void requireCharity(){

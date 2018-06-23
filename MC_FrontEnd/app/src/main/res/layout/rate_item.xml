@@ -75,7 +75,7 @@
                 android:layout_alignParentEnd="true"
                 android:gravity="left"
                 android:text="亲爱的志愿者: 感谢您对志愿事业的大力支持"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
                 android:background="@null"
                 android:textSize="17sp"/>
         </RelativeLayout>

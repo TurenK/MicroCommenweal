@@ -130,9 +130,9 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
         /*设置数据源*/
         list = new ArrayList<String>();
         list.add("青少年活动");
-        list.add("青少年活动");
-        list.add("青少年活动");
-        list.add("青少年活动");
+        list.add("医疗服务");
+        list.add("儿童服务");
+        list.add("老年服务");
 
 
         /*新建适配器*/
