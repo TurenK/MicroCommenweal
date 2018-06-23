@@ -5,7 +5,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_message">MessageActivity</string>
     <string name="action_settings">Settings</string>
-    <string name="URL_SERVER">http://172.31.34.141:8080</string>
+    <string name="URL_SERVER">http://39.106.113.247/dscj</string>
     <string name="URL_REG">/personRegistered.php</string>
     <string name="URL_LOGIN">/login.php</string>
     <string name="URL_MAIN_FRAME">/mainframelist.php</string>
@@ -14,9 +14,9 @@
     <string name="URL_GROUP_REG">/groupRegistered.php</string>
     <string name="URL_DETAIL_ACTIVITY">/detailInfor.php</string>
     <string name="URL_MY_JOIN">/historyListUser.php</string>
-    <string name="URL_PRE_RATE">/historyListUser.php</string>
-    <string name="URL_GET_ORGINFO">/??.php</string>
-    <string name="URL_SEND_P2OCOMMIT">/??.php</string>
+    <string name="URL_PRE_RATE">/evaluateUserHistoryList.php</string>
+    <string name="URL_GET_ORGINFO">/numOfActivity.php</string>
+    <string name="URL_SEND_P2OCOMMIT">/evaluateUserToGroup.php</string>
     <string name="title_activity_tstst">tstst</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>

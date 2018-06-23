@@ -2,7 +2,10 @@ package com.example.hfp.MicroCommonweal.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.style.BackgroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,11 +58,17 @@ public class CharityAdapter_ForComment extends RecyclerView.Adapter<CharityAdapt
             public  void onClick(View v){
                 int position = holder.getAdapterPosition();
                 Charity charity = mCharityList.get(position);
+                if(charity.getStatus().equals("评价")){
                 //Toast.makeText(v.getContext(), "点击了", Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putString("actId",charity.getaID());
                 intent.setClass(v.getContext(), CommitOrgActivity.class);
-                intent.putExtra("activityID", charity.getaID());
+                intent.putExtra("bundle",bundle);
                 v.getContext().startActivity(intent);
+                }else {
+                    Toast.makeText(context, "您已评价该活动", Toast.LENGTH_LONG).show();
+                }
             }
         });
         return  holder;
@@ -71,6 +80,9 @@ public class CharityAdapter_ForComment extends RecyclerView.Adapter<CharityAdapt
         Charity charity = mCharityList.get(position);
         holder.charityName.setText(charity.getName());
         holder.peoplenum.setText(charity.getPeoplenum());
+        if(charity.getStatus().equals("已评价")){
+            holder.status.setBackgroundColor(Color.rgb(	112,128,144));
+        }
         holder.status.setText(charity.getStatus());
         try {
             getImages(charity,holder.charityIamge);
