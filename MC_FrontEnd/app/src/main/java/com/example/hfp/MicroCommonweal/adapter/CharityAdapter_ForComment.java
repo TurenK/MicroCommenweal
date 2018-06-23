@@ -2,6 +2,7 @@ package com.example.hfp.MicroCommonweal.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,11 +56,17 @@ public class CharityAdapter_ForComment extends RecyclerView.Adapter<CharityAdapt
             public  void onClick(View v){
                 int position = holder.getAdapterPosition();
                 Charity charity = mCharityList.get(position);
+                if(charity.getStatus().equals("评价")){
                 //Toast.makeText(v.getContext(), "点击了", Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putString("actId",charity.getaID());
                 intent.setClass(v.getContext(), CommitOrgActivity.class);
-                intent.putExtra("activityID", charity.getaID());
+                intent.putExtra("bundle",bundle);
                 v.getContext().startActivity(intent);
+                }else {
+                    Toast.makeText(context, "您已评价该活动", Toast.LENGTH_LONG).show();
+                }
             }
         });
         return  holder;

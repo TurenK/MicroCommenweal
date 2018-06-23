@@ -34,8 +34,8 @@ public class PreRateActivity extends AppCompatActivity implements View.OnClickLi
     RecyclerView recyclerView;
     private CharityAdapter adapter;
     public final String TAG = "pengfeiwuer";
-    private String JOINING = "报名中";
-    private String JOINED = "已报名";
+    private String N_EVALUATE = "评价";
+    private String EVALUATED = "已评价";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,13 @@ public class PreRateActivity extends AppCompatActivity implements View.OnClickLi
         initOrganizations();//初始化消息
 
     }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        initOrganizations();//初始化消息
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -113,9 +120,9 @@ public class PreRateActivity extends AppCompatActivity implements View.OnClickLi
                             charity.setImagepath(actImage);
                             charity.setPeoplenum("剩余"+aSQ+"人");
                             if(actStatus.equals("1") && userStatus==0){
-                                charity.setStatus(JOINING);
+                                charity.setStatus(N_EVALUATE);
                             }else if(actStatus.equals("1") && userStatus==1){
-                                charity.setStatus(JOINED);
+                                charity.setStatus(EVALUATED);
                             }
                             charityList.add(charity);
                         }

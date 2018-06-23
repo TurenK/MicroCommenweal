@@ -41,6 +41,7 @@ public class CommitOrgActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commit_org);
 
+        P2O_Commit = (TextInputEditText)findViewById(R.id.P2O_Commit);
         charity_iamge = (ImageView)findViewById(R.id.charity_iamge);
         charity_name = (TextView)findViewById(R.id.charity_name);
         activity_num = (TextView)findViewById(R.id.activity_num);
@@ -50,7 +51,10 @@ public class CommitOrgActivity extends AppCompatActivity implements View.OnClick
         button_back.setOnClickListener(this);
         button_submit = (Button)findViewById(R.id.button_submit);
         button_submit.setOnClickListener(this);
-        actId = getIntent().getIntExtra("actId",-1);
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getBundleExtra("bundle");
+        String actSId =  bundle.getString("actId");
+        actId = Integer.valueOf(actSId);
         initialize();
     }
 
