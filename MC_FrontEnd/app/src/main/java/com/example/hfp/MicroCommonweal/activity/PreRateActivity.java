@@ -34,8 +34,9 @@ public class PreRateActivity extends AppCompatActivity implements View.OnClickLi
     RecyclerView recyclerView;
     private CharityAdapter adapter;
     public final String TAG = "pengfeiwuer";
-    private String JOINING = "报名中";
-    private String JOINED = "已报名";
+    private String OPENING = "报名中";
+    private String CLOSED = "已结束";
+    private String DUE = "已截止";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,21 +104,26 @@ public class PreRateActivity extends AppCompatActivity implements View.OnClickLi
                             String actName = object.getString("activityName");
                             String actImage = object.getString("activityImage");
                             String aSQ = object.getString("aSurplusQuota");
-                            String aNN = object.getString("aNeedNumOfPerson");
                             String actStatus = object.getString("activityStatus");
-                            int userStatus = object.getInteger("userStatus");
                             //TODO create a Charity object
                             Charity charity = new Charity();
                             charity.setaID(actID);
                             charity.setName(actName);
                             charity.setImagepath(actImage);
                             charity.setPeoplenum("剩余"+aSQ+"人");
-                            if(actStatus.equals("1") && userStatus==0){
-                                charity.setStatus(JOINING);
-                            }else if(actStatus.equals("1") && userStatus==1){
-                                charity.setStatus(JOINED);
+                            switch (actStatus) {
+                                case "0":
+                                    charity.setStatus(CLOSED);
+                                    break;
+                                case "1":
+                                    charity.setStatus(OPENING);
+                                    break;
+                                case "2":
+                                    charity.setStatus(DUE);
+                                    break;
                             }
                             charityList.add(charity);
+                            Log.d(TAG, "i'm done");
                         }
                         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
                         recyclerView.setLayoutManager(layoutManager);

@@ -328,17 +328,17 @@ public class CharityFragment extends Fragment {
                             charity.setName(actName);
                             charity.setImagepath(actImage);
                             charity.setPeoplenum("剩余"+aSQ+"人");
-                            switch (actStatus) {
-                                case "0":
-                                    charity.setStatus(CLOSED);
-                                    break;
-                                case "1":
-                                    charity.setStatus(OPENING);
-                                    break;
-                                case "2":
-                                    charity.setStatus(DUE);
-                                    break;
-                            }
+//                            switch (actStatus) {
+//                                case "0":
+//                                    charity.setStatus(CLOSED);
+//                                    break;
+//                                case "1":
+//                                    charity.setStatus(OPENING);
+//                                    break;
+//                                case "2":
+//                                    charity.setStatus(DUE);
+//                                    break;
+//                            }
                             if(actStatus.equals("1") && userStatus==0){
                                 charity.setStatus(JOINING);
                             }else if(actStatus.equals("1") && userStatus==1){

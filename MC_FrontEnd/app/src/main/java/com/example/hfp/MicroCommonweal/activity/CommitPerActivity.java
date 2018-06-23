@@ -1,5 +1,7 @@
 package com.example.hfp.MicroCommonweal.activity;
-
+/*
+* Desc:组织对个人评价界面
+* */
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -51,7 +53,6 @@ public class CommitPerActivity extends AppCompatActivity implements View.OnClick
             case R.id.button_submit_comment_to_user:
                 sendGrade();
         }
-
     }
 
     private void initView() {
@@ -95,19 +96,7 @@ public class CommitPerActivity extends AppCompatActivity implements View.OnClick
     private void sendGrade(){
         Log.d("CommentPersonActivity", String.valueOf(personalList.size()));
         for (int i = 0; i < personalList.size(); i++){
-//            Log.d("CommentPersonActivity", tv_title.getText().toString());
-            LinearLayout lLayout = (LinearLayout) recyclerView.getLayoutManager().findViewByPosition(i);
-            if (lLayout == null){
-                Log.d("CommentPersonActivity", "Layout " + i + "null");
-            }else{
-                TextView tv_title = (TextView) lLayout.findViewById(R.id.str_message);
-//            TextView tv_title = (TextView) adapter.getViewByPosition(recyclerView, i, R.id.str_message);
-                if (tv_title == null){
-                    Log.d("CommentPersonActivity", i + "null");
-                }else{
-                    Log.d("CommentPersonActivity", i + " " + tv_title.getText().toString());
-                }
-            }
+            Log.d("rating ", i + " " + personalList.get(i).getGrade());
         }
     }
 }
