@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true"
+    android:background="#f0f0f0">
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true">
+
+            <RelativeLayout
+                android:id="@+id/layout_logo"
+                android:layout_width="fill_parent"
+                android:layout_height="230dp"
+                android:layout_alignParentTop="true"
+                >
+
+                <ImageView
+                    android:id="@+id/background"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/org_logo"
+                    tools:ignore="RtlCompat"
+                    android:adjustViewBounds="true"/>
+
+                <TextView
+                    android:id="@+id/str_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="35sp"
+                    android:text="万达儿童基金会"
+                    android:textColor="@color/black"
+                    android:textSize="24sp" />
+
+
+            </RelativeLayout>
+            <!--项目信息-->
+            <RelativeLayout
+                android:id="@+id/layout_info"
+                android:layout_below="@+id/layout_logo"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+                <!--标题-->
+                <TextView
+                    android:id="@+id/str_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="团队简介"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+                <!--简介-->
+                <TextView
+                    android:id="@+id/str_intro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/str_title"
+                    android:text="由万达酒店及度假村有限管理公司成立
+经与中华慈善总会合作，向全球推出的专门针对儿童捐助的专项工艺慈善项目“万达儿童基金”
+全心致力于儿童公益慈善事业，全方位关爱儿童，唤起你我源自内心的美好！"
+                    android:textColor="@color/gray"
+                    android:textSize="13sp" />
+
+
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/buttonLayout"
+                android:layout_below="@+id/layout_info"
+                android:layout_width="fill_parent"
+                android:layout_marginTop="6dp"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" >
+                <!--义工时长 装饰的吧-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="72dip"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/color1"
+                        android:layout_width="5dip"
+                        android:layout_height="fill_parent"
+                        android:layout_alignParentLeft="true"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/green" />
+
+                    <TextView
+                        android:id="@+id/str_shichang"
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_toRightOf="@+id/color1"
+                        android:background="@color/white"
+                        android:gravity="center_vertical|left"
+                        android:text="      义工时长:"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+                    <!--乱写一个时间吧-->
+                    <TextView
+                        android:id="@+id/str_totaltime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="130dp"
+                        android:layout_marginLeft="130dp"
+
+                        android:background="@color/white"
+                        android:gravity="center_vertical|left"
+                        android:text=" 2467"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="72dip"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/color2"
+                        android:layout_width="5dip"
+                        android:layout_height="fill_parent"
+                        android:layout_alignParentLeft="true"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/blue" />
+
+
+                    <TextView
+                        android:id="@+id/str_faqi"
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_toRightOf="@+id/color2"
+                        android:background="@color/white"
+                        android:gravity="center_vertical|left"
+                        android:text="      发起项目："
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/str_totalnum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="130dp"
+                        android:layout_marginLeft="130dp"
+
+                        android:background="@color/white"
+                        android:gravity="center_vertical|left"
+                        android:text=" 136"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="72dip"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/color3"
+                        android:layout_width="5dip"
+                        android:layout_height="fill_parent"
+                        android:layout_alignParentLeft="true"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/orange" />
+
+
+                    <TextView
+                        android:id="@+id/button_orgRank"
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_toRightOf="@+id/color3"
+                        android:background="@color/white"
+                        android:gravity="center_vertical|left"
+                        android:text="      发起列表"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                </RelativeLayout>
+                <!--这里放发起的项目的ITEM-->
+                <!--charity_item-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dip"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/color4"
+                        android:layout_width="5dip"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/green" />
+
+
+                </RelativeLayout>
+
+
+
+
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>

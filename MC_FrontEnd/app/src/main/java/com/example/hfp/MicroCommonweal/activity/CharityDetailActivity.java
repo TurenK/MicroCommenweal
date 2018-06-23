@@ -50,6 +50,7 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
     private TextView tv_targetNum;
     private TextView tv_dayLeft;
     private TextView tv_detailInfo;
+    private TextView str_originator;
     private ImageUpAndDownUtil imageUpAndDownUtil;
 
     private String aID;
@@ -75,6 +76,7 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
         tv_targetNum = findViewById(R.id.str_numaim);
         tv_dayLeft = findViewById(R.id.str_dayleft);
         tv_detailInfo = findViewById(R.id.str_detail);
+        str_originator = findViewById(R.id.str_originator);
         imageUpAndDownUtil = new ImageUpAndDownUtil(getApplicationContext());
 
         //设置监听器
@@ -83,6 +85,7 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
         btn_join.setOnClickListener(this);
         btn_chat.setOnClickListener(this);
         btn_collect.setOnClickListener(this);
+        str_originator.setOnClickListener(this);
 
         initInfo(aID);
         initRecentjoin();//初始化消息
@@ -126,6 +129,8 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
             case R.id.btn_collect:
                 Toast.makeText(CharityDetailActivity.this, "收藏", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.str_originator:
+                startActivity(new Intent(CharityDetailActivity.this,OrgInfoActivity.class));
 
 
         }

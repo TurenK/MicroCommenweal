@@ -34,10 +34,8 @@ public class PreRateActivity extends AppCompatActivity implements View.OnClickLi
     RecyclerView recyclerView;
     private CharityAdapter adapter;
     public final String TAG = "pengfeiwuer";
-    private String OPENING = "报名中";
-    private String CLOSED = "已结束";
-    private String DUE = "已截止";
-
+    private String N_EVALUATE = "评价";
+    private String EVALUATED = "已评价";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +47,13 @@ public class PreRateActivity extends AppCompatActivity implements View.OnClickLi
         initOrganizations();//初始化消息
 
     }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        initOrganizations();//初始化消息
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -104,23 +109,19 @@ public class PreRateActivity extends AppCompatActivity implements View.OnClickLi
                             String actName = object.getString("activityName");
                             String actImage = object.getString("activityImage");
                             String aSQ = object.getString("aSurplusQuota");
-                            String actStatus = object.getString("activityStatus");
+                            int userStatus = object.getIntValue("userStatus");
+
                             //TODO create a Charity object
                             Charity charity = new Charity();
                             charity.setaID(actID);
                             charity.setName(actName);
                             charity.setImagepath(actImage);
                             charity.setPeoplenum("剩余"+aSQ+"人");
-                            switch (actStatus) {
-                                case "0":
-                                    charity.setStatus(CLOSED);
-                                    break;
-                                case "1":
-                                    charity.setStatus(OPENING);
-                                    break;
-                                case "2":
-                                    charity.setStatus(DUE);
-                                    break;
+
+                            if(userStatus==0){
+                                charity.setStatus(N_EVALUATE);
+                            }else if(userStatus==1){
+                                charity.setStatus(EVALUATED);
                             }
                             charityList.add(charity);
                             Log.d(TAG, "i'm done");
@@ -131,7 +132,7 @@ public class PreRateActivity extends AppCompatActivity implements View.OnClickLi
                         recyclerView.setAdapter(adapter);
                     }
 
-                }else if(code == 400){
+                }else{
                     Toast.makeText(getApplicationContext(), "获取活动失败！请稍后再试", Toast.LENGTH_LONG).show();
                 }
 //                super.onSuccess(content);
