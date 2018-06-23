@@ -4,6 +4,7 @@ public class Personal {
     private String avatorurl;
     private String committext;
     private int grade;
+    private String uid;
 
     public String getAvatorurl() {
         return avatorurl;
@@ -27,5 +28,13 @@ public class Personal {
 
     public void setCommittext(String committext) {
         this.committext = committext;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getUid() {
+        return uid;
     }
 }

@@ -65,7 +65,7 @@
                 android:rating="1.0"
                 android:stepSize="1" />
 
-            <EditText
+            <TextView
                 android:id="@+id/str_message"
                 android:layout_width="307dp"
                 android:layout_below="@+id/ratingbar"
