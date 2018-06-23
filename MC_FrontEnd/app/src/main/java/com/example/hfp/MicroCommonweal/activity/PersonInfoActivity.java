@@ -12,7 +12,6 @@ public class PersonInfoActivity extends AppCompatActivity {
 
     private ImageView background;
     private TextView  str_name;
-    private TextView str_e_name;
     private TextView str_intro;
     private TextView str_totaltime;
     private TextView str_totalnum;
@@ -23,7 +22,6 @@ public class PersonInfoActivity extends AppCompatActivity {
 
         background = findViewById(R.id.background);
         str_name = findViewById(R.id.str_name);
-        str_e_name = findViewById(R.id.str_e_name);
         str_intro = findViewById(R.id.str_intro);
         str_totaltime = findViewById(R.id.str_totaltime);
         str_totalnum = findViewById(R.id.str_totalnum);
