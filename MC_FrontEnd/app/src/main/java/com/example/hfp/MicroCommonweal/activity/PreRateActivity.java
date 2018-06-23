@@ -36,7 +36,6 @@ public class PreRateActivity extends AppCompatActivity implements View.OnClickLi
     public final String TAG = "pengfeiwuer";
     private String N_EVALUATE = "评价";
     private String EVALUATED = "已评价";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,21 +109,22 @@ public class PreRateActivity extends AppCompatActivity implements View.OnClickLi
                             String actName = object.getString("activityName");
                             String actImage = object.getString("activityImage");
                             String aSQ = object.getString("aSurplusQuota");
-                            String aNN = object.getString("aNeedNumOfPerson");
-                            String actStatus = object.getString("activityStatus");
-                            int userStatus = object.getInteger("userStatus");
+                            int userStatus = object.getIntValue("userStatus");
+
                             //TODO create a Charity object
                             Charity charity = new Charity();
                             charity.setaID(actID);
                             charity.setName(actName);
                             charity.setImagepath(actImage);
                             charity.setPeoplenum("剩余"+aSQ+"人");
-                            if(actStatus.equals("1") && userStatus==0){
+
+                            if(userStatus==0){
                                 charity.setStatus(N_EVALUATE);
-                            }else if(actStatus.equals("1") && userStatus==1){
+                            }else if(userStatus==1){
                                 charity.setStatus(EVALUATED);
                             }
                             charityList.add(charity);
+                            Log.d(TAG, "i'm done");
                         }
                         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
                         recyclerView.setLayoutManager(layoutManager);
@@ -132,7 +132,7 @@ public class PreRateActivity extends AppCompatActivity implements View.OnClickLi
                         recyclerView.setAdapter(adapter);
                     }
 
-                }else if(code == 400){
+                }else{
                     Toast.makeText(getApplicationContext(), "获取活动失败！请稍后再试", Toast.LENGTH_LONG).show();
                 }
 //                super.onSuccess(content);

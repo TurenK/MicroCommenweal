@@ -2,8 +2,10 @@ package com.example.hfp.MicroCommonweal.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.style.BackgroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,6 +80,9 @@ public class CharityAdapter_ForComment extends RecyclerView.Adapter<CharityAdapt
         Charity charity = mCharityList.get(position);
         holder.charityName.setText(charity.getName());
         holder.peoplenum.setText(charity.getPeoplenum());
+        if(charity.getStatus().equals("已评价")){
+            holder.status.setBackgroundColor(Color.rgb(	112,128,144));
+        }
         holder.status.setText(charity.getStatus());
         try {
             getImages(charity,holder.charityIamge);
