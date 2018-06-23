@@ -1,9 +1,13 @@
 package com.example.hfp.MicroCommonweal.adapter;
 
 import android.content.Context;
+import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -30,5 +34,18 @@ public class PersonalAdapter extends BaseQuickAdapter<Personal> {
     }
     private void getImages(Personal personal, ImageView imageView){
         new ImageUpAndDownUtil(context).testDownloadImage(personal.getAvatorurl(),imageView);
+    }
+
+    public View getViewByPosition(RecyclerView recyclerView, int position, @IdRes int viewId) {
+
+        if (recyclerView == null) {
+            return null;
+        }
+
+        BaseViewHolder viewHolder = (BaseViewHolder) recyclerView.findViewHolderForLayoutPosition(position);
+        if (viewHolder == null) {
+            return null;
+        }
+        return viewHolder.getView(viewId);
     }
 }

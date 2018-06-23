@@ -96,7 +96,7 @@ public class JoinedCharityActivity extends AppCompatActivity implements View.OnC
                     for (int i = 1; i <= 10; i++){
                         if (objectdata.containsKey(String.valueOf(i))) {
                             JSONObject object = objectdata.getJSONObject(String.valueOf(i));
-//                            String actID = object.getString("activityId");
+                            String actID = object.getString("activityId");
                             String actName = object.getString("activityName");
                             String actImage = object.getString("activityImage");
                             String aSQ = object.getString("aSurplusQuota");
@@ -105,7 +105,7 @@ public class JoinedCharityActivity extends AppCompatActivity implements View.OnC
 //                            int userStatus = object.getInteger("userStatus");
                             //TODO create a Charity object
                             Charity charity = new Charity();
-//                            charity.setaID(actID);
+                            charity.setaID(actID);
                             charity.setName(actName);
                             charity.setImagepath(actImage);
                             charity.setPeoplenum("剩余"+aSQ+"人");

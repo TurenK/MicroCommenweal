@@ -1,5 +1,7 @@
 package com.example.hfp.MicroCommonweal.activity;
-
+/*
+* Desc:这个界面是组织评价
+* */
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

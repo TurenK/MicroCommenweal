@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                    Toast.makeText(MainActivity.this, "成功了！", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(MainActivity.this,MainUIActivity.class));
                     finish();
-                }else if(code == 400){
+                }else if(code == 404){
                     Toast.makeText(MainActivity.this, "用户名与密码不匹配！", Toast.LENGTH_LONG).show();
                     btn_login.setEnabled(true);
                     btn_login.setText("登录");

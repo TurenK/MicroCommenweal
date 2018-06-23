@@ -27,6 +27,16 @@
             android:text="评价"
             android:textColor="#ffffff"
             android:textSize="20sp" />
+        <Button
+            android:id="@+id/button_submit_comment_to_user"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="1dp"
+            android:layout_alignParentRight="true"
+            android:text="提交"
+            android:textColor="#ffffff"
+            android:textSize="15sp"
+            android:background="@null" />
     </RelativeLayout>
     <!--加rateitem-->
     <android.support.v7.widget.RecyclerView

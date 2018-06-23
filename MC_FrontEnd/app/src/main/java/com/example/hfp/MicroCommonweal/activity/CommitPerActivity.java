@@ -4,8 +4,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -18,6 +21,7 @@ import java.util.List;
 
 public class CommitPerActivity extends AppCompatActivity implements View.OnClickListener{
     private Button button_back;
+    private Button button_submit;
 
     private List<Personal> personalList = new ArrayList<>();
 
@@ -29,7 +33,9 @@ public class CommitPerActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_commit_per);
 
         button_back = (Button)findViewById(R.id.button_back);
+        button_submit = findViewById(R.id.button_submit_comment_to_user);
         button_back.setOnClickListener(this);
+        button_submit.setOnClickListener(this);
 
         initPersonal();//初始化消息
         initView();
@@ -42,6 +48,8 @@ public class CommitPerActivity extends AppCompatActivity implements View.OnClick
             case R.id.button_back:
                 finish();
                 break;
+            case R.id.button_submit_comment_to_user:
+                sendGrade();
         }
 
     }
@@ -74,12 +82,32 @@ public class CommitPerActivity extends AppCompatActivity implements View.OnClick
 
 
     private  void initPersonal(){
-        for(int i =0;i<6;i++){
+        for(int i =0;i<10;i++){
            // Personal personal = new Personal("联合国儿童基金委",R.drawable.avatar1,"您好！您报名的联合国儿童基金委志愿者…",R.drawable.point_red);
             Personal personal = new Personal();
 //            personal.setAvatorurl();
-//            personal.setCommittext();
+            personal.setCommittext("亲爱的志愿者: 感谢您对志愿事业的大力支持");
+            personal.setGrade(1);
             personalList.add(personal);
+        }
+    }
+
+    private void sendGrade(){
+        Log.d("CommentPersonActivity", String.valueOf(personalList.size()));
+        for (int i = 0; i < personalList.size(); i++){
+//            Log.d("CommentPersonActivity", tv_title.getText().toString());
+            LinearLayout lLayout = (LinearLayout) recyclerView.getLayoutManager().findViewByPosition(i);
+            if (lLayout == null){
+                Log.d("CommentPersonActivity", "Layout " + i + "null");
+            }else{
+                TextView tv_title = (TextView) lLayout.findViewById(R.id.str_message);
+//            TextView tv_title = (TextView) adapter.getViewByPosition(recyclerView, i, R.id.str_message);
+                if (tv_title == null){
+                    Log.d("CommentPersonActivity", i + "null");
+                }else{
+                    Log.d("CommentPersonActivity", i + " " + tv_title.getText().toString());
+                }
+            }
         }
     }
 }
