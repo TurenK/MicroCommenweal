@@ -5,15 +5,19 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.SyncStateContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -56,7 +60,9 @@ import okhttp3.Response;
 public class PublishActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private static final int IMAGE_REQUEST_CODE = 0;
+    private static final int CUT_PICTURE = 1000;
 
+    private Uri selectedImage;
     private String pic_path;
     private String received_filepath;
     private List<String> list;
@@ -197,7 +203,7 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
                 // 调用android自带的图库
                 Intent intent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, IMAGE_REQUEST_CODE);
+                startActivityForResult(intent, CUT_PICTURE);
                 break;
             case R.id.charity_submit:
                 if (et_title.getText().toString().trim().equals("")) {
@@ -256,19 +262,34 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
         super.onActivityResult(requestCode, resultCode, data);
         //在相册里面选择好相片之后调回到现在的这个activity中
         switch (requestCode) {
+            case CUT_PICTURE:
+                if (resultCode == RESULT_OK) {
+                    selectedImage = data.getData(); //获取系统返回的照片的Uri
+                    //此处启动裁剪程序
+                    Intent intent = new Intent("com.android.camera.action.CROP");
+                    //添加这一句表示对目标应用临时授权该Uri所代表的文件
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    intent.setDataAndType(data.getData(), "image/*");
+                    intent.putExtra("scale", true);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, selectedImage);
+                    startActivityForResult(intent, IMAGE_REQUEST_CODE);
+                }
+                break;
             case IMAGE_REQUEST_CODE://这里的requestCode是我自己设置的，就是确定返回到那个Activity的标志
                 if (resultCode == RESULT_OK) {//resultcode是setResult里面设置的code值
                     try {
-                        Uri selectedImage = data.getData(); //获取系统返回的照片的Uri
-                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                        Cursor cursor = getContentResolver().query(selectedImage,
-                                filePathColumn, null, null, null);//从系统表中查询指定Uri对应的照片
-                        cursor.moveToFirst();
-                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                        pic_path = cursor.getString(columnIndex);  //获取照片路径
-                        cursor.close();
-                        Bitmap bitmap = BitmapFactory.decodeFile(pic_path);
-                        Log.d("PublishActivity:", pic_path);
+                        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver()
+                                .openInputStream(selectedImage));
+//                        picture.setImageBitmap(bitmap);
+//                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+//                        Cursor cursor = getContentResolver().query(selectedImage,
+//                                filePathColumn, null, null, null);//从系统表中查询指定Uri对应的照片
+//                        cursor.moveToFirst();
+//                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+//                        pic_path = cursor.getString(columnIndex);  //获取照片路径
+//                        cursor.close();
+//                        Bitmap bitmap = BitmapFactory.decodeFile(pic_path);
+//                        Log.d("PublishActivity:", pic_path);
                         charity_iamge.setImageBitmap(bitmap);
                         //Thread.sleep(2000);
 
@@ -281,6 +302,50 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
         }
+    }
+
+    /**
+     * 调用系统剪裁功能
+     */
+    public void cropPicture(Activity activity, String path)
+    {
+        File file = new File(path);
+        if (!file.getParentFile().exists())
+        {
+            file.getParentFile().mkdirs();
+        }
+        Uri imageUri;
+        Uri outputUri;
+        String crop_image = file.getParent()+"_crop_"+"temp";
+
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+        {
+            //添加这一句表示对目标应用临时授权该Uri所代表的文件
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            //TODO:访问相册需要被限制，需要通过FileProvider创建一个content类型的Uri
+            imageUri = FileProvider.getUriForFile(activity,  "com.solux.furniture.fileprovider", file);
+            outputUri = Uri.fromFile(new File(crop_image));
+            //TODO:裁剪整个流程，估计授权一次就好outputUri不需要ContentUri,否则失败
+            //outputUri = FileProvider.getUriForFile(activity, "com.solux.furniture.fileprovider", new File(crop_image));
+        } else
+        {
+            imageUri = Uri.fromFile(file);
+            outputUri = Uri.fromFile(new File(crop_image));
+        }
+        intent.setDataAndType(imageUri, "image/*");
+        intent.putExtra("crop", "true");
+        //设置宽高比例
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        //设置裁剪图片宽高
+        intent.putExtra("outputX", 300);
+        intent.putExtra("outputY", 300);
+        intent.putExtra("scale", true);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        intent.putExtra("noFaceDetection", true);
+        activity.startActivityForResult(intent, IMAGE_REQUEST_CODE);
     }
 
     private void sendInfo() {
