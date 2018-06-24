@@ -130,7 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:text=" 爱满星河儿童关怀"
+                    android:text="       爱满星河儿童关怀"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
                 <!--岗位ID-->
