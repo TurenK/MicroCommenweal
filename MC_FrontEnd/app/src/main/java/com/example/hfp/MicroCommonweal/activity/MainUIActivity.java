@@ -33,12 +33,11 @@ public class MainUIActivity extends AppCompatActivity implements View.OnClickLis
     private RelativeLayout charityLayout, publishLayout, meLayout;
     // 底部标签切换的Fragment
     private Fragment charityFragment,meFragment,
-            currentFragment,messageFragment;
+            currentFragment;
     // 底部标签图片
     private ImageView charityImg, publishImg, meImg;
     // 底部标签的文本
     private TextView charityTv, meTv;
-    private FragmentManager mFragmentManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

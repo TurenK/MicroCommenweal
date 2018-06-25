@@ -6,6 +6,7 @@ public class Charity {
     private  String imagepath;
     private  String peoplenum;
     private  String status;
+    private String commentscore;
 
     public Charity(){
     }
@@ -48,5 +49,13 @@ public class Charity {
 
     public void setImagepath(String imagepath) {
         this.imagepath = imagepath;
+    }
+
+    public String getCommentscore() {
+        return commentscore;
+    }
+
+    public void setCommentscore(String commentscore) {
+        this.commentscore = commentscore;
     }
 }

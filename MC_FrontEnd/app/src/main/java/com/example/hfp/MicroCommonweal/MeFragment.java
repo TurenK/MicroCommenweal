@@ -79,25 +79,25 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
                 startActivity(new Intent(getContext(),CollectionActivity.class));
                 break;
             case R.id.button_useless:
-                if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_USER){
-                    Toast.makeText(getContext(), "该功能只对组织用户开放", Toast.LENGTH_SHORT).show();
-                }else{
-                    startActivity(new Intent(getContext(),PublishedCharityActivity.class));
-                }
-                break;
-            case R.id.button_join:
-                if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_ORG){
-                    Toast.makeText(getContext(), "该功能只对个人用户开放", Toast.LENGTH_SHORT).show();
-                }else{
-                    startActivity(new Intent(getContext(),JoinedCharityActivity.class));
-                }
-                break;
-            case R.id.button_orgContent:
                 if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_ORG){
                     startActivity(new Intent(getContext(),OrgRateActivity.class));
                 }else{
                     startActivity(new Intent(getContext(),PreRateActivity.class));
                 }
+                break;
+            case R.id.button_join:
+                if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_ORG){
+                    startActivity(new Intent(getContext(),PublishedCharityActivity.class));
+                }else{
+                    startActivity(new Intent(getContext(),JoinedCharityActivity.class));
+                }
+                break;
+            case R.id.button_orgContent:
+//                if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_ORG){
+//                    startActivity(new Intent(getContext(),OrgRateActivity.class));
+//                }else{
+//                    startActivity(new Intent(getContext(),PreRateActivity.class));
+//                }
                 break;
             case R.id.button_orgMessage:
                 startActivity(new Intent(getContext(),MessageActivity.class));
