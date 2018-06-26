@@ -44,7 +44,8 @@
         <activity android:name=".activity.CommitOrgActivity" />
         <activity android:name=".activity.CommitPerActivity" />
         <activity android:name=".activity.OrgInfoActivity" />
-        <activity android:name=".activity.PersonInfoActivity"></activity>
+        <activity android:name=".activity.PersonInfoActivity" />
+        <activity android:name=".activity.CharityCommentListActivity"></activity>
     </application>
 
 </manifest>

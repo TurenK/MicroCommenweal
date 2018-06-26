@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.hfp.MicroCommonweal.activity.JoinedCharityActivity">
+    <!--这个界面也…能改的话就是加搜索或者收藏的日期？-->
     <RelativeLayout
         android:id="@+id/title_layout"
         android:layout_width="match_parent"
@@ -24,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="收藏"
+            android:text="我的收藏"
             android:textColor="#ffffff"
             android:textSize="20sp" />
     </RelativeLayout>

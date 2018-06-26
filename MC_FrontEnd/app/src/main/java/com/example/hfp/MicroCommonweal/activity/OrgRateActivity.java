@@ -1,6 +1,6 @@
 package com.example.hfp.MicroCommonweal.activity;
 /*
-* Desc:这个界面是组织评价
+* Desc:这个界面是组织评价，活动列表
 * */
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -82,7 +82,9 @@ public class OrgRateActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onItemClick(View view, int position) {
                 Toast.makeText(OrgRateActivity.this, Integer.toString(position), Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(OrgRateActivity.this,CommitPerActivity.class);
+                Intent intent=new Intent();
+                intent.setClass(OrgRateActivity.this, CommitPerActivity.class);
+                intent.putExtra("activityID", charityList.get(position).getaID());
                 startActivity(intent);
             }
         });

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.hfp.MicroCommonweal.activity.PublishActivity">
+    <!--这个功能不做了-->
     <!--标题栏消息-->
     <RelativeLayout
         android:id="@+id/title_layout"

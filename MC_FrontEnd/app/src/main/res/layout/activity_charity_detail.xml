@@ -6,7 +6,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
      >
-
+    <!--换了头图，改了字体大小-->
     <!--标题栏消息-->
     <RelativeLayout
         android:id="@+id/title_layout"
@@ -66,24 +66,24 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
+            <!--图片换成浅色的也不好看啊-->
             <ImageView
                 android:id="@+id/VBackground"
-                android:layout_width="fill_parent"
-                android:layout_height="162dp"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
+                android:scaleType="fitXY"
                 android:src="@drawable/charity_title"
                 tools:ignore="RtlCompat" />
-            <!--发起人…-->
+            <!--发起人-->
             <RelativeLayout
                 android:id="@+id/alarm_layout"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:layout_below="@+id/title_layout"
                 android:layout_marginTop="4dp"
                 android:background="#F0F0F0">
-
 
                 <TextView
                     android:id="@+id/str_by"
@@ -95,12 +95,13 @@
                     android:textColor="@color/gray"
                     android:textSize="14sp" />
 
+                <!--能点这个跳转吗-->
                 <TextView
                     android:id="@+id/str_originator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="发起人(点我会跳转)"
+                    android:text="爱满星河公益组织"
                     android:textColor="#191970"
                     android:textSize="14sp" />
 
@@ -116,93 +117,6 @@
 
 
             </RelativeLayout>
-
-            <!--项目信息-->
-            <RelativeLayout
-                android:id="@+id/layout_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical">
-                <!--标题-->
-                <TextView
-                    android:id="@+id/str_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text=" 爱满星河儿童关怀"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-                <!--岗位ID-->
-                <TextView
-                    android:id="@+id/gangweiID"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/str_title"
-                    android:text="      岗位ID:"
-                    android:textColor="@color/gray"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:id="@+id/str_ID"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/str_title"
-                    android:layout_toRightOf="@+id/gangweiID"
-                    android:text="1899023"
-                    android:textColor="@color/gray"
-                    android:textSize="13sp" />
-                <!--岗位描述-->
-                <TextView
-                    android:id="@+id/gangweimiaoshu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/gangweiID"
-                    android:text="      岗位描述:"
-                    android:textColor="@color/gray"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:id="@+id/kongge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/gangweiID"
-                    android:text="      "
-                    android:textColor="@color/gray"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:id="@+id/str_introduction"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/gangweimiaoshu"
-                    android:layout_toRightOf="@+id/kongge"
-                    android:text="参与福利院儿童关怀工作"
-                    android:textColor="@color/gray"
-                    android:textSize="13sp" />
-                <!--岗位条件-->
-                <TextView
-                    android:id="@+id/gangweitiaojian"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/str_introduction"
-                    android:text="      岗位条件:"
-                    android:textColor="@color/gray"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:id="@+id/str_condition"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/gangweitiaojian"
-                    android:layout_toRightOf="@+id/kongge"
-                    android:text="五官端正，着装整齐，身体健康，责任心强"
-                    android:textColor="@color/gray"
-                    android:textSize="13sp" />
-
-
-            </RelativeLayout>
-
             <!--人数-日期-->
             <LinearLayout
                 android:id="@+id/num_layout"
@@ -296,6 +210,98 @@
                 </RelativeLayout>
 
             </LinearLayout>
+            <!--项目信息-->
+            <RelativeLayout
+                android:id="@+id/layout_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_marginTop="4dp"
+                android:orientation="vertical">
+                <!--标题-->
+                <TextView
+                    android:id="@+id/str_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="     大熊猫繁育基地科普教育志愿者"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+                <!--岗位ID-->
+                <TextView
+                    android:id="@+id/gangweiID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/str_title"
+                    android:text="岗位ID:"
+                    android:layout_toRightOf="@+id/kongge"
+                    android:textColor="@color/gray"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/str_ID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/str_title"
+                    android:layout_toRightOf="@+id/gangweiID"
+                    android:text="1899023"
+                    android:textColor="@color/gray"
+                    android:textSize="15sp" />
+                <!--岗位描述-->
+                <TextView
+                    android:id="@+id/gangweimiaoshu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/gangweiID"
+                    android:text="岗位描述:"
+                    android:layout_toRightOf="@+id/kongge"
+                    android:textColor="@color/gray"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/kongge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/gangweiID"
+                    android:text="        "
+                    android:textColor="@color/gray"
+                    android:textSize="19sp" />
+
+                <TextView
+                    android:id="@+id/str_introduction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/gangweimiaoshu"
+                    android:layout_toRightOf="@+id/kongge"
+                    android:text="四川都江堰大熊猫基地科普教育志愿者"
+                    android:textColor="@color/gray"
+                    android:textSize="13sp" />
+                <!--岗位条件-->
+                <TextView
+                    android:id="@+id/gangweitiaojian"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/str_introduction"
+                    android:text="岗位条件:"
+                    android:layout_toRightOf="@+id/kongge"
+                    android:textColor="@color/gray"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/str_condition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/gangweitiaojian"
+                    android:layout_toRightOf="@+id/kongge"
+                    android:text="五官端正，着装整齐，身体健康，责任心强
+志愿者申请人需为年满14周岁（14至18周岁未成年人需监护人书面同意）的中国公民（通晓外语者更佳）"
+                    android:textColor="@color/gray"
+                    android:textSize="13sp" />
+
+
+            </RelativeLayout>
+
+
 
             <!--项目详情-->
             <RelativeLayout
@@ -321,7 +327,7 @@
                     android:layout_marginTop="11dp"
                     android:text="项目详情"
                     android:textColor="#191970"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -367,7 +373,7 @@
                     android:layout_marginTop="11dp"
                     android:text="最近参与"
                     android:textColor="#191970"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <android.support.v7.widget.RecyclerView
@@ -410,7 +416,7 @@
                     android:layout_marginTop="11dp"
                     android:text="讨论专区"
                     android:textColor="#191970"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <!--啊啊啊啊commentitem-->

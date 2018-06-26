@@ -27,6 +27,7 @@ public class ChoseRoleActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.personal_user: // 个人用户
+                //startActivity(new Intent(ChoseRoleActivity.this,PersonInfoActivity.class));
                 startActivity(new Intent(ChoseRoleActivity.this,RegisterActivity.class));
                 finish();
                 break;
