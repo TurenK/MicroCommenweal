@@ -50,7 +50,7 @@ public class CharityCommentListActivity extends AppCompatActivity implements Vie
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         initAdapter();
         // addHeadView();
-        recyclerView.setAdapter(adapter);
+        //recyclerView.setAdapter(adapter);
     }
 
     /**
