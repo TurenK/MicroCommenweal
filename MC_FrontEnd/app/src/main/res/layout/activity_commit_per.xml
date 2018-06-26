@@ -5,6 +5,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
+    <!--把提交按钮改成✔了-->
     <!--标题栏-->
     <RelativeLayout
         android:id="@+id/title_layout"
@@ -33,10 +34,9 @@
             android:layout_height="50dp"
             android:layout_marginTop="1dp"
             android:layout_alignParentRight="true"
-            android:text="提交"
+            android:background="@drawable/icon_submit"
             android:textColor="#ffffff"
-            android:textSize="15sp"
-            android:background="@null" />
+            android:textSize="15sp" />
     </RelativeLayout>
     <!--加rateitem-->
     <android.support.v7.widget.RecyclerView

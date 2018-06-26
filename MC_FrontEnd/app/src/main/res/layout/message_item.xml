@@ -46,14 +46,15 @@
             android:layout_height="match_parent">
             <TextView
                 android:id="@+id/str_addresser"
-                android:layout_width="307dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="19dp"
+                android:layout_marginTop="13dp"
                 android:gravity="left"
                 android:text="联合国儿童基金委"
+                android:textSize="20sp"
                 android:textColor="@color/black" />
 
             <TextView

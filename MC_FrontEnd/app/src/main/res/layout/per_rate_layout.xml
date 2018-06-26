@@ -5,6 +5,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
+    <!--这个界面换了-->
     <!--标题栏-->
     <RelativeLayout
         android:id="@+id/title_layout"

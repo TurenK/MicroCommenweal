@@ -26,7 +26,8 @@
                     android:layout_height="245dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:src="@drawable/back_vol"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/sky_world"
                     tools:ignore="RtlCompat">
 
                 </ImageView>
@@ -64,7 +65,7 @@
             <LinearLayout
                 android:id="@+id/VNaviLayout"
                 android:layout_below="@+id/VolunteerInfoLayout"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="1dp"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:orientation="horizontal" >
@@ -72,31 +73,32 @@
                 <Button
                     android:id="@+id/VButton_like"
                     android:layout_width="0dip"
-                    android:layout_height="72dip"
+                    android:layout_height="75dp"
                     android:layout_weight="1"
-                    android:background="#E0FFFF"
-                    android:textColor="#79CDCD"
-                    android:text="收藏" />
+                    android:textColor="@color/white"
+                    android:background="#A9F5E1"
+                    android:textSize="18sp"
+                    android:text="收藏项目" />
 
                 <Button
                     android:id="@+id/VButton_useless"
                     android:layout_width="0dip"
-                    android:layout_height="72dip"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="#76EEC6"
-                    android:textColor="@color/white"
-                    android:text="参与项目" />
-                <!--  这个按钮 是 凑数的 有别的 再加-->
-
+                    android:background="#00000000"
+                    android:textColor="@color/colorPrimary"
+                    android:text="参与项目"
+                    android:textSize="18sp"/>
 
                 <Button
                     android:id="@+id/VButton_join"
                     android:layout_width="0dip"
-                    android:layout_height="72dip"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="#E0FFFF"
-                    android:textColor="#79CDCD"
-                    android:text="义工记录" />
+                    android:background="#A9F5E1"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:text="评价处理" />
 
             </LinearLayout>
 
@@ -104,7 +106,7 @@
                 android:id="@+id/VButtonLayout"
                 android:layout_below="@+id/VNaviLayout"
                 android:layout_width="fill_parent"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_height="fill_parent"
                 android:orientation="vertical" >
 

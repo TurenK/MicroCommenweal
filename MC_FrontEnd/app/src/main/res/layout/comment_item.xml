@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <!--未读消息-->
+    
     <LinearLayout
         android:id="@+id/MessageLayout"
         android:layout_width="match_parent"
@@ -35,19 +35,20 @@
             android:layout_height="match_parent">
             <TextView
                 android:id="@+id/str_addresser"
-                android:layout_width="307dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="19dp"
+                android:layout_marginTop="13dp"
                 android:gravity="left"
+                android:textSize="20sp"
                 android:text="剁椒鸡蛋"
                 android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/str_comment"
-                android:layout_width="307dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
