@@ -131,6 +131,7 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
                 break;
             case R.id.str_originator:
                 startActivity(new Intent(CharityDetailActivity.this,OrgInfoActivity.class));
+//                startActivity(new Intent(CharityDetailActivity.this,PersonInfoActivity.class));
 
 
         }
