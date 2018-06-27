@@ -91,7 +91,7 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 
 
     private  void initCharities(){
-        for (int i = 1; i <= 1; i++){
+        for (int i = 0; i <1; i++){
             Charity charity = new Charity();
             charityList.add(charity);
         }
