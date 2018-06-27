@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <!--未读消息-->
+    <!--这个item是不是弃了-->
     <LinearLayout
         android:id="@+id/MessageLayout"
         android:layout_width="match_parent"
@@ -67,7 +67,7 @@
 
             <TextView
                 android:id="@+id/str_message"
-                android:layout_width="307dp"
+                android:layout_width="wrap_content"
                 android:layout_below="@+id/ratingbar"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"

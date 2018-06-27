@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.hfp.MicroCommonweal.activity.ChoseRoleActivity">
+    <!--这界面，无法挽救了-->
     <ImageButton
         android:id="@+id/personal_user"
         android:layout_width="match_parent"

@@ -46,8 +46,8 @@
 
         <TextView
             android:id="@+id/str_ranking"
-            android:layout_width="35dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignStart="@+id/image_medal"
             android:layout_alignLeft="@+id/image_medal"
 
@@ -58,7 +58,7 @@
 
         <ImageView
             android:id="@+id/image_touxiangkuang"
-            android:layout_width="84dp"
+            android:layout_width="85dp"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"

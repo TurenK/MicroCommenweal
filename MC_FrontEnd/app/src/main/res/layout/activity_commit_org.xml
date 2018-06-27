@@ -4,7 +4,12 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ebebeb"
+        android:orientation="vertical"
+        android:scrollbars="none">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,21 +51,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:id="@+id/charity_it"
-                android:layout_width="120dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/charity_iamge"
-                    android:layout_width="84dp"
-                    android:layout_height="84dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
                     android:layout_centerInParent="true"
                     android:contentDescription="TODO"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/thumbnail1" />
+                    android:scaleType="fitXY"
+                    android:src="@drawable/charity_title" />
 
             </RelativeLayout>
 
@@ -72,40 +77,61 @@
                 <TextView
                     android:id="@+id/charity_name"
                     android:layout_width="match_parent"
-                    android:layout_height="58dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="left"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_horizontal"
                     android:lineSpacingMultiplier="1.3"
-                    android:text="同饮一湖清水，共享生态文明，保护水库环境做文明市民签名活动"
-                    android:textColor="@color/black"
-                    android:textSize="16dp" />
+                    android:text="大熊猫繁育基地科普教育志愿者"
+                    android:background="@color/white"
+                    android:textSize="20sp"
+                    android:textColor="@color/black" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/activity_num"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:text="10人报名"
+                        android:gravity="right"
+                        android:textSize="15dp" />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        >
                         <TextView
-                            android:id="@+id/activity_num"
-                            android:layout_width="85dp"
+                            android:id="@+id/kongge1"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:text="10人报名"
-                            android:textSize="15dp" />
-
+                            android:layout_below="@+id/activity_num"
+                            android:text="     "
+                            android:textColor="@color/gray"
+                            android:textSize="19sp" />
                         <TextView
                             android:id="@+id/charity_description"
-                            android:layout_width="match_parent"
-                            android:layout_height="150dp"
+                            android:layout_width="0dp"
+                            android:layout_weight="13"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@+id/kongge"
                             android:layout_alignParentTop="true"
                             android:layout_gravity="center"
-                            android:text="test"
-                            android:textSize="20dp" />
+                            android:text="大熊猫是中国特有珍贵野生动物，有“国宝”和“活化石”之称，被誉为野生动物保护领域的“旗舰物种”。"
+                            android:textSize="15dp" />
+                        <TextView
+                            android:id="@+id/kongge2"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/activity_num"
+                            android:text="     "
+                            android:textColor="@color/gray"
+                            android:textSize="19sp" />
                     </LinearLayout>
 
                 </RelativeLayout>
@@ -117,8 +143,9 @@
             android:id="@+id/rate_layout"
             android:layout_width="match_parent"
             android:layout_height="70dp"
+            android:background="@color/white"
             android:layout_below="@+id/title_layout"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="4dp">
 
             <TextView
                 android:id="@+id/pingxing"
@@ -154,8 +181,9 @@
             android:id="@+id/detail_layout"
             android:layout_width="match_parent"
             android:layout_height="145dp"
+            android:background="@color/white"
             android:layout_below="@+id/rate_layout"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="4dp">
 
             <TextView
                 android:id="@+id/wenzimiaoshu"
@@ -176,8 +204,8 @@
                 android:textStyle="bold" />
 
             <android.support.design.widget.TextInputLayout
-                android:layout_width="322dp"
-                android:layout_height="93dp"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
                 android:layout_alignLeft="@+id/wenzimiaoshu"
                 android:layout_alignParentTop="true"
                 android:layout_alignStart="@+id/wenzimiaoshu"
@@ -192,4 +220,6 @@
         </RelativeLayout>
         <!--图片怎么加啊-->
     </LinearLayout>
+    </ScrollView>
 </RelativeLayout>
+

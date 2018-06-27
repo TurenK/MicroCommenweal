@@ -87,7 +87,7 @@
                 android:id="@+id/str_num_ranking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="8888"
+                android:text="1032"
                 android:textColor="@color/white" />
 
             <TextView
@@ -114,7 +114,7 @@
                 android:id="@+id/str_num_bean"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="6012"
+                android:text="120"
                 android:textColor="@color/white" />
 
             <TextView

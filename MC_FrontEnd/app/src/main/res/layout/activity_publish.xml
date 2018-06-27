@@ -49,20 +49,65 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
+
+            <RelativeLayout
+                android:id="@+id/charity_iamge_layout"
+                android:layout_width="match_parent"
+                android:layout_height="200sp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/charity_iamge"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true" />
+                <ImageView
+                    android:id="@+id/pic_add"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/str_reg"
+                    android:background="@drawable/icon_add"/>
+                <ImageButton
+                    android:id="@+id/select_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/str_reg"
+                    android:background="#00000000"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="right"
+                    android:text="添加图片"
+                    android:textColor="@color/gray"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+
             <LinearLayout
                 android:id="@+id/charity_category_layout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_below="@+id/charity_iamge_layout"
                 android:background="#ffffff"
                 android:orientation="horizontal">
+
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="义工类别："
-                    android:gravity="right"
-                    android:textSize="15sp"
-                    android:layout_marginLeft="5sp"
-                    android:layout_gravity="center_vertical"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5sp"
+                android:gravity="right"
+                android:text="义工类别："
+                android:textSize="15sp" />
 
                 <Spinner
                     android:id="@+id/et_charity_category"
@@ -71,206 +116,204 @@
 
                 </Spinner>
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/charity_title_layout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal"
+                android:layout_below="@+id/charity_category_layout"
                 android:layout_marginTop="5sp"
                 android:background="#ffffff"
-                android:layout_below="@+id/charity_category_layout">
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="义工标题："
-                    android:gravity="right"
-                    android:textSize="15sp"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5sp"
-                    android:layout_gravity="center_vertical"/>
+                    android:gravity="right"
+                    android:text="义工标题："
+                    android:textSize="15sp" />
+
                 <EditText
                     android:id="@+id/et_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@null"
                     android:maxLength="20"
-                    android:textSize="15sp"
-                    android:background="@null"/>
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/charity_peple_layout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal"
+                android:layout_below="@+id/charity_title_layout"
                 android:layout_marginTop="5sp"
                 android:background="#ffffff"
-                android:layout_below="@+id/charity_title_layout">
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="义工人数："
-                    android:gravity="right"
-                    android:textSize="15sp"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5sp"
-                    android:layout_gravity="center_vertical"/>
+                    android:gravity="right"
+                    android:text="义工人数："
+                    android:textSize="15sp" />
+
                 <EditText
                     android:id="@+id/et_people_num"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="15sp"
+                    android:background="@null"
                     android:maxLength="5"
-                    android:background="@null"/>
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/charity_begin_layout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal"
+                android:layout_below="@+id/charity_peple_layout"
                 android:layout_marginTop="5sp"
                 android:background="#ffffff"
-                android:layout_below="@+id/charity_peple_layout">
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="开始时间："
-                    android:gravity="right"
-                    android:textSize="15sp"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5sp"
-                    android:layout_gravity="center_vertical"/>
+                    android:gravity="right"
+                    android:text="开始时间："
+                    android:textSize="15sp" />
+
                 <TextView
                     android:id="@+id/et_begin"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="15sp"
-                    android:maxLength="11"
-                    android:hint="如：2018-5-6"
+                    android:background="@null"
                     android:gravity="center_vertical"
-                    android:background="@null"/>
+                    android:hint="如：2018-5-6"
+                    android:maxLength="11"
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/charity_end_layout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal"
+                android:layout_below="@+id/charity_begin_layout"
                 android:layout_marginTop="5sp"
                 android:background="#ffffff"
-                android:layout_below="@+id/charity_begin_layout">
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="结束时间："
-                    android:gravity="right"
-                    android:textSize="15sp"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5sp"
-                    android:layout_gravity="center_vertical"/>
+                    android:gravity="right"
+                    android:text="结束时间："
+                    android:textSize="15sp" />
+
                 <TextView
                     android:id="@+id/et_end"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="15sp"
-                    android:maxLength="11"
-                    android:hint="如：2018-5-10"
+                    android:background="@null"
                     android:gravity="center_vertical"
-                    android:background="@null"/>
+                    android:hint="如：2018-5-10"
+                    android:maxLength="11"
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/charity_position_layout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal"
+                android:layout_below="@+id/charity_end_layout"
                 android:layout_marginTop="5sp"
                 android:background="#ffffff"
-                android:layout_below="@+id/charity_end_layout">
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="义工地点："
-                    android:gravity="right"
-                    android:textSize="15sp"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5sp"
-                    android:layout_gravity="center_vertical"/>
+                    android:gravity="right"
+                    android:text="义工地点："
+                    android:textSize="15sp" />
+
                 <EditText
                     android:id="@+id/et_position"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="15sp"
-                    android:maxLength="14"
+                    android:background="@null"
                     android:hint="如：北京交通大学"
-                    android:background="@null"/>
+                    android:maxLength="14"
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/charity_phone_layout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal"
+                android:layout_below="@+id/charity_position_layout"
                 android:layout_marginTop="5sp"
                 android:background="#ffffff"
-                android:layout_below="@+id/charity_position_layout">
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="联系方式："
-                    android:gravity="right"
-                    android:textSize="15sp"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5sp"
-                    android:layout_gravity="center_vertical"/>
+                    android:gravity="right"
+                    android:text="联系方式："
+                    android:textSize="15sp" />
+
                 <EditText
                     android:id="@+id/et_phone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="15sp"
-                    android:maxLength="11"
+                    android:background="@null"
                     android:hint="电话/email"
-                    android:background="@null"/>
+                    android:maxLength="11"
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/charity_detail_layout"
                 android:layout_width="match_parent"
                 android:layout_height="200sp"
-                android:orientation="vertical"
+                android:layout_below="@+id/charity_phone_layout"
                 android:layout_marginTop="5sp"
                 android:background="#ffffff"
-                android:layout_below="@+id/charity_phone_layout">
+                android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="义工详情："
-                    android:gravity="right"
-                    android:textSize="15sp"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5sp"
-                    android:layout_gravity="center_vertical"/>
+                    android:gravity="right"
+                    android:text="义工详情："
+                    android:textSize="15sp" />
+
                 <EditText
                     android:id="@+id/et_detail"
                     android:layout_width="match_parent"
                     android:layout_height="200sp"
-                    android:textSize="15sp"
-                    android:maxLength="140"
-                    android:hint="不超过140个字"
+                    android:background="@null"
                     android:gravity="left"
-                    android:background="@null"/>
+                    android:hint="不超过140个字"
+                    android:maxLength="140"
+                    android:textSize="15sp" />
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/charity_iamge_layout"
-                android:layout_width="match_parent"
-                android:layout_height="300sp"
-                android:orientation="vertical"
-                android:layout_below="@+id/charity_detail_layout">
 
-                <Button
-                    android:id="@+id/select_pic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50sp"
-                    android:text="选择图片"/>
-                <ImageView
-                    android:id="@+id/charity_iamge"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </LinearLayout>
         </RelativeLayout>
 
     </ScrollView>
