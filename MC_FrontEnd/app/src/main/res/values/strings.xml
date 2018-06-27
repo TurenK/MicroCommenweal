@@ -14,12 +14,13 @@
     <string name="URL_GROUP_REG">/groupRegistered.php</string>
     <string name="URL_DETAIL_ACTIVITY">/detailInfor.php</string>
     <string name="URL_MY_JOIN">/historyListUser.php</string>
+    <string name="URL_GROUP_PUBLISH">/historyListGroup.php</string>
     <string name="URL_ORG_COMMIT_RATING">/groupToManyUser.php</string>
     <string name="URL_PRE_RATE">/evaluateUserHistoryList.php</string>
     <string name="URL_GET_ORGINFO">/numOfActivity.php</string>
     <string name="URL_SEND_P2OCOMMIT">/evaluateUserToGroup.php</string>
     <string name="URL_ORG_INFO">/groupInfoOther.php</string>
-    <string name="URL_CHARITY_COMMENT_LIST">/??.php</string>
+    <string name="URL_CHARITY_COMMENT_LIST">/scoreOfAActivity.php</string>
     <string name="URL_UNCOMMENT_ACT">/evaluateGroupNeedList.php</string>
     <string name="title_activity_tstst">tstst</string>
     <string name="title_home">Home</string>

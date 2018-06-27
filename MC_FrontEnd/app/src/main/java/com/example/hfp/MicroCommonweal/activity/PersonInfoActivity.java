@@ -30,6 +30,7 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
     private TextView tv_comment_score;
     private TextView tv_total_time;
     private TextView tv_charity_num;
+    private CharityAdapter listadapter;
 
     //recyclerview控件
     RecyclerView recyclerView_charity;
@@ -64,20 +65,33 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
         initPersonal();//初始化消息
         initCharities();//初始化义工
 
-        //初始化义工列表的recycle和adapter
-        recyclerView_charity = (RecyclerView)findViewById(R.id.rv_charity);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView_charity.setLayoutManager(layoutManager);
-        CharityAdapter adapter_charity = new CharityAdapter(charityList,getApplicationContext());
-        recyclerView_charity.setAdapter(adapter_charity);
-
         //初始化评价列表的recycle和adapter
         recyclerView_comment = (RecyclerView)findViewById(R.id.rv_comment);
         recyclerView_comment.setLayoutManager(new LinearLayoutManager(this));
         PersonalAdapter adapter_comment = new PersonalAdapter(R.layout.charity_comment_personlist_item, personalList,this);
         adapter_comment.openLoadAnimation();
         recyclerView_comment.setAdapter(adapter_comment);
+        initView();
     }
+
+    private void initView() {
+        recyclerView_charity = (RecyclerView)findViewById(R.id.rv_charity);
+        recyclerView_charity.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        initAdapter();
+        // addHeadView();
+        recyclerView_charity.setAdapter(listadapter);
+    }
+
+    /**
+     * 初始化adapter
+     */
+    private void initAdapter() {
+        listadapter = new CharityAdapter(R.layout.charity_item,charityList,getApplicationContext());
+        listadapter.openLoadAnimation();
+        recyclerView_charity.setAdapter(listadapter);
+        //  addHeadView();
+    }
+
 
     @Override
     public void onClick(View v) {

@@ -75,7 +75,7 @@
                 android:textColor="@color/white"
                 android:background="#A9F5E1"
                 android:textSize="18sp"
-                android:text="收藏项目" />
+                android:text="收藏的项目" />
 
             <Button
                 android:id="@+id/button_useless"

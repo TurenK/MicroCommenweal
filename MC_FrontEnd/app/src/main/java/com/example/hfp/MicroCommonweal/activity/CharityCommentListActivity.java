@@ -122,8 +122,9 @@ public class CharityCommentListActivity extends AppCompatActivity implements Vie
 
                     initView();
 
-                }else if(code == 400){
+                }else{
                     Toast.makeText(CharityCommentListActivity.this, "获取信息失败！请稍后再试", Toast.LENGTH_LONG).show();
+                    initView();
                 }
 //                super.onSuccess(content);
             }

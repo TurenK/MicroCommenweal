@@ -204,7 +204,8 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
                 // 调用android自带的图库
                 Intent intent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, CUT_PICTURE);
+                //startActivityForResult(intent, CUT_PICTURE);
+                startActivityForResult(intent, IMAGE_REQUEST_CODE);
                 break;
             case R.id.charity_submit:
                 if (et_title.getText().toString().trim().equals("")) {
@@ -279,19 +280,19 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
             case IMAGE_REQUEST_CODE://这里的requestCode是我自己设置的，就是确定返回到那个Activity的标志
                 if (resultCode == RESULT_OK) {//resultcode是setResult里面设置的code值
                     try {
-                        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver()
-                                .openInputStream(selectedImage));
-//                        picture.setImageBitmap(bitmap);
-//                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
-//                        Cursor cursor = getContentResolver().query(selectedImage,
-//                                filePathColumn, null, null, null);//从系统表中查询指定Uri对应的照片
-//                        cursor.moveToFirst();
-//                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-//                        pic_path = cursor.getString(columnIndex);  //获取照片路径
-//                        cursor.close();
-//                        Bitmap bitmap = BitmapFactory.decodeFile(pic_path);
-//                        Log.d("PublishActivity:", pic_path);
-                        charity_iamge.setImageBitmap(bitmap);
+//                        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver()
+//                                .openInputStream(selectedImage));
+                        selectedImage = data.getData(); //获取系统返回的照片的Uri
+                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                        Cursor cursor = getContentResolver().query(selectedImage,
+                                filePathColumn, null, null, null);//从系统表中查询指定Uri对应的照片
+                        cursor.moveToFirst();
+                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                        pic_path = cursor.getString(columnIndex);  //获取照片路径
+                        cursor.close();
+                        Bitmap bitmap = BitmapFactory.decodeFile(pic_path);
+                        Log.d("PublishActivity:", pic_path);
+                        selectpic.setImageBitmap(bitmap);
                         //Thread.sleep(2000);
 
                         imageUpAndDownUtil.testPostImage(pic_path);
