@@ -57,7 +57,7 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
         tv_total_time = findViewById(R.id.tv_total_time);
         tv_charity_num = findViewById(R.id.tv_charity_num);
 
-        button_back = (Button)findViewById(R.id.button_back);
+        button_back = (Button)findViewById(R.id.btn_back);
         button_back.setOnClickListener(this);
 
 
@@ -91,7 +91,7 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 
 
     private  void initCharities(){
-        for (int i = 1; i <= 1; i++){
+        for (int i = 0; i <1; i++){
             Charity charity = new Charity();
             charityList.add(charity);
         }
