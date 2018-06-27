@@ -6,17 +6,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONObject;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.hfp.MicroCommonweal.R;
+import com.example.hfp.MicroCommonweal.Utils.AsyncHttpUtil;
+import com.example.hfp.MicroCommonweal.Utils.ImageUpAndDownUtil;
 import com.example.hfp.MicroCommonweal.adapter.OrgCommentCharityAdapter;
 import com.example.hfp.MicroCommonweal.object.Charity;
+import com.example.hfp.MicroCommonweal.object.Organization;
+import com.example.hfp.MicroCommonweal.object.UserInfo;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
+import org.apache.http.entity.StringEntity;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +39,8 @@ public class OrgInfoActivity extends AppCompatActivity implements View.OnClickLi
     private TextView tv_total_time;
     private TextView tv_charity_num;
     private Button button_back;
+    private String TAG = "OrgInfoActivity";
+    private String OrgId;
 
     RecyclerView recyclerView;
     private OrgCommentCharityAdapter adapter;
@@ -50,9 +62,9 @@ public class OrgInfoActivity extends AppCompatActivity implements View.OnClickLi
 
         button_back = (Button)findViewById(R.id.button_back);
         button_back.setOnClickListener(this);
+        OrgId = getIntent().getStringExtra("orgid");
 
-        initCharities();//初始化消息
-        initView();
+        initData();
     }
 
     @Override
@@ -77,7 +89,7 @@ public class OrgInfoActivity extends AppCompatActivity implements View.OnClickLi
      * 初始化adapter
      */
     private void initAdapter() {
-        adapter = new OrgCommentCharityAdapter(R.layout.charity_comment_item, charityList);
+        adapter = new OrgCommentCharityAdapter(R.layout.charity_comment_item, charityList,getApplicationContext());
         adapter.openLoadAnimation();
         recyclerView.setAdapter(adapter);
         //  addHeadView();
@@ -85,19 +97,170 @@ public class OrgInfoActivity extends AppCompatActivity implements View.OnClickLi
         adapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                startActivity(new Intent(OrgInfoActivity.this,CharityCommentListActivity.class));
+                Charity charity = charityList.get(position);
+                //Toast.makeText(v.getContext(), "点击了", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent();
+                intent.setClass(getApplicationContext(), CharityCommentListActivity.class);
+                intent.putExtra("actId", charity.getaID());
+                getApplicationContext().startActivity(intent);
             }
         });
     }
 
-    private  void initCharities(){
-        for(int i =0;i<6;i++){
-            Charity charity = new Charity();
-            charity.setName("保护水库环境做文明市民签名活动");
-//            charity.setCommentscore();
-//            charity.setImagepath();
-            charityList.add(charity);
+    private  void initData(){
+//        for(int i =0;i<6;i++){
+//            Charity charity = new Charity();
+//            charity.setName("保护水库环境做文明市民签名活动");
+////            charity.setCommentscore();
+////            charity.setImagepath();
+//            charityList.add(charity);
+//        }
+
+        //创建网络访问对象
+        JSONObject main_json = new JSONObject();
+        main_json.put("orgId", OrgId);
+
+        Log.d(TAG, main_json.toString());
+
+        StringEntity stringEntity = null;
+        try {
+            stringEntity = new StringEntity(main_json.toJSONString());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
+
+        AsyncHttpUtil.post(this, this.getString(R.string.URL_ORG_INFO), stringEntity, "application/json", new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(String content) {
+                JSONObject jsonObject = JSONObject.parseObject(content);
+                int code = jsonObject.getInteger("code");
+                String info = jsonObject.getString("message");
+                Log.d(TAG, jsonObject.toString());
+                if (code == 200){
+                    //TODO get more JSON objects!
+                    JSONObject objectdata =jsonObject.getJSONObject("data");
+
+                    Organization organization = getOrgInfo(objectdata);
+
+                    displayOrgInfo(organization);
+
+                    getCharityInfo(objectdata);
+
+                    initView();
+
+                }else if(code == 400){
+                    Toast.makeText(OrgInfoActivity.this, "获取活动失败！请稍后再试", Toast.LENGTH_LONG).show();
+                }
+//                super.onSuccess(content);
+            }
+
+            @Override
+            public void onFailure(Throwable error, String content) {
+                Log.d(TAG, "cannot connect to server!");
+                Toast.makeText(OrgInfoActivity.this, "无法连接到服务器！", Toast.LENGTH_LONG).show();
+//                super.onFailure(error, content);
+            }
+        });
     }
 
+    private Organization getOrgInfo(JSONObject objectdata){
+        Organization organization = new Organization();
+        if(objectdata.containsKey("orgid")){
+            organization.setOrgId(objectdata.getString("orgid"));
+        }else {
+            Log.d(TAG, "orgid NOT FIND");
+            organization.setOrgId("LOAD FAILED");
+        }
+        if(objectdata.containsKey("orgname")){
+            organization.setOrgname(objectdata.getString("orgname"));
+        }else {
+            Log.d(TAG, "orgname NOT FIND");
+            organization.setOrgname("LOAD FAILED");
+        }
+        if(objectdata.containsKey("orgimage")){
+            organization.setOrgimage(objectdata.getString("orgimage"));
+        }else {
+            Log.d(TAG, "orgimage NOT FIND");
+            organization.setOrgimage("LOAD FAILED");
+        }
+        if(objectdata.containsKey("actnum")){
+            organization.setActnum(objectdata.getIntValue("actnum"));
+        }else {
+            Log.d(TAG, "actnum NOT FIND");
+            organization.setActnum(0);
+        }
+        if(objectdata.containsKey("description")){
+            organization.setDescription(objectdata.getString("description"));
+        }else {
+            Log.d(TAG, "description NOT FIND");
+            organization.setDescription("LOAD FAILED");
+        }
+        if(objectdata.containsKey("comnum")){
+            organization.setComnum(objectdata.getIntValue("comnum"));
+        }else {
+            Log.d(TAG, "comnum NOT FIND");
+            organization.setComnum(0);
+        }
+        if(objectdata.containsKey("grade")){
+            organization.setGrade(objectdata.getIntValue("grade"));
+        }else {
+            Log.d(TAG, "grade NOT FIND");
+            organization.setGrade(0);
+        }
+        if(objectdata.containsKey("totalTime")){
+            organization.setTotalTime(objectdata.getIntValue("totalTime"));
+        }else {
+            Log.d(TAG, "totalTime NOT FIND");
+            organization.setTotalTime(0);
+        }
+        return organization;
+    }
+
+    private void displayOrgInfo(Organization organization){
+        str_name.setText(organization.getOrgname());
+        str_address.setText("北京");
+        str_intro.setText(organization.getDescription());
+        tv_comment_score.setText(""+organization.getGrade()+"分");
+        tv_total_time.setText(""+organization.getTotalTime()+"小时");
+        tv_charity_num.setText(""+organization.getActnum()+"小时");
+        getImages(organization.getOrgimage(),image_avatar);
+    }
+
+    private void getImages(String url, ImageView imageView){
+        new ImageUpAndDownUtil(getApplicationContext()).testDownloadImage(url,imageView);
+    }
+
+    private void getCharityInfo(JSONObject objectdata){
+        for (int i = 1; i <= 20; i++){
+            if (objectdata.containsKey(String.valueOf(i))) {
+                JSONObject object = objectdata.getJSONObject(String.valueOf(i));
+                Charity charity = new Charity();
+                if(object.containsKey("actid")){
+                    charity.setaID(object.getString("actid"));
+                }else {
+                    Log.d(TAG, "actid NOT FIND");
+                    charity.setaID("LOAD FAILED");
+                }
+                if(object.containsKey("actname")){
+                    charity.setName(object.getString("actname"));
+                }else {
+                    Log.d(TAG, "actname NOT FIND");
+                    charity.setName("LOAD FAILED");
+                }
+                if(object.containsKey("actimage")){
+                    charity.setImagepath(object.getString("actimage"));
+                }else {
+                    Log.d(TAG, "actimage NOT FIND");
+                    charity.setImagepath("LOAD FAILED");
+                }
+                if(object.containsKey("actcom")){
+                    charity.setActcom(object.getIntValue("actcom"));
+                }else {
+                    Log.d(TAG, "actcom NOT FIND");
+                    charity.setActcom(0);
+                }
+                charityList.add(charity);
+            }
+        }
+    }
 }

@@ -9,6 +9,7 @@
     <color name="black">#000000</color>
     <color name="alpha_blue">#406d95e5</color>
     <color name="gray">#ABABAB</color>
+    <color name="background1">#FCFCFC</color>
 
     <!--这个是半透明的-->
 </resources>

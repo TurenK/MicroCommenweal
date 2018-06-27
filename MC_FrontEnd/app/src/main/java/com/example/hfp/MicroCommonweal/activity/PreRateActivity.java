@@ -16,9 +16,7 @@ import com.example.hfp.MicroCommonweal.R;
 import com.example.hfp.MicroCommonweal.Utils.AsyncHttpUtil;
 import com.example.hfp.MicroCommonweal.adapter.CharityAdapter;
 import com.example.hfp.MicroCommonweal.adapter.CharityAdapter_ForComment;
-import com.example.hfp.MicroCommonweal.adapter.OrganizationAdapter;
 import com.example.hfp.MicroCommonweal.object.Charity;
-import com.example.hfp.MicroCommonweal.object.Organization;
 import com.example.hfp.MicroCommonweal.object.UserInfo;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 

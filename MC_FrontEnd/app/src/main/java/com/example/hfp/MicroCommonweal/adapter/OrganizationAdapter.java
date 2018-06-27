@@ -23,7 +23,7 @@ public class OrganizationAdapter extends BaseQuickAdapter<Organization> {
     }
 
     private void getImages(Organization organization, ImageView imageView){
-        new ImageUpAndDownUtil(context).testDownloadImage(organization.getAvatorurl(),imageView);
+        new ImageUpAndDownUtil(context).testDownloadImage(organization.getOrgimage(),imageView);
     }
 
     @Override

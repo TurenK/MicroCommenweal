@@ -7,6 +7,8 @@ public class Charity {
     private  String peoplenum;
     private  String status;
     private String commentscore;
+    private String description;
+    private int actcom;
 
     public Charity(){
     }
@@ -57,5 +59,21 @@ public class Charity {
 
     public void setCommentscore(String commentscore) {
         this.commentscore = commentscore;
+    }
+
+    public int getActcom() {
+        return actcom;
+    }
+
+    public void setActcom(int actcom) {
+        this.actcom = actcom;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -18,6 +18,7 @@
     <string name="URL_PRE_RATE">/evaluateUserHistoryList.php</string>
     <string name="URL_GET_ORGINFO">/numOfActivity.php</string>
     <string name="URL_SEND_P2OCOMMIT">/evaluateUserToGroup.php</string>
+    <string name="URL_ORG_INFO">/??.php</string>
     <string name="title_activity_tstst">tstst</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
