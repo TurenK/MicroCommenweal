@@ -34,7 +34,7 @@
                 android:layout_marginTop="144dp"
                 android:layout_toEndOf="@+id/str_reg"
                 android:layout_toRightOf="@+id/str_reg"
-                android:src="@drawable/icon_Plus" />
+                android:src="@drawable/icon_plus" />
             <ImageButton
                 android:id="@+id/team_avatar"
                 android:layout_width="100dp"
