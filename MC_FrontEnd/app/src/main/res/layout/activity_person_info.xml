@@ -14,7 +14,7 @@
         android:background="@color/colorPrimary">
 
         <Button
-            android:id="@+id/btn_back"
+            android:id="@+id/btn_back_info"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_centerVertical="true"

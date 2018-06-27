@@ -10,17 +10,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.hfp.MicroCommonweal.R;
+import com.example.hfp.MicroCommonweal.Utils.AsyncHttpUtil;
+import com.example.hfp.MicroCommonweal.Utils.ImageUpAndDownUtil;
 import com.example.hfp.MicroCommonweal.adapter.CharityAdapter;
 import com.example.hfp.MicroCommonweal.adapter.PersonalAdapter;
 import com.example.hfp.MicroCommonweal.object.Charity;
 import com.example.hfp.MicroCommonweal.object.Personal;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+
+import org.apache.http.entity.StringEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PersonInfoActivity extends AppCompatActivity implements View.OnClickListener{
+    private String JOINING = "报名中";
+    private String CLOSED = "已结束";
+    private String DUE = "已截止";
 
     //声明控件
     private Button button_back;
@@ -45,9 +55,9 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_info);
 
-//        Intent intent = getIntent();
-//        uid = intent.getStringExtra("userID");
-//        Log.d("123", uid);
+        Intent intent = getIntent();
+        uid = intent.getStringExtra("userID");
+        Log.d("123", uid);
 
         //初始化控件
         image_avatar = findViewById(R.id.image_avatar);
@@ -57,26 +67,18 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
         tv_total_time = findViewById(R.id.tv_total_time);
         tv_charity_num = findViewById(R.id.tv_charity_num);
 
-        button_back = (Button)findViewById(R.id.btn_back);
+        button_back = (Button)findViewById(R.id.btn_back_info);
         button_back.setOnClickListener(this);
 
-
-        initPersonal();//初始化消息
-        initCharities();//初始化义工
+        init();
+//        initPersonal();//初始化消息
+//        initCharities();//初始化义工
 
         //初始化义工列表的recycle和adapter
         recyclerView_charity = (RecyclerView)findViewById(R.id.rv_charity);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView_charity.setLayoutManager(layoutManager);
-        CharityAdapter adapter_charity = new CharityAdapter(charityList,getApplicationContext());
-        recyclerView_charity.setAdapter(adapter_charity);
 
-        //初始化评价列表的recycle和adapter
-        recyclerView_comment = (RecyclerView)findViewById(R.id.rv_comment);
-        recyclerView_comment.setLayoutManager(new LinearLayoutManager(this));
-        PersonalAdapter adapter_comment = new PersonalAdapter(R.layout.charity_comment_personlist_item, personalList,this);
-        adapter_comment.openLoadAnimation();
-        recyclerView_comment.setAdapter(adapter_comment);
     }
 
     @Override
@@ -98,9 +100,127 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
     }
 
     private  void initPersonal(){
-        for(int i = 0;i<1;i++){
-            Personal personal = new Personal();
-            personalList.add(personal);
-        }
+        //初始化评价列表的recycle和adapter
+        recyclerView_comment = (RecyclerView)findViewById(R.id.rv_comment);
+        recyclerView_comment.setLayoutManager(new LinearLayoutManager(this));
+        PersonalAdapter adapter_comment = new PersonalAdapter(R.layout.charity_comment_list_item, personalList,this);
+        adapter_comment.openLoadAnimation();
+        recyclerView_comment.setAdapter(adapter_comment);
+    }
+
+    private void init(){
+        JSONObject detail_info = new JSONObject();
+        detail_info.put("userId", uid);
+        Log.d("CommitPerActivity", detail_info.toString());
+        StringEntity stringEntity = new StringEntity(detail_info.toString(), "UTF-8");
+        AsyncHttpUtil.post(this, this.getString(R.string.URL_USER_INFO), stringEntity, "application/json", new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(String content) {
+                JSONObject jsonObject = JSONObject.parseObject(content);
+                int code = jsonObject.getInteger("code");
+                String info = jsonObject.getString("message");
+                Log.d("PersonInfoActivity", jsonObject.toString());
+
+                if (code == 200){
+                    //TODO Intent
+//                    Toast.makeText(CharityDetailActivity.this, "创建成功！", Toast.LENGTH_LONG).show();
+                    JSONObject alldata = jsonObject.getJSONObject("data");
+
+                    String uid = alldata.getString("userid");
+                    String uname = alldata.getString("username");
+                    String avatar = alldata.getString("userimage");
+                    String ulabel = alldata.getString("userLabel");
+                    int actnum = alldata.getInteger("actnum");
+                    int totalTime = alldata.getInteger("totalTime");
+                    int comnum = alldata.getInteger("comnum");
+                    int grade = alldata.getInteger("grade");
+                    str_name.setText(uname);
+                    tv_comment_score.setText(String.valueOf(grade));
+                    tv_total_time.setText(String.valueOf(totalTime));
+                    tv_charity_num.setText(String.valueOf(actnum));
+                    new ImageUpAndDownUtil(PersonInfoActivity.this).testDownloadImage(avatar, image_avatar);
+                    for (int i = 0; i < comnum; i++){
+                        if (alldata.containsKey(String.valueOf(i))){
+                            JSONObject commentObj = alldata.getJSONObject(String.valueOf(i));
+                            Personal personal = new Personal();
+                            personal.setUid(commentObj.getString("orgid"));
+                            personal.setAvatorurl(commentObj.getString("orgimage"));
+                            personal.setCommittext(commentObj.getString("orgdes"));
+                            personal.setGrade(commentObj.getInteger("orgcom"));
+                            personalList.add(personal);
+                            Log.d("PersonInfoActivity", personal.getCommittext() + personal.getGrade());
+                        }
+                    }
+
+                    initPersonal();
+                    initAct();
+                }else if(code == 400){
+                    Toast.makeText(PersonInfoActivity.this, "获取信息失败！请稍后再试", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable error, String content) {
+                Log.d("CommitPerActivity", "cannot connect to server!");
+                Toast.makeText(PersonInfoActivity.this, "无法连接到服务器！", Toast.LENGTH_LONG).show();
+//                super.onFailure(error, content);
+            }
+        });
+    }
+
+    private void initAct(){
+        JSONObject detail_info = new JSONObject();
+        detail_info.put("userId", uid);
+        Log.d("CommitPerActivity", detail_info.toString());
+        StringEntity stringEntity = new StringEntity(detail_info.toString(), "UTF-8");
+        AsyncHttpUtil.post(this, this.getString(R.string.URL_MY_JOIN), stringEntity, "application/json", new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(String content) {
+                JSONObject jsonObject = JSONObject.parseObject(content);
+                int code = jsonObject.getInteger("code");
+                String info = jsonObject.getString("message");
+                Log.d("PersonInfoActivity", jsonObject.toString());
+
+                if (code == 200){
+                    //TODO Intent
+//                    Toast.makeText(CharityDetailActivity.this, "创建成功！", Toast.LENGTH_LONG).show();
+                    JSONObject alldata = jsonObject.getJSONObject("data");
+                    for (int i = 1; i <= 10; i++){
+                        if (alldata.containsKey(String.valueOf(i))){
+                            JSONObject actObj = alldata.getJSONObject(String.valueOf(i));
+                            Charity charity = new Charity();
+                            charity.setaID(actObj.getString("activityId"));
+                            charity.setName(actObj.getString("activityName"));
+                            charity.setImagepath(actObj.getString("activityImage"));
+                            String actStatus = actObj.getString("activityStatus");
+                            switch (actStatus) {
+                                case "1":
+                                    charity.setStatus(JOINING);
+                                    break;
+                                case "0":
+                                    charity.setStatus(CLOSED);
+                                    break;
+                                case "2":
+                                    charity.setStatus(DUE);
+                                    break;
+                            }
+                            charityList.add(charity);
+                        }
+                    }
+                    CharityAdapter adapter_charity = new CharityAdapter(charityList,getApplicationContext());
+                    recyclerView_charity.setAdapter(adapter_charity);
+//                    initView();
+                }else if(code == 400){
+                    Toast.makeText(PersonInfoActivity.this, "获取信息失败！请稍后再试", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable error, String content) {
+                Log.d("CommitPerActivity", "cannot connect to server!");
+                Toast.makeText(PersonInfoActivity.this, "无法连接到服务器！", Toast.LENGTH_LONG).show();
+//                super.onFailure(error, content);
+            }
+        });
     }
 }

@@ -44,6 +44,9 @@ public class PersonalAdapter extends BaseQuickAdapter<Personal> {
         RatingBar ratingBar = helper.getView(R.id.ratingbar);
         final TextView textView = helper.getView(R.id.str_message);
 
+        textView.setText(personal.getCommittext());
+        ratingBar.setRating(personal.getGrade());
+
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
