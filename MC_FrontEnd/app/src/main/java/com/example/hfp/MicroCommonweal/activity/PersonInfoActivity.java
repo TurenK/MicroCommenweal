@@ -1,9 +1,11 @@
 package com.example.hfp.MicroCommonweal.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -33,6 +35,8 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
     RecyclerView recyclerView_charity;
     RecyclerView recyclerView_comment;
 
+    private String uid;
+
     //义工列表
     private List<Charity> charityList = new ArrayList<>();
     private List<Personal> personalList = new ArrayList<>();
@@ -40,6 +44,10 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_info);
+
+//        Intent intent = getIntent();
+//        uid = intent.getStringExtra("userID");
+//        Log.d("123", uid);
 
         //初始化控件
         image_avatar = findViewById(R.id.image_avatar);
@@ -91,7 +99,6 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 
     private  void initPersonal(){
         for(int i = 0;i<1;i++){
-
             Personal personal = new Personal();
             personalList.add(personal);
         }

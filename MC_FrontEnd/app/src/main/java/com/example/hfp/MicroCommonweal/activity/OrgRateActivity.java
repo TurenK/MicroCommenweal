@@ -100,7 +100,7 @@ public class OrgRateActivity extends AppCompatActivity implements View.OnClickLi
 
         //创建网络访问对象
         JSONObject main_json = new JSONObject();
-        main_json.put("userId", uid);
+        main_json.put("gId", uid);
 
         Log.d(TAG, main_json.toString());
 
@@ -111,7 +111,7 @@ public class OrgRateActivity extends AppCompatActivity implements View.OnClickLi
             e.printStackTrace();
         }
 
-        AsyncHttpUtil.post(this, this.getString(R.string.URL_MAIN_FRAME), stringEntity, "application/json", new AsyncHttpResponseHandler() {
+        AsyncHttpUtil.post(this, this.getString(R.string.URL_UNCOMMENT_ACT), stringEntity, "application/json", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String content) {
                 JSONObject jsonObject = JSONObject.parseObject(content);
@@ -129,8 +129,8 @@ public class OrgRateActivity extends AppCompatActivity implements View.OnClickLi
                             String actImage = object.getString("activityImage");
                             String aSQ = object.getString("aSurplusQuota");
                             String aNN = object.getString("aNeedNumOfPerson");
-                            String actStatus = object.getString("activityStatus");
-                            int userStatus = object.getInteger("userStatus");
+//                            String actStatus = object.getString("activityStatus");
+//                            int userStatus = object.getInteger("userStatus");
                             //TODO create a Charity object
                            //if(actStatus.equals("1")){
                             Charity charity = new Charity();
@@ -145,11 +145,12 @@ public class OrgRateActivity extends AppCompatActivity implements View.OnClickLi
                         }
                         initAdapter();
                     }
-
                 }else if(code == 400){
                     Toast.makeText(OrgRateActivity.this, "获取活动失败！请稍后再试", Toast.LENGTH_LONG).show();
+                }else if(code == 203){
+                    Toast.makeText(OrgRateActivity.this, "暂时没有待评价的用户！", Toast.LENGTH_LONG).show();
+
                 }
-//                super.onSuccess(content);
             }
 
             @Override

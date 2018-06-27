@@ -88,15 +88,12 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
         str_originator.setOnClickListener(this);
 
         initInfo(aID);
-        initRecentjoin();//初始化消息
-
+//        initRecentjoin();//初始化消息
         //初始化消息列表的recycle和adapter
         recyclerView = (RecyclerView)findViewById(R.id.rv_recent_join);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
-        RecentjoinAdapter adapter = new RecentjoinAdapter(recentjoinList);
-        recyclerView.setAdapter(adapter);
     }
 
 
@@ -134,13 +131,6 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
 //                startActivity(new Intent(CharityDetailActivity.this,PersonInfoActivity.class));
 
 
-        }
-    }
-
-    private  void initRecentjoin(){
-        for(int i =0;i<7;i++){
-            Recentjoin recentjoin = new Recentjoin(R.drawable.avatar1);
-            recentjoinList.add(recentjoin);
         }
     }
 
@@ -197,6 +187,25 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
                     if (uStatus == 1){
                         btn_join.setText("已报名");
                     }
+                    JSONObject usersObj =alldata.getJSONObject("join");
+                    for (int i = 1; i <= 100; i++){
+                            if (usersObj.containsKey(String.valueOf(i))) {
+                                JSONObject userObj = usersObj.getJSONObject(String.valueOf(i));
+                                String uid = userObj.getString("userId");
+                                String avatar = userObj.getString("userImage");
+                                Recentjoin recentjoin = new Recentjoin();
+                                recentjoin.setAvatar(avatar);
+                                recentjoin.setUid(uid);
+                                recentjoinList.add(recentjoin);
+                            }else{
+                                break;
+                            }
+                    }
+
+                    RecentjoinAdapter adapter = new RecentjoinAdapter(recentjoinList);
+                    recyclerView.setAdapter(adapter);
+                    Log.d("CharityDetailActivity", "join number"+recentjoinList.size()+"");
+
                     Log.d("CharityDetailActivity", activityName + " " + activityDeadline + " " + activityIntroduction + " "
                             + (Integer.parseInt(aNeedNumOfPerson)-Integer.parseInt(aSurplusQuota)) + " " + daysBetween(nowDate, activityDeadline));
 

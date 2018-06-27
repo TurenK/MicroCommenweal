@@ -1,13 +1,26 @@
 package com.example.hfp.MicroCommonweal.object;
 
 public class Recentjoin {
-    private int imageId;
+    private String avatar;
+    private String uid;
 
-    public  Recentjoin(int imageId){
-        this.imageId = imageId;
+    public  Recentjoin(){
     }
 
-    public int getImageId(){
-        return imageId;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
 }
