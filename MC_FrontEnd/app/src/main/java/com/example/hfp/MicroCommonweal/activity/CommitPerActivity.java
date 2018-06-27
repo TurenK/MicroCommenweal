@@ -156,31 +156,32 @@ public class CommitPerActivity extends AppCompatActivity implements View.OnClick
         }
         allObject.put("rating", comments);
         Log.d("CommitPerActivity", allObject.toString());
-//            StringEntity stringEntity = new StringEntity(detail_info.toString(), "UTF-8");
+            StringEntity stringEntity = new StringEntity(allObject.toString(), "UTF-8");
 
-//            AsyncHttpUtil.post(this, this.getString(R.string.URL_ORG_COMMIT_RATING), stringEntity, "application/json", new AsyncHttpResponseHandler() {
-//                @Override
-//                public void onSuccess(String content) {
-//                    JSONObject jsonObject = JSONObject.parseObject(content);
-//                    int code = jsonObject.getInteger("code");
-//                    String info = jsonObject.getString("message");
-//                    Log.d("CharityDetailActivity", jsonObject.toString());
-//
-//                    if (code == 200){
-//                        //TODO Intent
-//                        if (i == personalList.size())
-//                    }else if(code == 400){
-//                        Toast.makeText(CommitPerActivity.this, "获取信息失败！请稍后再试", Toast.LENGTH_LONG).show();
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Throwable error, String content) {
-//                    Log.d("CommitPerActivity", "cannot connect to server!");
-//                    Toast.makeText(CommitPerActivity.this, "无法连接到服务器！", Toast.LENGTH_LONG).show();
-////                super.onFailure(error, content);
-//                }
-//            });
+            AsyncHttpUtil.post(this, this.getString(R.string.URL_ORG_COMMIT_RATING), stringEntity, "application/json", new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(String content) {
+                    JSONObject jsonObject = JSONObject.parseObject(content);
+                    int code = jsonObject.getInteger("code");
+                    String info = jsonObject.getString("message");
+                    Log.d("CharityDetailActivity", jsonObject.toString());
+
+                    if (code == 200){
+                        //TODO Intent
+                        Toast.makeText(CommitPerActivity.this, "评价成功！", Toast.LENGTH_LONG).show();
+                        finish();
+                    }else if(code == 400){
+                        Toast.makeText(CommitPerActivity.this, "获取信息失败！请稍后再试", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable error, String content) {
+                    Log.d("CommitPerActivity", "cannot connect to server!");
+                    Toast.makeText(CommitPerActivity.this, "无法连接到服务器！", Toast.LENGTH_LONG).show();
+//                super.onFailure(error, content);
+                }
+            });
 //            Log.d("rating ", personalList.get(i).getUid() + " " + personalList.get(i).getGrade() + " " + personalList.get(i).getCommittext());
     }
 }
