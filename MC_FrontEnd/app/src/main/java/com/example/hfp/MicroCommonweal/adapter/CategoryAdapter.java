@@ -1,5 +1,6 @@
 package com.example.hfp.MicroCommonweal.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hfp.MicroCommonweal.R;
+import com.example.hfp.MicroCommonweal.activity.CharityDetailActivity;
 import com.example.hfp.MicroCommonweal.object.Category;
+import com.example.hfp.MicroCommonweal.object.Charity;
 
 import java.util.List;
 
@@ -18,11 +21,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     private List<Category> mCategoryList;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
+        View Categoryview;
         ImageView categoryImage;
         TextView categoryName;
 
         public  ViewHolder(View view){
             super(view);
+            Categoryview = view;
             categoryImage = (ImageView)view.findViewById(R.id.id_index_gallery_item_image);
             categoryName = (TextView)view.findViewById(R.id.id_index_gallery_item_text);
         }
@@ -34,7 +39,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @Override
     public CategoryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.charity_category_item,parent,false);
-        CategoryAdapter.ViewHolder holder = new CategoryAdapter.ViewHolder(view);
+        final CategoryAdapter.ViewHolder holder = new CategoryAdapter.ViewHolder(view);
+        holder.Categoryview.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public  void onClick(View v){
+                int position = holder.getAdapterPosition();
+
+            }
+        });
         return  holder;
 
     }

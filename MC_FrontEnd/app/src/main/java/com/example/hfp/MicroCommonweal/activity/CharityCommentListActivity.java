@@ -103,7 +103,7 @@ public class CharityCommentListActivity extends AppCompatActivity implements Vie
             e.printStackTrace();
         }
 
-        AsyncHttpUtil.post(this, this.getString(R.string.URL_ORG_INFO), stringEntity, "application/json", new AsyncHttpResponseHandler() {
+        AsyncHttpUtil.post(this, this.getString(R.string.URL_CHARITY_COMMENT_LIST), stringEntity, "application/json", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String content) {
                 JSONObject jsonObject = JSONObject.parseObject(content);

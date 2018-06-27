@@ -130,9 +130,14 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
                 Toast.makeText(CharityDetailActivity.this, "收藏", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.str_originator:
-                startActivity(new Intent(CharityDetailActivity.this,OrgInfoActivity.class));
+                Intent intent = new Intent();
+                intent.putExtra("orgid", aID);
+                intent.setClass(CharityDetailActivity.this,OrgInfoActivity.class);
+                getApplicationContext().startActivity(intent);
+                //startActivity(new Intent(CharityDetailActivity.this,OrgInfoActivity.class));
 //                startActivity(new Intent(CharityDetailActivity.this,PersonInfoActivity.class));
 
+                break;
 
         }
     }

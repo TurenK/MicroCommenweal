@@ -135,7 +135,7 @@ public class OrgInfoActivity extends AppCompatActivity implements View.OnClickLi
                 JSONObject jsonObject = JSONObject.parseObject(content);
                 int code = jsonObject.getInteger("code");
                 String info = jsonObject.getString("message");
-                Log.d(TAG, jsonObject.toString());
+                Log.d(TAG, info);
                 if (code == 200){
                     //TODO get more JSON objects!
                     JSONObject objectdata =jsonObject.getJSONObject("data");
@@ -148,8 +148,9 @@ public class OrgInfoActivity extends AppCompatActivity implements View.OnClickLi
 
                     initView();
 
-                }else if(code == 400){
+                }else{
                     Toast.makeText(OrgInfoActivity.this, "获取活动失败！请稍后再试", Toast.LENGTH_LONG).show();
+                    initView();
                 }
 //                super.onSuccess(content);
             }
@@ -222,7 +223,7 @@ public class OrgInfoActivity extends AppCompatActivity implements View.OnClickLi
         str_intro.setText(organization.getDescription());
         tv_comment_score.setText(""+organization.getGrade()+"分");
         tv_total_time.setText(""+organization.getTotalTime()+"小时");
-        tv_charity_num.setText(""+organization.getActnum()+"小时");
+        tv_charity_num.setText(""+organization.getActnum()+"个");
         getImages(organization.getOrgimage(),image_avatar);
     }
 

@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.hfp.MicroCommonweal.Utils.AsyncHttpUtil;
 import com.example.hfp.MicroCommonweal.activity.MessageActivity;
 import com.example.hfp.MicroCommonweal.adapter.CategoryAdapter;
@@ -111,6 +112,7 @@ public class CharityFragment extends Fragment {
         setView();
 
         initCategories();//初始化分類
+
         initCharities();//初始化义工
 
 
@@ -126,9 +128,6 @@ public class CharityFragment extends Fragment {
         recyclerView_category.setLayoutManager(layoutManager_category);
         CategoryAdapter adapter_category = new CategoryAdapter(categoryList);
         recyclerView_category.setAdapter(adapter_category);
-
-
-
         return  charityLayout;
     }
 
