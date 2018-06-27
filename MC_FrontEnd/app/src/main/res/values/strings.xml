@@ -14,7 +14,7 @@
     <string name="URL_GROUP_REG">/groupRegistered.php</string>
     <string name="URL_DETAIL_ACTIVITY">/detailInfor.php</string>
     <string name="URL_MY_JOIN">/historyListUser.php</string>
-    <string name="URL_ORG_COMMIT_RATING">/evaluate.php</string>
+    <string name="URL_ORG_COMMIT_RATING">/groupToManyUser.php</string>
     <string name="URL_PRE_RATE">/evaluateUserHistoryList.php</string>
     <string name="URL_GET_ORGINFO">/numOfActivity.php</string>
     <string name="URL_SEND_P2OCOMMIT">/evaluateUserToGroup.php</string>
