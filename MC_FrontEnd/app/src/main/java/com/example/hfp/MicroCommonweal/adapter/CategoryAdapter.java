@@ -122,7 +122,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                 if (code == 200) {
                     //TODO get more JSON objects!
                     JSONObject objectdata = jsonObject.getJSONObject("data");
-                    for (int i = 1; i <= 10; i++) {
+                    List<Charity> charities = new ArrayList<>();
+                    for (int i = 0; i <= 30; i++) {
                         if (objectdata.containsKey(String.valueOf(i))) {
                             JSONObject object = objectdata.getJSONObject(String.valueOf(i));
                             String actID = object.getString("activityId");
@@ -158,9 +159,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                             } else if (actStatus.equals("2")) {
                                 charity.setStatus(DUE);
                             }
-                            charityList.add(charity);
+                            charities.add(charity);
                         }
                     }
+                    listadapter.removeAllData();
+                    listadapter.addData(charities);
                 } else {
                     Toast.makeText(context, "获取活动失败！请稍后再试", Toast.LENGTH_LONG).show();
                 }

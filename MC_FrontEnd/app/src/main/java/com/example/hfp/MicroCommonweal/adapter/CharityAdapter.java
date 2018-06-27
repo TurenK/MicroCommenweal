@@ -63,7 +63,7 @@ public class CharityAdapter extends BaseQuickAdapter<Charity> {
 
     public void removeAllData() {
         if (charities != null && !charities.isEmpty()) {
-            for (int i = 0; i < charities.size(); i++) {
+            for (int i = 0; i <= charities.size(); i++) {
                 remove(0);
             }
         }
