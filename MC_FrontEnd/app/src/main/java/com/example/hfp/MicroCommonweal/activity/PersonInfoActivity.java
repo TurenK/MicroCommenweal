@@ -40,6 +40,7 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
     private TextView tv_comment_score;
     private TextView tv_total_time;
     private TextView tv_charity_num;
+    private CharityAdapter listadapter;
 
     //recyclerview控件
     RecyclerView recyclerView_charity;
@@ -78,8 +79,8 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
         recyclerView_charity = (RecyclerView)findViewById(R.id.rv_charity);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView_charity.setLayoutManager(layoutManager);
-
     }
+
 
     @Override
     public void onClick(View v) {
@@ -207,7 +208,7 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
                             charityList.add(charity);
                         }
                     }
-                    CharityAdapter adapter_charity = new CharityAdapter(charityList,getApplicationContext());
+                    CharityAdapter adapter_charity = new CharityAdapter(R.layout.charity_item,charityList,getApplicationContext());
                     recyclerView_charity.setAdapter(adapter_charity);
 //                    initView();
                 }else if(code == 400){

@@ -65,6 +65,7 @@ public class OrgInfoActivity extends AppCompatActivity implements View.OnClickLi
         OrgId = getIntent().getStringExtra("orgid");
 
         initData();
+        initView();
     }
 
     @Override
@@ -146,11 +147,10 @@ public class OrgInfoActivity extends AppCompatActivity implements View.OnClickLi
 
                     getCharityInfo(objectdata);
 
-                    initView();
+                    adapter.addData(charityList);
 
                 }else{
                     Toast.makeText(OrgInfoActivity.this, "获取活动失败！请稍后再试", Toast.LENGTH_LONG).show();
-                    initView();
                 }
 //                super.onSuccess(content);
             }
@@ -232,7 +232,7 @@ public class OrgInfoActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void getCharityInfo(JSONObject objectdata){
-        for (int i = 1; i <= 20; i++){
+        for (int i = 0; i <= 20; i++){
             if (objectdata.containsKey(String.valueOf(i))) {
                 JSONObject object = objectdata.getJSONObject(String.valueOf(i));
                 Charity charity = new Charity();

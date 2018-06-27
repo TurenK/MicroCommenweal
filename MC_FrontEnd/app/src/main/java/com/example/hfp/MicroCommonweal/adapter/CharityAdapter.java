@@ -2,6 +2,8 @@ package com.example.hfp.MicroCommonweal.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.hfp.MicroCommonweal.R;
 import com.example.hfp.MicroCommonweal.Utils.ImageUpAndDownUtil;
 import com.example.hfp.MicroCommonweal.activity.CharityDetailActivity;
@@ -22,71 +26,50 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
 
 
-public class CharityAdapter extends RecyclerView.Adapter<CharityAdapter.ViewHolder>{
-    private List<Charity> mCharityList;
+public class CharityAdapter extends BaseQuickAdapter<Charity> {
+
     private Context context;
+    private List<Charity> charities;
 
-
-    static  class ViewHolder extends  RecyclerView.ViewHolder{
-        View Charityview;
-        ImageView charityIamge;
-        TextView charityName;
-        TextView peoplenum;
-        TextView status;
-
-        ViewHolder(View view){
-            super(view);
-            Charityview = view;
-            charityIamge = (ImageView) view.findViewById(R.id.charity_iamge);
-            charityName = (TextView)view.findViewById(R.id.charity_name);
-            peoplenum  = (TextView)view.findViewById(R.id.people_num);
-            status= (TextView)view.findViewById(R.id.status);
-        }
-    }
-
-    public CharityAdapter(List<Charity> charityList,Context context){
+    public CharityAdapter(@LayoutRes int layoutResId, @Nullable List<Charity> data, Context context) {
+        super(layoutResId, data);
         this.context = context;
-        mCharityList = charityList;
+        charities = data;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent,int viewType){
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.charity_item,parent,false);
-        final ViewHolder holder = new ViewHolder(view);
-        holder.Charityview.setOnClickListener(new View.OnClickListener(){
+    protected void convert(final BaseViewHolder baseViewHolder, final Charity charity) {
+        baseViewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
-            public  void onClick(View v){
-                int position = holder.getAdapterPosition();
-                Charity charity = mCharityList.get(position);
+            public void onClick(View v) {
+                int position = baseViewHolder.getLayoutPosition();
                 //Toast.makeText(v.getContext(), "点击了", Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent();
+                Intent intent = new Intent();
                 intent.setClass(v.getContext(), CharityDetailActivity.class);
                 intent.putExtra("activityID", charity.getaID());
                 v.getContext().startActivity(intent);
             }
         });
-        return  holder;
 
-    }
-
-    @Override
-    public void onBindViewHolder(ViewHolder holder,int position){
-        Charity charity = mCharityList.get(position);
-        holder.charityName.setText(charity.getName());
-        holder.peoplenum.setText(charity.getPeoplenum());
-        holder.status.setText(charity.getStatus());
+        baseViewHolder.setText(R.id.charity_name, charity.getName());
+        baseViewHolder.setText(R.id.people_num, charity.getPeoplenum());
+        baseViewHolder.setText(R.id.status, charity.getStatus());
         try {
-            getImages(charity,holder.charityIamge);
-        }catch (Exception e){
+            getImages(charity, (ImageView) baseViewHolder.getView(R.id.charity_iamge));
+        } catch (Exception e) {
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
-    @Override
-    public  int getItemCount(){
-        return mCharityList.size();
+
+    public void removeAllData() {
+        if (charities != null && !charities.isEmpty()) {
+            for (int i = 0; i <= charities.size(); i++) {
+                remove(0);
+            }
+        }
     }
 
-    private void getImages(Charity charity, ImageView imageView){
-        new ImageUpAndDownUtil(context).testDownloadImage(charity.getImagepath(),imageView);
+    private void getImages(Charity charity, ImageView imageView) {
+        new ImageUpAndDownUtil(context).testDownloadImage(charity.getImagepath(), imageView);
     }
 }

@@ -51,6 +51,11 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
         btn_collection = (Button)meLayout.findViewById(R.id.button_like);
         btn_initiate_project = (Button)meLayout.findViewById(R.id.button_useless);
         btn_join_project= (Button)meLayout.findViewById(R.id.button_join);
+        if(UserInfo.getUserInfo().getType()==UserInfo.CHARITY_ORG){
+            btn_join_project.setText("发起的项目");
+        }else {
+            btn_join_project.setText("参与的项目");
+        }
         btn_evaluate= (Button)meLayout.findViewById(R.id.button_orgContent);
         btn_message= (Button)meLayout.findViewById(R.id.button_orgMessage);
         btn_rank= (Button)meLayout.findViewById(R.id.button_orgRank);

@@ -26,9 +26,12 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSONObject;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.hfp.MicroCommonweal.Utils.AsyncHttpUtil;
+import com.example.hfp.MicroCommonweal.activity.CharityCommentListActivity;
+import com.example.hfp.MicroCommonweal.activity.CharityDetailActivity;
 import com.example.hfp.MicroCommonweal.activity.MessageActivity;
 import com.example.hfp.MicroCommonweal.adapter.CategoryAdapter;
 import com.example.hfp.MicroCommonweal.adapter.CharityAdapter;
+import com.example.hfp.MicroCommonweal.adapter.OrgCommentCharityAdapter;
 import com.example.hfp.MicroCommonweal.object.Category;
 import com.example.hfp.MicroCommonweal.object.Charity;
 import com.example.hfp.MicroCommonweal.object.UserInfo;
@@ -41,6 +44,7 @@ import org.apache.http.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -52,6 +56,8 @@ public class CharityFragment extends Fragment {
     private String OPENING = "报名中";
     private String CLOSED = "已结束";
     private String DUE = "已截止";
+    private final int CATEGORY = 0;
+    private CharityAdapter listadapter;
 
 
     private View charityLayout;
@@ -86,8 +92,8 @@ public class CharityFragment extends Fragment {
     private List<Category> categoryList = new ArrayList<>();
     private Button btnMessage;
     //recyclerview控件
-    RecyclerView recyclerView;
-    RecyclerView recyclerView_category;
+    private RecyclerView recyclerView;
+    private RecyclerView recyclerView_category;
 
     @Nullable
     @Override
@@ -111,22 +117,21 @@ public class CharityFragment extends Fragment {
 
         setView();
 
+        //初始化义工列表的recycle和adapter
+        recyclerView = (RecyclerView) charityLayout.findViewById(R.id.rv_charity);
+
+        initView();
+
         initCategories();//初始化分類
 
         initCharities();//初始化义工
 
-
-        //初始化义工列表的recycle和adapter
-        recyclerView = (RecyclerView) charityLayout.findViewById(R.id.rv_charity);
-
-
-
         //初始化分類列表recycle和adpater
         recyclerView_category = (RecyclerView)charityLayout.findViewById(R.id.rv_charity_category);
-        LinearLayoutManager layoutManager_category = new LinearLayoutManager(getActivity().getApplicationContext());
+        LinearLayoutManager layoutManager_category = new LinearLayoutManager((getActivity()).getApplicationContext());
         layoutManager_category.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView_category.setLayoutManager(layoutManager_category);
-        CategoryAdapter adapter_category = new CategoryAdapter(categoryList);
+        CategoryAdapter adapter_category = new CategoryAdapter(categoryList,getContext(),listadapter);
         recyclerView_category.setAdapter(adapter_category);
         return  charityLayout;
     }
@@ -258,7 +263,35 @@ public class CharityFragment extends Fragment {
         }
     }
 
+    private void initView() {
+        recyclerView = (RecyclerView)charityLayout.findViewById(R.id.rv_charity);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        initAdapter();
+        // addHeadView();
+        recyclerView.setAdapter(listadapter);
+    }
 
+    /**
+     * 初始化adapter
+     */
+    private void initAdapter() {
+        listadapter = new CharityAdapter(R.layout.charity_item,charityList,getContext());
+        listadapter.openLoadAnimation();
+        recyclerView.setAdapter(listadapter);
+        //  addHeadView();
+        //item添加监听
+        listadapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                String actId = charityList.get(position).getaID();
+                //Toast.makeText(v.getContext(), "点击了", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent();
+                intent.setClass(getContext(), CharityDetailActivity.class);
+                intent.putExtra("activityID", actId);
+                getContext().startActivity(intent);
+            }
+        });
+    }
 
     private  void initCharities(){
 //        for(int i = 0;i<10;i++){
@@ -271,11 +304,10 @@ public class CharityFragment extends Fragment {
 //            charityList.add(charity);
 //        }
 
-        requireCharity();
+        requireCharity(CATEGORY);
     }
 
     private  void initCategories(){
-
             Category category = new Category(R.drawable.thumbnail21,"青少年服务");
             Category category1 = new Category(R.drawable.thumbnail22,"医疗服务");
             Category category2 = new Category(R.drawable.thumbnail23,"儿童服务");
@@ -284,11 +316,9 @@ public class CharityFragment extends Fragment {
             categoryList.add(category1);
             categoryList.add(category2);
             categoryList.add(category3);
-
-
     }
 
-    private void requireCharity(){
+    private void requireCharity(int category){
 
         String uid = UserInfo.getUserInfo().getuId();
 
@@ -298,6 +328,7 @@ public class CharityFragment extends Fragment {
         //创建网络访问对象
         JSONObject main_json = new JSONObject();
         main_json.put("userId", uid);
+        main_json.put("category", category);
 
         Log.d(TAG, main_json.toString());
 
@@ -318,7 +349,8 @@ public class CharityFragment extends Fragment {
                 if (code == 200){
                     //TODO get more JSON objects!
                     JSONObject objectdata =jsonObject.getJSONObject("data");
-                    for (int i = 1; i <= 10; i++){
+                    List<Charity> charityList = new ArrayList<>();
+                    for (int i = 0; i <= 10; i++){
                         if (objectdata.containsKey(String.valueOf(i))) {
                             JSONObject object = objectdata.getJSONObject(String.valueOf(i));
                             String actID = object.getString("activityId");
@@ -356,15 +388,13 @@ public class CharityFragment extends Fragment {
                             }
                             charityList.add(charity);
                         }
-                        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                        recyclerView.setLayoutManager(layoutManager);
-                        CharityAdapter adapter = new CharityAdapter(charityList,getContext());
-                        recyclerView.setAdapter(adapter);
                     }
-
-                }else if(code == 400){
+//                    listadapter.removeAllData();
+                    listadapter.addData(charityList);
+                }else{
                     Toast.makeText(getContext(), "获取活动失败！请稍后再试", Toast.LENGTH_LONG).show();
                 }
+                Log.d(TAG, "test");
 //                super.onSuccess(content);
             }
 

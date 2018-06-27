@@ -28,9 +28,10 @@ public class JoinedCharityActivity extends AppCompatActivity implements View.OnC
     private String OPENING = "报名中";
     private String CLOSED = "已结束";
     private String DUE = "已截止";
+    private CharityAdapter listadapter;
 
     //recyclerview控件
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
 
     private Button button_back;
 
@@ -45,13 +46,27 @@ public class JoinedCharityActivity extends AppCompatActivity implements View.OnC
 
         initCharities();//初始化义工
 
-        //初始化义工列表的recycle和adapter
-        recyclerView = (RecyclerView)findViewById(R.id.rv_joined_charity);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        CharityAdapter adapter = new CharityAdapter(charityList,getApplicationContext());
-        recyclerView.setAdapter(adapter);
+        initView();
     }
+
+    private void initView() {
+        recyclerView = (RecyclerView)findViewById(R.id.rv_joined_charity);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        initAdapter();
+        // addHeadView();
+        recyclerView.setAdapter(listadapter);
+    }
+
+    /**
+     * 初始化adapter
+     */
+    private void initAdapter() {
+        listadapter = new CharityAdapter(R.layout.charity_item,charityList,getApplicationContext());
+        listadapter.openLoadAnimation();
+        recyclerView.setAdapter(listadapter);
+        //  addHeadView();
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -93,6 +108,7 @@ public class JoinedCharityActivity extends AppCompatActivity implements View.OnC
                 if (code == 200){
                     //TODO get more JSON objects!
                     JSONObject objectdata =jsonObject.getJSONObject("data");
+                    List<Charity> charities = new ArrayList<>();
                     for (int i = 1; i <= 10; i++){
                         if (objectdata.containsKey(String.valueOf(i))) {
                             JSONObject object = objectdata.getJSONObject(String.valueOf(i));
@@ -120,15 +136,12 @@ public class JoinedCharityActivity extends AppCompatActivity implements View.OnC
                                     charity.setStatus(DUE);
                                     break;
                             }
-                            charityList.add(charity);
+                            charities.add(charity);
                         }
-                        LinearLayoutManager layoutManager = new LinearLayoutManager(JoinedCharityActivity.this);
-                        recyclerView.setLayoutManager(layoutManager);
-                        CharityAdapter adapter = new CharityAdapter(charityList,JoinedCharityActivity.this);
-                        recyclerView.setAdapter(adapter);
                     }
 
-                }else if(code == 400){
+                    listadapter.addData(charities);
+                }else{
                     Toast.makeText(JoinedCharityActivity.this, "获取活动失败！请稍后再试", Toast.LENGTH_LONG).show();
                 }
 //                super.onSuccess(content);
