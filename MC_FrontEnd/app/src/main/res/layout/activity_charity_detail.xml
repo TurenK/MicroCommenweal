@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+     >
+    <!--换了头图，改了字体大小-->
+    <!--标题栏消息-->
+    <RelativeLayout
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignWithParentIfMissing="true"
+        android:background="@color/colorPrimary">
+        <Button
+            android:id="@+id/button_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/icon_back"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="项目详情"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/btn_share"
+            android:layout_width="30dp"
+            android:layout_height="29dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="14dp"
+            android:layout_marginRight="14dp"
+            android:background="@drawable/ic_menu_share" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/title_layout"
+        >
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="#f0f0f0">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--图片换成浅色的也不好看啊-->
+            <ImageView
+                android:id="@+id/VBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/charity_title"
+                tools:ignore="RtlCompat" />
+            <!--发起人-->
+            <RelativeLayout
+                android:id="@+id/alarm_layout"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_below="@+id/title_layout"
+                android:layout_marginTop="4dp"
+                android:background="#F0F0F0">
+
+                <TextView
+                    android:id="@+id/str_by"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toLeftOf="@+id/str_originator"
+                    android:text="由"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp" />
+
+                <!--能点这个跳转吗-->
+                <TextView
+                    android:id="@+id/str_originator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="爱满星河公益组织"
+                    android:textColor="#191970"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/str_originate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toRightOf="@+id/str_originator"
+                    android:text="发起"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp" />
+
+
+            </RelativeLayout>
+            <!--人数-日期-->
+            <LinearLayout
+                android:id="@+id/num_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="70dip"
+                android:layout_marginTop="4dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/str_numsign"
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="11dp"
+                        android:gravity="center_horizontal"
+                        android:text=""
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/canyuzhe"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:gravity="center"
+                        android:text="参与者      "
+                        android:textColor="@color/gray" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/str_numaim"
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginBottom="0dp"
+                        android:layout_marginTop="11dp"
+                        android:gravity="center_horizontal"
+                        android:text=""
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/mubiaoren"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="目标人数"
+                        android:textColor="@color/gray" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/shengyutian"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:gravity="center"
+                        android:text="      剩余天数"
+                        android:textColor="@color/gray" />
+
+                    <TextView
+                        android:id="@+id/str_dayleft"
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginBottom="0dp"
+                        android:layout_marginTop="11dp"
+                        android:gravity="center_horizontal"
+                        android:text=""
+                        android:textColor="@color/black" />
+                </RelativeLayout>
+
+            </LinearLayout>
+            <!--项目信息-->
+            <RelativeLayout
+                android:id="@+id/layout_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_marginTop="4dp"
+                android:orientation="vertical">
+                <!--标题-->
+                <TextView
+                    android:id="@+id/str_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="     大熊猫繁育基地科普教育志愿者"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+                <!--岗位ID-->
+                <TextView
+                    android:id="@+id/gangweiID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/str_title"
+                    android:text="岗位ID:"
+                    android:layout_toRightOf="@+id/kongge"
+                    android:textColor="@color/gray"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/str_ID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/str_title"
+                    android:layout_toRightOf="@+id/gangweiID"
+                    android:text="1899023"
+                    android:textColor="@color/gray"
+                    android:textSize="15sp" />
+                <!--岗位描述-->
+                <TextView
+                    android:id="@+id/gangweimiaoshu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/gangweiID"
+                    android:text="岗位描述:"
+                    android:layout_toRightOf="@+id/kongge"
+                    android:textColor="@color/gray"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/kongge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/gangweiID"
+                    android:text="        "
+                    android:textColor="@color/gray"
+                    android:textSize="19sp" />
+
+                <TextView
+                    android:id="@+id/str_introduction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/gangweimiaoshu"
+                    android:layout_toRightOf="@+id/kongge"
+                    android:text="四川都江堰大熊猫基地科普教育志愿者"
+                    android:textColor="@color/gray"
+                    android:textSize="13sp" />
+                <!--岗位条件-->
+                <TextView
+                    android:id="@+id/gangweitiaojian"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/str_introduction"
+                    android:text="岗位条件:"
+                    android:layout_toRightOf="@+id/kongge"
+                    android:textColor="@color/gray"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/str_condition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/gangweitiaojian"
+                    android:layout_toRightOf="@+id/kongge"
+                    android:text="五官端正，着装整齐，身体健康，责任心强
+志愿者申请人需为年满14周岁（14至18周岁未成年人需监护人书面同意）的中国公民（通晓外语者更佳）"
+                    android:textColor="@color/gray"
+                    android:textSize="13sp" />
+
+
+            </RelativeLayout>
+
+
+
+            <!--项目详情-->
+            <RelativeLayout
+                android:id="@+id/detail_layout"
+                android:layout_width="match_parent"
+                android:layout_height="145dp"
+                android:layout_below="@+id/num_layout"
+                android:layout_marginTop="4dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/xiangmuxiangqing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
+
+                    android:layout_marginTop="11dp"
+                    android:text="项目详情"
+                    android:textColor="#191970"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/str_detail"
+                    android:layout_width="353dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginLeft="17dp"
+
+                    android:text=""
+                    android:textColor="@color/gray"
+                    android:textSize="14sp" />
+
+
+            </RelativeLayout>
+            <!--最近参与的人-->
+            <RelativeLayout
+                android:id="@+id/people_layout"
+                android:layout_width="match_parent"
+                android:layout_height="104dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+
+                android:layout_alignParentTop="true"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/zuijincanyu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
+
+                    android:layout_marginTop="11dp"
+                    android:text="最近参与"
+                    android:textColor="#191970"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_recent_join"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/zuijincanyu"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="17dp"
+                    />
+
+
+
+            </RelativeLayout>
+
+            <!--讨论区-->
+            <RelativeLayout
+                android:id="@+id/comment_layout"
+                android:layout_width="match_parent"
+                android:layout_height="166dp"
+                android:layout_below="@+id/detail_layout"
+                android:layout_marginTop="4dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/taolunzhuanqu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
+
+                    android:layout_marginTop="11dp"
+                    android:text="讨论专区"
+                    android:textColor="#191970"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <!--啊啊啊啊commentitem-->
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/bottomlayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="#424242"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_collect"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:background="@drawable/btn_star" />
+
+        <Button
+            android:id="@+id/btn_join"
+            android:layout_width="114dp"
+            android:layout_height="32dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:text="报名"
+            android:textColor="#ffffff"
+            android:background="@drawable/join_btn_bg" />
+
+
+        <ImageButton
+            android:id="@+id/btn_chat"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_dialog_email" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

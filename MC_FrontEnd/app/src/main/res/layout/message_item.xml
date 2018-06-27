@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <!--未读消息-->
+    <LinearLayout
+        android:id="@+id/MessageLayout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/white"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal"
+        >
+        <RelativeLayout
+            android:id="@+id/massage"
+            android:layout_width="80dip"
+            android:layout_height="80dip"
+            >
+
+            <ImageView
+                android:id="@+id/image_avatar"
+                android:src="@drawable/avatar1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:scaleType="centerInside" />
+
+<!--
+            再放个透明的png 读了用红点 没读用透明
+-->
+            <ImageView
+                android:id="@+id/status"
+                android:layout_width="11dp"
+                android:layout_height="13dp"
+                android:layout_alignBottom="@+id/image_avatar"
+                android:layout_alignRight="@id/image_avatar"
+                android:layout_alignEnd="@+id/image_avatar"
+                app:srcCompat="@drawable/point_red" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/str_addresser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="13dp"
+                android:gravity="left"
+                android:text="联合国儿童基金委"
+                android:textSize="20sp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/str_message"
+                android:layout_width="307dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="17dp"
+                android:gravity="left"
+                android:text="您好！您报名的联合国儿童基金委志愿者…"
+                android:textColor="@color/black" />
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

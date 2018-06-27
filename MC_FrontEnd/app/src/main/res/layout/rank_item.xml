@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/num_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="75dip"
+    android:layout_marginTop="4dp"
+    android:background="@color/white"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:id="@+id/massage"
+        android:layout_width="0dp"
+        android:layout_height="80dip"
+        android:layout_weight="3">
+
+        <ImageView
+            android:id="@+id/image_avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
+
+            android:scaleType="centerInside"
+            android:src="@drawable/avatar1" />
+
+        <ImageView
+            android:id="@+id/image_medal"
+            android:layout_width="36dp"
+            android:layout_height="35dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+
+            android:layout_alignParentTop="true"
+
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+
+            android:layout_marginTop="11dp"
+            app:srcCompat="@drawable/medal_empty" />
+
+        <TextView
+            android:id="@+id/str_ranking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/image_medal"
+            android:layout_alignLeft="@+id/image_medal"
+
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="8"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:id="@+id/image_touxiangkuang"
+            android:layout_width="85dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="3dp"
+            android:layout_marginRight="3dp"
+
+            android:layout_marginTop="0dp"
+            app:srcCompat="@drawable/crown_avatar_normal" />
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="5"
+        android:layout_height="75dp"
+        android:gravity="center"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/str_num_bean"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6012"
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/str_yidou"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="益豆"
+                android:textColor="@color/black" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

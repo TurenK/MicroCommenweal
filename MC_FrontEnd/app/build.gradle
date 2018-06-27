@@ -1,0 +1,60 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.mob.sdk'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.example.hfp.changhaowoer"
+        minSdkVersion 15
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildToolsVersion '27.0.3'
+}
+
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:support-vector-drawable:27.1.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.youth.banner:banner:1.4.10'
+    implementation 'com.android.support:appcompat-v7:27.+'
+    //最新版本
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.squareup.okhttp3:okhttp:3.7.0'
+    // https://mvnrepository.com/artifact/com.alibaba/fastjson
+    implementation 'com.alibaba:fastjson:1.2.47'
+    implementation 'org.apache.httpcomponents:httpcore:4.4.2'
+    implementation files('libs/android-async-http-master.jar')
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v1.9.7'
+
+    // OKHTTP utils
+    implementation 'com.zhy:okhttputils:2.6.2'
+
+    //picasso
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+}
+
+MobSDK {
+    appKey "26782d8e85ca8"
+    appSecret "75c65cbedf6ac607fd74c4e47ec15980"
+
+    SMSSDK {}
+}

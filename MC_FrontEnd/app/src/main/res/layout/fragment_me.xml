@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true"
+    android:background="#f0f0f0">
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true">
+
+            <RelativeLayout
+                android:id="@+id/infoLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+
+                >
+
+                <ImageView
+                    android:id="@+id/background"
+                    android:layout_width="wrap_content"
+                    android:layout_height="245dp"
+                    android:scaleType="fitXY"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/back_org"
+                    tools:ignore="RtlCompat"
+                    android:adjustViewBounds="true"/>
+                <TextView
+                    android:id="@+id/str_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="26sp"
+                    android:text="联合国儿童基金会\n" />
+                <TextView
+                    android:id="@+id/str_follow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:text="粉丝:1000 关注：20\n" />
+
+
+            </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/naviLayout"
+            android:layout_below="@+id/infoLayout"
+            android:layout_marginTop="1dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/button_like"
+                android:layout_width="0dip"
+                android:layout_height="75dip"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:background="#A9F5E1"
+                android:textSize="18sp"
+                android:text="收藏的项目" />
+
+            <Button
+                android:id="@+id/button_useless"
+                android:layout_width="0dip"
+                android:layout_height="72dip"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:background="#00000000"
+                android:textColor="@color/colorPrimary"
+                android:text="评价处理" />
+
+            <Button
+                android:id="@+id/button_join"
+                android:layout_width="0dip"
+                android:layout_height="75dip"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:background="#A9F5E1"
+                android:textSize="18sp"
+                android:text="发起项目" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttonLayout"
+            android:layout_below="@+id/naviLayout"
+            android:layout_width="fill_parent"
+            android:layout_marginTop="5dp"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="72dip"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/color1"
+                    android:layout_width="5dip"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentLeft="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/green" />
+
+
+                <Button
+                    android:id="@+id/button_orgContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_toRightOf="@+id/color1"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|left"
+                    android:text="      评价处理"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="72dip"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/color2"
+                    android:layout_width="5dip"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentLeft="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/blue" />
+
+
+                <Button
+                    android:id="@+id/button_orgMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_toRightOf="@+id/color2"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|left"
+                    android:text="      消息处理"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="72dip"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/color3"
+                    android:layout_width="5dip"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentLeft="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/orange" />
+
+
+                <Button
+                    android:id="@+id/button_orgRank"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_toRightOf="@+id/color3"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|left"
+                    android:text="      排行榜"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginTop="10dip"
+                android:layout_width="match_parent"
+                android:layout_height="72dip"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/color5"
+                    android:layout_width="5dip"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentLeft="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/blue" />
+
+
+                <Button
+                    android:id="@+id/button_orgSetting"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_toRightOf="@+id/color5"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|left"
+                    android:text="      账号设置"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="72dip"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/color6"
+                    android:layout_width="5dip"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentLeft="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/orange" />
+
+
+                <Button
+                    android:id="@+id/button_orgAuthen"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_toRightOf="@+id/color6"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|left"
+                    android:text="      认证信息"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>
