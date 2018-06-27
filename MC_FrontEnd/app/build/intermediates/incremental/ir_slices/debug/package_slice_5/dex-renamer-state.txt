@@ -1,0 +1,4 @@
+#Wed Jun 27 12:18:50 GMT+08:00 2018
+base.0=C\:\\Users\\TurenK\\Documents\\GitHub\\MicroCommenweal\\MC_FrontEnd\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\25
+path.0=classes.dex
+renamed.0=classes.dex
