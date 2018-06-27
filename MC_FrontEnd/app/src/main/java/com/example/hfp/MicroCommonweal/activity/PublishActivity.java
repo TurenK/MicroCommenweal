@@ -28,6 +28,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -73,7 +74,7 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
     final int DATE_DIALOG = 1;
     final int END_DATE_DIALOG = 2;
 
-    private Button selectpic;
+    private ImageButton selectpic;
     private Button button_back;
     private Button btn_submit;
     private Spinner spDown;
@@ -104,7 +105,7 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publish);
 
-        selectpic = (Button) findViewById(R.id.select_pic);
+        selectpic = (ImageButton) findViewById(R.id.select_pic);
         spDown = (Spinner) findViewById(R.id.et_charity_category);
         et_title = (EditText) findViewById(R.id.et_title);
         et_people_num = (EditText) findViewById(R.id.et_people_num);
