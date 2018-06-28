@@ -52,8 +52,7 @@ public class CommitOrgActivity extends AppCompatActivity implements View.OnClick
         button_submit = (Button)findViewById(R.id.button_submit);
         button_submit.setOnClickListener(this);
         Intent intent = this.getIntent();
-        Bundle bundle = intent.getBundleExtra("bundle");
-        String actSId =  bundle.getString("actId");
+        String actSId =  intent.getStringExtra("actId");
         actId = Integer.valueOf(actSId);
         initialize();
     }

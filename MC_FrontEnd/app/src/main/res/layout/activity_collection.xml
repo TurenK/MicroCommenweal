@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.hfp.MicroCommonweal.activity.JoinedCharityActivity">
+    tools:context="com.example.hfp.MicroCommonweal.activity.CollectionActivity">
     <!--这个界面也…能改的话就是加搜索或者收藏的日期？-->
     <RelativeLayout
         android:id="@+id/title_layout"
@@ -30,11 +30,18 @@
             android:textSize="20sp" />
     </RelativeLayout>
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_collection"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

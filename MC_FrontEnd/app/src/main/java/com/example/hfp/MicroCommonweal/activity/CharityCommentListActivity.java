@@ -1,5 +1,7 @@
 package com.example.hfp.MicroCommonweal.activity;
 
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,8 +29,9 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CharityCommentListActivity extends AppCompatActivity implements View.OnClickListener{
+public class CharityCommentListActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener,View.OnClickListener{
     private Button button_back;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     private ImageView charity_iamge;
     private TextView charity_name;
     private TextView charity_description;
@@ -66,6 +69,8 @@ public class CharityCommentListActivity extends AppCompatActivity implements Vie
 
     private void initView() {
         recyclerView = (RecyclerView)findViewById(R.id.rv_list);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         initAdapter();
         // addHeadView();
@@ -222,5 +227,16 @@ public class CharityCommentListActivity extends AppCompatActivity implements Vie
                 personalList.add(charity);
             }
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                initData();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        }, 1000);
     }
 }

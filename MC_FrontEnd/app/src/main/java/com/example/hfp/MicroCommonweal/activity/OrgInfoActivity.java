@@ -1,6 +1,7 @@
 package com.example.hfp.MicroCommonweal.activity;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,7 +31,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrgInfoActivity extends AppCompatActivity implements View.OnClickListener{
+public class OrgInfoActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener,View.OnClickListener{
     private ImageView image_avatar;
     private TextView str_name;
     private TextView str_address;
@@ -41,6 +42,7 @@ public class OrgInfoActivity extends AppCompatActivity implements View.OnClickLi
     private Button button_back;
     private String TAG = "OrgInfoActivity";
     private String OrgId;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     RecyclerView recyclerView;
     private OrgCommentCharityAdapter adapter;
@@ -59,13 +61,27 @@ public class OrgInfoActivity extends AppCompatActivity implements View.OnClickLi
         tv_comment_score = findViewById(R.id.tv_comment_score);
         tv_total_time = findViewById(R.id.tv_total_time);
         tv_charity_num = findViewById(R.id.tv_charity_num);
-
         button_back = (Button)findViewById(R.id.button_back);
         button_back.setOnClickListener(this);
         OrgId = getIntent().getStringExtra("orgid");
 
-        initData();
         initView();
+
+        initData();
+    }
+
+    /**
+     * 刷新listView
+     */
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                initData();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        }, 1000);
     }
 
     @Override
@@ -80,6 +96,8 @@ public class OrgInfoActivity extends AppCompatActivity implements View.OnClickLi
 
     private void initView() {
         recyclerView = (RecyclerView)findViewById(R.id.rv_org_detail);
+        //mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        //mSwipeRefreshLayout.setOnRefreshListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         initAdapter();
         // addHeadView();
@@ -145,9 +163,13 @@ public class OrgInfoActivity extends AppCompatActivity implements View.OnClickLi
 
                     displayOrgInfo(organization);
 
-                    getCharityInfo(objectdata);
+                    List<Charity> charities = getCharityInfo(objectdata);
 
-                    adapter.addData(charityList);
+                    charityList.clear();
+                    charityList.addAll(charities);
+
+                    adapter.removeAllData();
+                    adapter.addData(charities);
 
                 }else{
                     Toast.makeText(OrgInfoActivity.this, "获取活动失败！请稍后再试", Toast.LENGTH_LONG).show();
@@ -231,7 +253,8 @@ public class OrgInfoActivity extends AppCompatActivity implements View.OnClickLi
         new ImageUpAndDownUtil(getApplicationContext()).testDownloadImage(url,imageView);
     }
 
-    private void getCharityInfo(JSONObject objectdata){
+    private List<Charity> getCharityInfo(JSONObject objectdata){
+        List<Charity> charities = new ArrayList<>();
         for (int i = 0; i <= 20; i++){
             if (objectdata.containsKey(String.valueOf(i))) {
                 JSONObject object = objectdata.getJSONObject(String.valueOf(i));
@@ -260,8 +283,9 @@ public class OrgInfoActivity extends AppCompatActivity implements View.OnClickLi
                     Log.d(TAG, "actcom NOT FIND");
                     charity.setActcom(0);
                 }
-                charityList.add(charity);
+                charities.add(charity);
             }
         }
+        return charities;
     }
 }

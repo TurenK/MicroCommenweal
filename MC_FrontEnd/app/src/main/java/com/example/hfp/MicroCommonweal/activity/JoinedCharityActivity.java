@@ -1,5 +1,7 @@
 package com.example.hfp.MicroCommonweal.activity;
 
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,12 +25,13 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JoinedCharityActivity extends AppCompatActivity implements View.OnClickListener  {
+public class JoinedCharityActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener,View.OnClickListener  {
     private static String TAG = "JoinedCharityActivity";
     private String OPENING = "报名中";
     private String CLOSED = "已结束";
     private String DUE = "已截止";
     private CharityAdapter listadapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     //recyclerview控件
     private RecyclerView recyclerView;
@@ -44,13 +47,29 @@ public class JoinedCharityActivity extends AppCompatActivity implements View.OnC
         button_back = (Button)findViewById(R.id.button_back);
         button_back.setOnClickListener(this);
 
-        initCharities();//初始化义工
-
         initView();
+
+        initData();//初始化义工
+    }
+
+    /**
+     * 刷新listView
+     */
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                initData();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        }, 1000);
     }
 
     private void initView() {
         recyclerView = (RecyclerView)findViewById(R.id.rv_joined_charity);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         initAdapter();
         // addHeadView();
@@ -78,7 +97,7 @@ public class JoinedCharityActivity extends AppCompatActivity implements View.OnC
 
     }
 
-    private  void initCharities(){
+    private  void initData(){
 
         String uid = UserInfo.getUserInfo().getuId();
 
@@ -139,7 +158,6 @@ public class JoinedCharityActivity extends AppCompatActivity implements View.OnC
                             charities.add(charity);
                         }
                     }
-
                     listadapter.addData(charities);
                 }else{
                     Toast.makeText(JoinedCharityActivity.this, "获取活动失败！请稍后再试", Toast.LENGTH_LONG).show();

@@ -40,6 +40,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     private static String TAG = "CategoryAdapter";
     private Context context;
     private CharityAdapter listadapter;
+    private final String TEENAGER = "青少年服务";
+    private final String CHILDREN = "儿童服务";
+    private final String ELDER = "老年服务";
+    private final String TEENACT = "青少年活动";
     //义工列表
     private List<Charity> charityList = new ArrayList<>();
 
@@ -71,7 +75,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
-                requireCharity(position);
+                String categoryname = mCategoryList.get(position).getCotegory_name();
+                requireCharity(categoryname);
             }
         });
         return holder;
@@ -91,7 +96,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         return mCategoryList.size();
     }
 
-    private void requireCharity(int category) {
+    private void requireCharity(String category) {
 
         String uid = UserInfo.getUserInfo().getuId();
 
@@ -100,15 +105,18 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         //创建网络访问对象
         JSONObject main_json = new JSONObject();
-        main_json.put("userId", uid);
+        if(UserInfo.getUserInfo().getType()==UserInfo.CHARITY_ORG)
+            main_json.put("groupId", uid);
+        else
+            main_json.put("userId", uid);
         main_json.put("category", category);
 
         Log.d(TAG, main_json.toString());
 
         StringEntity stringEntity = null;
         try {
-            stringEntity = new StringEntity(main_json.toJSONString());
-        } catch (UnsupportedEncodingException e) {
+            stringEntity = new StringEntity(main_json.toJSONString(), "UTF-8");
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

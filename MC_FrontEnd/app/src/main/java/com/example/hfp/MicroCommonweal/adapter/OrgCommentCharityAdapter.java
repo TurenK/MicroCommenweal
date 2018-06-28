@@ -17,9 +17,11 @@ import java.util.List;
 
 public class OrgCommentCharityAdapter extends BaseQuickAdapter<Charity> {
     private Context context;
+    private List<Charity> charities;
     public OrgCommentCharityAdapter(@LayoutRes int layoutResId, @Nullable List<Charity> data, Context context) {
         super(layoutResId, data);
         this.context = context;
+        charities = data;
     }
 
     @Override
@@ -34,8 +36,16 @@ public class OrgCommentCharityAdapter extends BaseQuickAdapter<Charity> {
         //int position = helper.getLayoutPosition();
 
         getImages(charity.getImagepath(),(ImageView) helper.getView(R.id.charity_iamge));
-
     }
+
+    public void removeAllData() {
+        if (charities != null && !charities.isEmpty()) {
+            for (int i = 0; i <= charities.size(); i++) {
+                remove(0);
+            }
+        }
+    }
+
     private void getImages(String url, ImageView imageView){
         new ImageUpAndDownUtil(context).testDownloadImage(url,imageView);
     }

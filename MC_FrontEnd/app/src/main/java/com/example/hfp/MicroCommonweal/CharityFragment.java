@@ -56,7 +56,10 @@ public class CharityFragment extends Fragment {
     private String OPENING = "报名中";
     private String CLOSED = "已结束";
     private String DUE = "已截止";
-    private final int CATEGORY = 0;
+    private final String TEENAGER = "青少年活动";
+    private final String CHILDREN = "儿童服务";
+    private final String ELDER = "老年服务";
+    private final String TREAT = "医疗服务";
     private CharityAdapter listadapter;
 
 
@@ -304,11 +307,11 @@ public class CharityFragment extends Fragment {
 //            charityList.add(charity);
 //        }
 
-        requireCharity(CATEGORY);
+        requireCharity(TEENAGER);
     }
 
     private  void initCategories(){
-            Category category = new Category(R.drawable.thumbnail21,"青少年服务");
+            Category category = new Category(R.drawable.thumbnail21,"青少年活动");
             Category category1 = new Category(R.drawable.thumbnail22,"医疗服务");
             Category category2 = new Category(R.drawable.thumbnail23,"儿童服务");
             Category category3 = new Category(R.drawable.thumbnail24,"老年服务");
@@ -318,7 +321,7 @@ public class CharityFragment extends Fragment {
             categoryList.add(category3);
     }
 
-    private void requireCharity(int category){
+    private void requireCharity(String category){
 
         String uid = UserInfo.getUserInfo().getuId();
 
@@ -327,15 +330,20 @@ public class CharityFragment extends Fragment {
 
         //创建网络访问对象
         JSONObject main_json = new JSONObject();
-        main_json.put("userId", uid);
+        if(UserInfo.getUserInfo().getType()==UserInfo.CHARITY_ORG){
+            main_json.put("groupId", uid);
+            //main_json.put("groupId", uid);
+        }
+        else
+            main_json.put("userId", uid);
         main_json.put("category", category);
 
         Log.d(TAG, main_json.toString());
 
         StringEntity stringEntity = null;
         try {
-            stringEntity = new StringEntity(main_json.toJSONString());
-        } catch (UnsupportedEncodingException e) {
+            stringEntity = new StringEntity(main_json.toJSONString(), "UTF-8");
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

@@ -1,6 +1,8 @@
 package com.example.hfp.MicroCommonweal.activity;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,7 +30,7 @@ import org.apache.http.entity.StringEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonInfoActivity extends AppCompatActivity implements View.OnClickListener{
+public class PersonInfoActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener,View.OnClickListener{
     private String JOINING = "报名中";
     private String CLOSED = "已结束";
     private String DUE = "已截止";
@@ -42,6 +44,7 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
     private TextView tv_total_time;
     private TextView tv_charity_num;
     private CharityAdapter listadapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     //recyclerview控件
     RecyclerView recyclerView_charity;
@@ -62,6 +65,7 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
         Log.d("123", uid);
 
         //初始化控件
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         image_avatar = findViewById(R.id.image_avatar);
         str_name = findViewById(R.id.str_name);
         str_intro = findViewById(R.id.str_intro);
@@ -82,6 +86,19 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
         recyclerView_charity.setLayoutManager(layoutManager);
     }
 
+    /**
+     * 刷新listView
+     */
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                init();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        }, 1000);
+    }
 
     @Override
     public void onClick(View v) {
@@ -91,14 +108,6 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
                 break;
         }
 
-    }
-
-
-    private  void initCharities(){
-        for (int i = 0; i <1; i++){
-            Charity charity = new Charity();
-            charityList.add(charity);
-        }
     }
 
     private  void initPersonal(){

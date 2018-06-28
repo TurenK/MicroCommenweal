@@ -3,6 +3,8 @@ package com.example.hfp.MicroCommonweal.activity;
 * Desc:这个界面是组织评价，活动列表
 * */
 import android.content.Intent;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,9 +30,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrgRateActivity extends AppCompatActivity implements View.OnClickListener{
+public class OrgRateActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener,View.OnClickListener{
 
     private Button button_back;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     //义工列表
     private List<Charity> charityList = new ArrayList<>();
     //recyclerview控件
@@ -48,8 +51,23 @@ public class OrgRateActivity extends AppCompatActivity implements View.OnClickLi
         button_back = (Button)findViewById(R.id.button_back);
         button_back.setOnClickListener(this);
 
-        initCharities();//初始化义工
         initView();
+
+        initCharities();//初始化义工
+    }
+
+    /**
+     * 刷新listView
+     */
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                initCharities();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        }, 1000);
     }
 
     @Override
@@ -63,6 +81,8 @@ public class OrgRateActivity extends AppCompatActivity implements View.OnClickLi
     }
     private void initView() {
         recyclerView = (RecyclerView)findViewById(R.id.rv_org_rate);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         initAdapter();
         // addHeadView();

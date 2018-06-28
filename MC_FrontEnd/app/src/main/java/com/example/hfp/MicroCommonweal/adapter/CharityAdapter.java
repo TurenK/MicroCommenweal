@@ -2,6 +2,7 @@ package com.example.hfp.MicroCommonweal.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -39,21 +40,24 @@ public class CharityAdapter extends BaseQuickAdapter<Charity> {
 
     @Override
     protected void convert(final BaseViewHolder baseViewHolder, final Charity charity) {
-        baseViewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = baseViewHolder.getLayoutPosition();
-                //Toast.makeText(v.getContext(), "点击了", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent();
-                intent.setClass(v.getContext(), CharityDetailActivity.class);
-                intent.putExtra("activityID", charity.getaID());
-                v.getContext().startActivity(intent);
-            }
-        });
+//        baseViewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                int position = baseViewHolder.getLayoutPosition();
+//                //Toast.makeText(v.getContext(), "点击了", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent();
+//                intent.setClass(v.getContext(), CharityDetailActivity.class);
+//                intent.putExtra("activityID", charity.getaID());
+//                v.getContext().startActivity(intent);
+//            }
+//        });
 
         baseViewHolder.setText(R.id.charity_name, charity.getName());
         baseViewHolder.setText(R.id.people_num, charity.getPeoplenum());
         baseViewHolder.setText(R.id.status, charity.getStatus());
+        if(charity.getStatus().equals("已评价")){
+            baseViewHolder.setBackgroundColor(R.id.status, Color.GRAY);
+        }
         try {
             getImages(charity, (ImageView) baseViewHolder.getView(R.id.charity_iamge));
         } catch (Exception e) {

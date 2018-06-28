@@ -1,6 +1,8 @@
 package com.example.hfp.MicroCommonweal.activity;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +17,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.hfp.MicroCommonweal.R;
 import com.example.hfp.MicroCommonweal.Utils.AsyncHttpUtil;
 import com.example.hfp.MicroCommonweal.adapter.CharityAdapter;
-import com.example.hfp.MicroCommonweal.adapter.CharityAdapter_ForComment;
 import com.example.hfp.MicroCommonweal.object.Charity;
 import com.example.hfp.MicroCommonweal.object.UserInfo;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -26,31 +27,84 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PreRateActivity extends AppCompatActivity implements View.OnClickListener{
+public class PreRateActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener,View.OnClickListener{
     private List<Charity> charityList = new ArrayList<>();
     private Button button_back;
     RecyclerView recyclerView;
-    private CharityAdapter adapter;
+    private CharityAdapter listadapter;
     public final String TAG = "pengfeiwuer";
     private String N_EVALUATE = "评价";
     private String EVALUATED = "已评价";
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pre_rate);
         recyclerView = (RecyclerView)findViewById(R.id.rv_pre_rate);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
         button_back = (Button)findViewById(R.id.button_back);
         button_back.setOnClickListener(this);
 
-        initOrganizations();//初始化消息
+        initView();
 
+        initData();//初始化消息
     }
 
     @Override
     public void onRestart() {
         super.onRestart();
-        initOrganizations();//初始化消息
+        initData();//初始化消息
     }
+
+    /**
+     * 刷新listView
+     */
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                initData();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        }, 1000);
+    }
+    private void initView() {
+        recyclerView = (RecyclerView)findViewById(R.id.rv_pre_rate);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        initAdapter();
+        // addHeadView();
+        recyclerView.setAdapter(listadapter);
+    }
+
+    /**
+     * 初始化adapter
+     */
+    private void initAdapter() {
+        listadapter = new CharityAdapter(R.layout.charity_item,charityList,getApplicationContext());
+        listadapter.openLoadAnimation();
+        listadapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Charity charity = charityList.get(position);
+                //Toast.makeText(v.getContext(), "点击了", Toast.LENGTH_SHORT).show();
+                if(charity.getStatus().equals("评价")){
+                Intent intent=new Intent();
+                intent.setClass(getApplicationContext(), CommitOrgActivity.class);
+                intent.putExtra("actId", charity.getaID());
+                getApplicationContext().startActivity(intent);}
+                else {
+                    Toast.makeText(PreRateActivity.this, "您已评价过该活动！", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        recyclerView.setAdapter(listadapter);
+        //  addHeadView();
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -61,7 +115,7 @@ public class PreRateActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    private void initOrganizations(){
+    private void initData(){
 //        for(int i =0;i<3;i++){
 //            Organization organization = new Organization();
 //            organization.setOrgname("联合国儿童基金委");
@@ -100,6 +154,7 @@ public class PreRateActivity extends AppCompatActivity implements View.OnClickLi
                 if (code == 200){
                     //TODO get more JSON objects!
                     JSONObject objectdata =jsonObject.getJSONObject("data");
+                    List<Charity> charities = new ArrayList<>();
                     for (int i = 1; i <= 10; i++){
                         if (objectdata.containsKey(String.valueOf(i))) {
                             JSONObject object = objectdata.getJSONObject(String.valueOf(i));
@@ -121,15 +176,12 @@ public class PreRateActivity extends AppCompatActivity implements View.OnClickLi
                             }else if(userStatus==1){
                                 charity.setStatus(EVALUATED);
                             }
-                            charityList.add(charity);
+                            charities.add(charity);
                             Log.d(TAG, "i'm done");
                         }
-                        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-                        recyclerView.setLayoutManager(layoutManager);
-                        CharityAdapter_ForComment adapter = new CharityAdapter_ForComment(charityList,getApplicationContext());
-                        recyclerView.setAdapter(adapter);
                     }
-
+                    listadapter.removeAllData();
+                    listadapter.addData(charities);
                 }else{
                     Toast.makeText(getApplicationContext(), "获取活动失败！请稍后再试", Toast.LENGTH_LONG).show();
                 }
