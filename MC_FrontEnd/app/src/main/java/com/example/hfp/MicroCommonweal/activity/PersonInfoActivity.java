@@ -105,7 +105,7 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
         //初始化评价列表的recycle和adapter
         recyclerView_comment = (RecyclerView)findViewById(R.id.rv_comment);
         recyclerView_comment.setLayoutManager(new LinearLayoutManager(this));
-        CommentPersonAdapter adapter_comment = new CommentPersonAdapter(R.layout.person_comment_list_item, personalList);
+        CommentPersonAdapter adapter_comment = new CommentPersonAdapter(R.layout.person_comment_list_item, personalList, this);
         adapter_comment.openLoadAnimation();
         recyclerView_comment.setAdapter(adapter_comment);
     }
