@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <!--未读消息-->
+    <LinearLayout
+        android:id="@+id/MessageLayout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/white"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal"
+        >
+        <RelativeLayout
+            android:id="@+id/massage"
+            android:layout_width="80dip"
+            android:layout_height="match_parent"
+            >
+
+            <ImageView
+                android:id="@+id/image_avatar"
+                android:src="@drawable/avatar1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:scaleType="centerInside" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/blank"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:background="@color/white"
+                />
+            <RatingBar
+                android:id="@+id/ratingbar"
+                style="@style/mRatingBar"
+                android:layout_below="@id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="10dp"
+                android:numStars="5"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical"
+                android:isIndicator="true"
+                android:progressTint="@android:color/holo_orange_dark"
+                android:rating="1.0"
+                android:stepSize="1" />
+
+            <TextView
+                android:id="@+id/str_message"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/ratingbar"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:gravity="center_vertical"
+                android:text="这个活动让我收获很多"
+                android:textColor="@color/black"
+                android:background="@null"
+                android:textSize="17sp"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

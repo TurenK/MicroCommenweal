@@ -17,6 +17,7 @@ import com.example.hfp.MicroCommonweal.R;
 import com.example.hfp.MicroCommonweal.Utils.AsyncHttpUtil;
 import com.example.hfp.MicroCommonweal.Utils.ImageUpAndDownUtil;
 import com.example.hfp.MicroCommonweal.adapter.CharityAdapter;
+import com.example.hfp.MicroCommonweal.adapter.CommentPersonAdapter;
 import com.example.hfp.MicroCommonweal.adapter.PersonalAdapter;
 import com.example.hfp.MicroCommonweal.object.Charity;
 import com.example.hfp.MicroCommonweal.object.Personal;
@@ -104,7 +105,7 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
         //初始化评价列表的recycle和adapter
         recyclerView_comment = (RecyclerView)findViewById(R.id.rv_comment);
         recyclerView_comment.setLayoutManager(new LinearLayoutManager(this));
-        PersonalAdapter adapter_comment = new PersonalAdapter(R.layout.charity_comment_list_item, personalList,this);
+        CommentPersonAdapter adapter_comment = new CommentPersonAdapter(R.layout.person_comment_list_item, personalList);
         adapter_comment.openLoadAnimation();
         recyclerView_comment.setAdapter(adapter_comment);
     }
