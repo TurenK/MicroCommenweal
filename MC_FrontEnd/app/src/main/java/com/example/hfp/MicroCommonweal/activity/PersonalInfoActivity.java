@@ -23,15 +23,20 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.hfp.MicroCommonweal.R;
 import com.example.hfp.MicroCommonweal.Utils.AsyncHttpUtil;
 import com.example.hfp.MicroCommonweal.Utils.ImageUpAndDownUtil;
+import com.example.hfp.MicroCommonweal.object.Charity;
 import com.example.hfp.MicroCommonweal.object.UserInfo;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.apache.http.entity.StringEntity;
 
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class PersonalInfoActivity extends AppCompatActivity  implements View.OnClickListener {
 
     private static final int IMAGE_REQUEST_CODE = 0;
-    private final String TAG = "pengfeiwuer";
+    private final String TAG = "PersonalInfoActivity";
     private TextView tv_userid;
     private TextView tv_name;
     private TextView tv_gender;
@@ -42,10 +47,15 @@ public class PersonalInfoActivity extends AppCompatActivity  implements View.OnC
     private RelativeLayout rl_name;
     private RelativeLayout rl_gender;
     private Button btn_back;
-    private Button btn_submit;
+    private Button btn_submit_personal_info;
     private ImageUpAndDownUtil imageUpAndDownUtil;
     private String received_filepath;
     private String pic_path;
+    String username;
+    String usergender;
+    String userdesc;
+    int userphone;
+    String userimage;
 
     private String[] sexArry = new String[]{ "女", "男"};// 性别选择
     @Override
@@ -55,7 +65,8 @@ public class PersonalInfoActivity extends AppCompatActivity  implements View.OnC
 
         imageUpAndDownUtil = new ImageUpAndDownUtil(getApplicationContext());
         //初始化控件
-        btn_submit = (Button) findViewById(R.id.btn_submit_personal_info);
+        btn_submit_personal_info = (Button) findViewById(R.id.btn_submit_personal_info);
+        btn_submit_personal_info.setOnClickListener(this);
         tv_userid = (TextView)findViewById(R.id.tv_userid);
         tv_name = (TextView)findViewById(R.id.tv_name);
         tv_gender = (TextView)findViewById(R.id.tv_gender);
@@ -114,23 +125,19 @@ public class PersonalInfoActivity extends AppCompatActivity  implements View.OnC
         UserInfo recentRegister = UserInfo.getUserInfo();
         //创建网络访问对象
         imageUpAndDownUtil.testDownloadImage(recentRegister.getuAvatar(),iv_avator);
+        tv_name.setText(recentRegister.getuName());
+        tv_gender.setText(recentRegister.getuGender());
+        tv_signature.setText(recentRegister.getuIntro());
+        tv_phone.setText(recentRegister.getuPhone());
+        if(UserInfo.getUserInfo().getType()==UserInfo.CHARITY_ORG){
+            tv_gender.setText("无");
+        }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_userid:
-                final EditText inputUserid= new EditText(PersonalInfoActivity.this);
-                AlertDialog.Builder builder_userid = new AlertDialog.Builder(PersonalInfoActivity.this);
-                builder_userid.setTitle("用户ID").setView(inputUserid)
-                        .setNegativeButton("取消", null);
-                builder_userid.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int which) {
-                        tv_userid.setText( inputUserid.getText().toString());
-                    }
-                });
-                builder_userid.show();
                 break;
             case R.id.rl_name:
                 final EditText inputName= new EditText(PersonalInfoActivity.this);
@@ -172,17 +179,6 @@ public class PersonalInfoActivity extends AppCompatActivity  implements View.OnC
                 builder_signature.show();
                 break;
             case R.id.tv_phone:
-                final EditText inputPhone= new EditText(PersonalInfoActivity.this);
-                AlertDialog.Builder builder_phone = new AlertDialog.Builder(PersonalInfoActivity.this);
-                builder_phone.setTitle("电话号码").setView(inputPhone)
-                        .setNegativeButton("取消", null);
-                builder_phone.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int which) {
-                        tv_phone.setText( inputPhone.getText().toString());
-                    }
-                });
-                builder_phone.show();
                 break;
             case R.id.iv_avator:
                 Intent intent = new Intent(Intent.ACTION_PICK,
@@ -194,8 +190,75 @@ public class PersonalInfoActivity extends AppCompatActivity  implements View.OnC
                 finish();
                 break;
             case R.id.btn_submit_personal_info:
-                finish();
+                submitInfo();
                 break;
         }
+    }
+
+    private void submitInfo(){
+        username = tv_name.getText().toString();
+        usergender = tv_gender.getText().toString();
+        userdesc = tv_signature.getText().toString();
+        userphone = Integer.valueOf(tv_phone.getText().toString());
+        userimage = imageUpAndDownUtil.getReceived_filepath();
+
+        //创建网络访问对象
+        JSONObject main_json = new JSONObject();
+        if(UserInfo.getUserInfo().getType()==UserInfo.CHARITY_USER){
+            main_json.put("userName", username);
+            main_json.put("userImage", userimage);
+            main_json.put("userIntro", userdesc);
+            main_json.put("userGender", usergender);
+        }else {
+            main_json.put("groupName", username);
+            main_json.put("groupImage", userimage);
+            main_json.put("groupIntro", userdesc);
+        }
+
+        Log.d(TAG, main_json.toString());
+
+        StringEntity stringEntity = null;
+        try {
+            stringEntity = new StringEntity(main_json.toJSONString());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        String phpUrl = null;
+        if(UserInfo.getUserInfo().getType()==UserInfo.CHARITY_ORG){
+            phpUrl = this.getString(R.string.URL_GROUP_INFO_MODIFY);
+        }else {
+            phpUrl = this.getString(R.string.URL_USER_INFO_MODIFY);
+        }
+
+        AsyncHttpUtil.post(getApplicationContext(), phpUrl, stringEntity, "application/json", new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(String content) {
+                JSONObject jsonObject = JSONObject.parseObject(content);
+                int code = jsonObject.getInteger("code");
+                String info = jsonObject.getString("message");
+                Log.d(TAG, jsonObject.toString());
+                if (code == 200){
+                    //TODO get more JSON objects!
+                    Toast.makeText(getApplicationContext(), "修改成功！", Toast.LENGTH_LONG).show();
+                    UserInfo.getUserInfo().setuIntro(userdesc);
+                    UserInfo.getUserInfo().setuGender(usergender);
+                    UserInfo.getUserInfo().setuAvatar(userimage);
+                    UserInfo.getUserInfo().setuName(username);
+                    finish();
+                }else{
+                    Toast.makeText(getApplicationContext(), "修改失败!请检查网络", Toast.LENGTH_LONG).show();
+                }
+//                super.onSuccess(content);
+            }
+
+            @Override
+            public void onFailure(Throwable error, String content) {
+                Log.d(TAG, "cannot connect to server!");
+                Toast.makeText(getApplicationContext(), "无法连接到服务器！", Toast.LENGTH_LONG).show();
+//                super.onFailure(error, content);
+            }
+        });
+
     }
 }
