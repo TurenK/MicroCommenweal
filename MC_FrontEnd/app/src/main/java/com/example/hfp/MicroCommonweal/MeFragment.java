@@ -40,6 +40,7 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
     private Button btn_rank;
     private Button btn_set_account;
     private Button btn_approve_info;
+    private Button button_logout;
     private TextView uname;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,6 +53,7 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
         btn_collection = (Button)meLayout.findViewById(R.id.button_like);
         btn_initiate_project = (Button)meLayout.findViewById(R.id.button_useless);
         btn_join_project= (Button)meLayout.findViewById(R.id.button_join);
+        button_logout = (Button)meLayout.findViewById(R.id.button_logout);
         if(UserInfo.getUserInfo().getType()==UserInfo.CHARITY_ORG){
             btn_join_project.setText("发起的项目");
         }else {
@@ -73,6 +75,7 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
         btn_rank.setOnClickListener(this);
         btn_set_account.setOnClickListener(this);
         btn_approve_info.setOnClickListener(this);
+        button_logout.setOnClickListener(this);
         initInfo();
         return meLayout;
     }
@@ -105,6 +108,15 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
 //                    startActivity(new Intent(getContext(),PreRateActivity.class));
 //                }
                 startActivity(new Intent(getContext(),QuestionVarietyActivity.class));
+                break;
+            case R.id.button_logout:
+//                if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_ORG){
+//                    startActivity(new Intent(getContext(),OrgRateActivity.class));
+//                }else{
+//                    startActivity(new Intent(getContext(),PreRateActivity.class));
+//                }
+                startActivity(new Intent(getContext(),MainActivity.class));
+                getActivity().finish();
                 break;
             case R.id.button_orgMessage:
                 startActivity(new Intent(getContext(),MessageActivity.class));

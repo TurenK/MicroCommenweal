@@ -61,6 +61,7 @@ public class CharityFragment extends Fragment {
     private final String ELDER = "老年服务";
     private final String TREAT = "医疗服务";
     private CharityAdapter listadapter;
+    private String currentcategoryname;
 
 
     private View charityLayout;
@@ -97,6 +98,7 @@ public class CharityFragment extends Fragment {
     //recyclerview控件
     private RecyclerView recyclerView;
     private RecyclerView recyclerView_category;
+    private CategoryAdapter adapter_category;
 
     @Nullable
     @Override
@@ -120,22 +122,15 @@ public class CharityFragment extends Fragment {
 
         setView();
 
-        //初始化义工列表的recycle和adapter
-        recyclerView = (RecyclerView) charityLayout.findViewById(R.id.rv_charity);
-
         initView();
+
+        initCategoryView();
 
         initCategories();//初始化分類
 
-        initCharities();//初始化义工
+        currentcategoryname = TEENAGER;
+        //initCharities();//初始化义工
 
-        //初始化分類列表recycle和adpater
-        recyclerView_category = (RecyclerView)charityLayout.findViewById(R.id.rv_charity_category);
-        LinearLayoutManager layoutManager_category = new LinearLayoutManager((getActivity()).getApplicationContext());
-        layoutManager_category.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerView_category.setLayoutManager(layoutManager_category);
-        CategoryAdapter adapter_category = new CategoryAdapter(categoryList,getContext(),listadapter);
-        recyclerView_category.setAdapter(adapter_category);
         return  charityLayout;
     }
 
@@ -231,6 +226,7 @@ public class CharityFragment extends Fragment {
                 2,
                 2,
                 TimeUnit.SECONDS);
+        requireCharity(currentcategoryname);
     }
 
 
@@ -296,32 +292,51 @@ public class CharityFragment extends Fragment {
         });
     }
 
-    private  void initCharities(){
-//        for(int i = 0;i<10;i++){
-//            Charity charity = new Charity();
-//            charity.setaID(""+i);
-//            charity.setName("小桔灯");
-//            charity.setIamgeId(R.drawable.thumbnail1);
-//            charity.setPeoplenum("剩余10人");
-//                charity.setStatus(JOINING);
-//            charityList.add(charity);
-//        }
+    // 初始化category
+    private void initCategoryView() {
+        recyclerView_category = (RecyclerView)charityLayout.findViewById(R.id.rv_charity_category);
+        LinearLayoutManager temp = new LinearLayoutManager(getContext());
+        temp.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView_category.setLayoutManager(temp);
+        initCategoryAdapter();
+        // addHeadView();
+        recyclerView_category.setAdapter(adapter_category);
+    }
 
-        requireCharity(TEENAGER);
+    /**
+     * 初始化adapter
+     */
+    private void initCategoryAdapter() {
+        adapter_category = new CategoryAdapter(R.layout.charity_category_item,categoryList,getContext());
+        adapter_category.openLoadAnimation();
+        recyclerView_category.setAdapter(adapter_category);
+        //  addHeadView();
+        //item添加监听
+        adapter_category.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                String categoryname = categoryList.get(position).getCotegory_name();
+                Log.d(TAG,"点击了"+categoryname);
+                requireCharity(categoryname);
+            }
+        });
     }
 
     private  void initCategories(){
-            Category category = new Category(R.drawable.thumbnail21,"青少年活动");
-            Category category1 = new Category(R.drawable.thumbnail22,"医疗服务");
-            Category category2 = new Category(R.drawable.thumbnail23,"儿童服务");
-            Category category3 = new Category(R.drawable.thumbnail24,"老年服务");
-            categoryList.add(category);
-            categoryList.add(category1);
-            categoryList.add(category2);
-            categoryList.add(category3);
+        List<Category> categories = new ArrayList<>();
+        Category category = new Category(R.drawable.thumbnail21,"青少年活动");
+        Category category1 = new Category(R.drawable.thumbnail22,"医疗服务");
+        Category category2 = new Category(R.drawable.thumbnail23,"儿童服务");
+        Category category3 = new Category(R.drawable.thumbnail24,"老年服务");
+        categories.add(category);
+        categories.add(category1);
+        categories.add(category2);
+        categories.add(category3);
+        adapter_category.removeAllData();
+        adapter_category.addData(categories);
     }
 
-    private void requireCharity(String category){
+    private void requireCharity(final String category){
 
         String uid = UserInfo.getUserInfo().getuId();
 
@@ -356,6 +371,7 @@ public class CharityFragment extends Fragment {
                 Log.d(TAG, jsonObject.toString());
                 if (code == 200){
                     //TODO get more JSON objects!
+                    currentcategoryname = category;
                     JSONObject objectdata =jsonObject.getJSONObject("data");
                     List<Charity> charityList = new ArrayList<>();
                     for (int i = 0; i <= 10; i++){
@@ -367,7 +383,7 @@ public class CharityFragment extends Fragment {
                             String aSQ = object.getString("aSurplusQuota");
                             String aNN = object.getString("aNeedNumOfPerson");
                             String actStatus = object.getString("activityStatus");
-                            int userStatus = object.getInteger("userStatus");
+
                             //TODO create a Charity object
                             Charity charity = new Charity();
                             charity.setaID(actID);
@@ -385,6 +401,8 @@ public class CharityFragment extends Fragment {
 //                                    charity.setStatus(DUE);
 //                                    break;
 //                            }
+                            if(UserInfo.getUserInfo().getType()==UserInfo.CHARITY_USER){
+                            int userStatus = object.getInteger("userStatus");
                             if(actStatus.equals("1") && userStatus==0){
                                 charity.setStatus(JOINING);
                             }else if(actStatus.equals("1") && userStatus==1){
@@ -394,10 +412,23 @@ public class CharityFragment extends Fragment {
                             }else if (actStatus.equals("2")){
                                 charity.setStatus(DUE);
                             }
+                            }else {
+                                switch (actStatus) {
+                                    case "1":
+                                        charity.setStatus(OPENING);
+                                        break;
+                                    case "0":
+                                        charity.setStatus(CLOSED);
+                                        break;
+                                    case "2":
+                                        charity.setStatus(DUE);
+                                        break;
+                                }
+                            }
                             charityList.add(charity);
                         }
                     }
-//                    listadapter.removeAllData();
+                    listadapter.removeAllData();
                     listadapter.addData(charityList);
                 }else{
                     Toast.makeText(getContext(), "获取活动失败！请稍后再试", Toast.LENGTH_LONG).show();

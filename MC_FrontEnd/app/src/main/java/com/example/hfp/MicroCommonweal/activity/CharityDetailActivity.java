@@ -1,6 +1,7 @@
 package com.example.hfp.MicroCommonweal.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,6 +36,11 @@ import java.util.List;
 
 public class CharityDetailActivity extends AppCompatActivity  implements View.OnClickListener{
     private List<Recentjoin> recentjoinList = new ArrayList<>();
+    private String JOINING = "报名中";
+    private String JOINED = "已报名";
+    private String OPENING = "报名中";
+    private String CLOSED = "已结束";
+    private String DUE = "已截止";
 
     RecyclerView recyclerView;
 
@@ -180,7 +186,6 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
                     String activityIntroduction = object.getString("activityIntroduction");
                     String aNeedNumOfPerson = object.getString("aNeedNumOfPerson");
                     String aSurplusQuota = object.getString("aSurplusQuota");
-                    uStatus = object.getInteger("userStatus");
                     aStatus = object.getString("activityStatus");
                     tv_title.setText(activityName);
                     tv_detailInfo.setText(activityIntroduction);
@@ -189,9 +194,52 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
                     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
                     String nowDate = df.format(new Date());// new Date()为获取当前系统时间
                     tv_dayLeft.setText(String.valueOf(daysBetween(nowDate, activityDeadline)));
-                    if (uStatus == 1){
-                        btn_join.setText("已报名");
+                    if(UserInfo.getUserInfo().getType()==UserInfo.CHARITY_USER){
+                        uStatus = object.getInteger("userStatus");
+                        if(aStatus.equals("1") && uStatus==0){
+                            btn_join.setText(JOINING);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                btn_join.setBackgroundColor(getColor(R.color.unparticipate));
+                            }
+                        }else if(aStatus.equals("1") && uStatus==1){
+                            btn_join.setText(JOINED);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                btn_join.setBackgroundColor(getColor(R.color.participated));
+                            }
+                        }else if (aStatus.equals("0")){
+                            btn_join.setText(CLOSED);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                btn_join.setBackgroundColor(getColor(R.color.allfinished));
+                            }
+                        }else if (aStatus.equals("2")){
+                            btn_join.setText(DUE);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                btn_join.setBackgroundColor(getColor(R.color.parfinished));
+                            }
+                        }
+                    }else {
+                        switch (aStatus) {
+                            case "1":
+                                btn_join.setText(OPENING);
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                    btn_join.setBackgroundColor(getColor(R.color.unparticipate));
+                                }
+                                break;
+                            case "0":
+                                btn_join.setText(CLOSED);
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                    btn_join.setBackgroundColor(getColor(R.color.allfinished));
+                                }
+                                break;
+                            case "2":
+                                btn_join.setText(DUE);
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                    btn_join.setBackgroundColor(getColor(R.color.parfinished));
+                                }
+                                break;
+                        }
                     }
+
                     JSONObject usersObj =alldata.getJSONObject("join");
                     for (int i = 1; i <= 100; i++){
                             if (usersObj.containsKey(String.valueOf(i))) {
@@ -255,6 +303,10 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
                 if (code == 200){
                     //TODO Intent
                     Toast.makeText(CharityDetailActivity.this, "参与成功！", Toast.LENGTH_LONG).show();
+                    btn_join.setText(JOINED);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        btn_join.setBackgroundColor(getColor(R.color.participated));
+                    }
                 }else if(code == 403){
                     Toast.makeText(CharityDetailActivity.this, "您已报名此活动！", Toast.LENGTH_LONG).show();
                 }

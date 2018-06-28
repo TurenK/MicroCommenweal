@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.hfp.MicroCommonweal.activity.PublishActivity">
+    tools:context="com.example.hfp.MicroCommonweal.activity.IdentifyInfoActivity">
     <!--标题栏消息-->
     <RelativeLayout
         android:id="@+id/title_layout"
@@ -44,7 +44,7 @@
         android:layout_height="match_parent"
         android:background="#FFFAFA">
 
-               <LinearLayout
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -59,6 +59,7 @@
                 android:text="团队基本信息"
                 android:textColor="@color/gray"
                 android:textSize="16sp" />
+
             <RelativeLayout
                 android:id="@+id/basic_info"
                 android:layout_width="wrap_content"
@@ -135,12 +136,12 @@
 
                 <LinearLayout
                     android:id="@+id/basicinfo_lt_layout"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_below="@+id/basicinfo_state_layout"
                     android:layout_marginTop="5sp"
-                    android:background="#ffffff">
+                    android:background="#ffffff"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -163,9 +164,9 @@
                 <LinearLayout
                     android:id="@+id/basicinfo_master_category_layout"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="5sp"
                     android:layout_height="50dp"
                     android:layout_below="@+id/basicinfo_lt_layout"
+                    android:layout_marginTop="5sp"
                     android:background="#ffffff"
                     android:orientation="horizontal">
 
@@ -217,9 +218,9 @@
                 <LinearLayout
                     android:id="@+id/basicinfo_location_category_layout"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="5sp"
                     android:layout_height="50dp"
                     android:layout_below="@+id/basicinfo_master_title_layout"
+                    android:layout_marginTop="5sp"
                     android:background="#ffffff"
                     android:orientation="horizontal">
 
@@ -371,63 +372,44 @@
 
                     <RadioGroup
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        >
+                        android:layout_height="match_parent">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="#ffffff"
                             android:orientation="horizontal">
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="#ffffff"
-                            android:orientation="vertical">
 
-                            <RadioButton
-                                android:id="@+id/radioButton_1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="赛会服务" />
+                                android:background="#ffffff"
+                                android:orientation="vertical">
 
-                        <RadioButton
-                            android:id="@+id/radioButton_2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="应急救援" />
-                            <RadioButton
-                                android:id="@+id/radioButton_7"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="其他" />
+                                <RadioButton
+                                    android:id="@+id/radioButton_1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="赛会服务" />
+
+                                <RadioButton
+                                    android:id="@+id/radioButton_2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="应急救援" />
+
+                                <RadioButton
+                                    android:id="@+id/radioButton_7"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="其他" />
 
 
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_weight="1"
-                            android:background="#ffffff"
-                            android:orientation="vertical">
-                            <RadioButton
-                                android:id="@+id/radioButton_4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="城市运行" />
-
-                            <RadioButton
-                                android:id="@+id/radioButton_3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="应急服务" />
-
-                        </LinearLayout>
+                            </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -435,6 +417,30 @@
                                 android:layout_weight="1"
                                 android:background="#ffffff"
                                 android:orientation="vertical">
+
+                                <RadioButton
+                                    android:id="@+id/radioButton_4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="城市运行" />
+
+                                <RadioButton
+                                    android:id="@+id/radioButton_3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="应急服务" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_weight="1"
+                                android:background="#ffffff"
+                                android:orientation="vertical">
+
                                 <RadioButton
                                     android:id="@+id/radioButton_5"
                                     android:layout_width="wrap_content"
@@ -450,7 +456,7 @@
                                     android:text="在线志愿" />
 
                             </LinearLayout>
-                </LinearLayout>
+                        </LinearLayout>
                     </RadioGroup>
 
                 </LinearLayout>
@@ -464,11 +470,12 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:background="#F0F0F0"
                 android:layout_marginTop="5sp"
+                android:background="#F0F0F0"
                 android:text="联系人信息"
                 android:textColor="@color/gray"
                 android:textSize="16sp" />
+
             <RelativeLayout
                 android:id="@+id/contact_info"
                 android:layout_width="wrap_content"
@@ -504,8 +511,8 @@
                     android:id="@+id/contact_phone_layout"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginTop="5sp"
                     android:layout_below="@+id/contact_name_layout"
+                    android:layout_marginTop="5sp"
                     android:background="#ffffff"
                     android:orientation="horizontal">
 
@@ -517,19 +524,20 @@
                         android:gravity="right"
                         android:text="    联系人电话："
                         android:textSize="15sp" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        >
-                    <EditText
-                        android:layout_weight="2"
-                        android:id="@+id/et_contact_phone"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@null"
-                        android:maxLength="20"
-                        android:textSize="15sp" />
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/et_contact_phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:background="@null"
+                            android:maxLength="20"
+                            android:textSize="15sp" />
                         <!--公开与否-->
                         <TextView
                             android:layout_width="1dp"
@@ -547,8 +555,8 @@
                     android:id="@+id/contact_qq_layout"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginTop="5sp"
                     android:layout_below="@+id/contact_email_layout"
+                    android:layout_marginTop="5sp"
                     android:background="#ffffff"
                     android:orientation="horizontal">
 
@@ -561,17 +569,18 @@
 
                         android:text="      联系人QQ："
                         android:textSize="15sp" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="5sp"
-                        android:orientation="horizontal"
-                        >
+                        android:orientation="horizontal">
+
                         <EditText
-                            android:layout_weight="2"
                             android:id="@+id/et_contact_qq"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_weight="2"
                             android:background="@null"
                             android:maxLength="20"
                             android:textSize="15sp" />
@@ -594,8 +603,8 @@
                     android:id="@+id/contact_email_layout"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginTop="5sp"
                     android:layout_below="@+id/contact_phone_layout"
+                    android:layout_marginTop="5sp"
                     android:background="#ffffff"
                     android:orientation="horizontal">
 
@@ -608,17 +617,18 @@
 
                         android:text="    联系人邮箱："
                         android:textSize="15sp" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="5sp"
-                        android:orientation="horizontal"
-                        >
+                        android:orientation="horizontal">
+
                         <EditText
-                            android:layout_weight="2"
                             android:id="@+id/et_contact_email"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_weight="2"
                             android:background="@null"
                             android:maxLength="20"
                             android:textSize="15sp" />
@@ -645,11 +655,12 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:background="#F0F0F0"
                 android:layout_marginTop="5sp"
+                android:background="#F0F0F0"
                 android:text="负责人信息（此项不会公开）"
                 android:textColor="@color/gray"
                 android:textSize="16sp" />
+
             <RelativeLayout
                 android:id="@+id/responsible_info"
                 android:layout_width="wrap_content"
@@ -662,6 +673,7 @@
                     android:layout_marginTop="5sp"
                     android:background="#ffffff"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -684,8 +696,8 @@
                     android:id="@+id/responsible_phone_layout"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginTop="5sp"
                     android:layout_below="@+id/responsible_name_layout"
+                    android:layout_marginTop="5sp"
                     android:background="#ffffff"
                     android:orientation="horizontal">
 
@@ -698,22 +710,22 @@
                         android:text="    负责人电话："
                         android:textSize="15sp" />
 
-                        <EditText
-                            android:id="@+id/et_responsible_phone"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@null"
-                            android:maxLength="20"
-                            android:textSize="15sp" />
+                    <EditText
+                        android:id="@+id/et_responsible_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:maxLength="20"
+                        android:textSize="15sp" />
 
                 </LinearLayout>
-               <!--负责人身份证-->
+                <!--负责人身份证-->
                 <LinearLayout
                     android:id="@+id/responsible_id_layout"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginTop="5sp"
                     android:layout_below="@+id/responsible_phone_layout"
+                    android:layout_marginTop="5sp"
                     android:background="#ffffff"
                     android:orientation="horizontal">
 
@@ -733,7 +745,7 @@
                         android:background="@null"
                         android:maxLength="20"
                         android:textSize="15sp" />
-                    </LinearLayout>
+                </LinearLayout>
 
 
             </RelativeLayout>

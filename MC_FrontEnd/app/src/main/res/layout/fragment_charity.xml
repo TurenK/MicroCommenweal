@@ -118,12 +118,14 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_charity_category"
                     android:layout_width="match_parent"
+                    android:orientation="horizontal"
                     android:layout_height="100dp"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_charity"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"/>
 
             </LinearLayout>
 

@@ -3,6 +3,7 @@ package com.example.hfp.MicroCommonweal.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +32,11 @@ public class CharityAdapter extends BaseQuickAdapter<Charity> {
 
     private Context context;
     private List<Charity> charities;
+    private String JOINING = "报名中";
+    private String JOINED = "已报名";
+    private String OPENING = "报名中";
+    private String CLOSED = "已结束";
+    private String DUE = "已截止";
 
     public CharityAdapter(@LayoutRes int layoutResId, @Nullable List<Charity> data, Context context) {
         super(layoutResId, data);
@@ -57,6 +63,22 @@ public class CharityAdapter extends BaseQuickAdapter<Charity> {
         baseViewHolder.setText(R.id.status, charity.getStatus());
         if(charity.getStatus().equals("已评价")){
             baseViewHolder.setBackgroundColor(R.id.status, Color.GRAY);
+        }else if(charity.getStatus().equals(JOINING)){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                baseViewHolder.setBackgroundColor(R.id.status, context.getColor(R.color.unparticipate));
+            }
+        }else if(charity.getStatus().equals(JOINED)){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                baseViewHolder.setBackgroundColor(R.id.status, context.getColor(R.color.participated));
+            }
+        }else if(charity.getStatus().equals(CLOSED)){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                baseViewHolder.setBackgroundColor(R.id.status, context.getColor(R.color.allfinished));
+            }
+        }else if(charity.getStatus().equals(DUE)){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                baseViewHolder.setBackgroundColor(R.id.status, context.getColor(R.color.parfinished));
+            }
         }
         try {
             getImages(charity, (ImageView) baseViewHolder.getView(R.id.charity_iamge));
@@ -66,10 +88,8 @@ public class CharityAdapter extends BaseQuickAdapter<Charity> {
     }
 
     public void removeAllData() {
-        if (charities != null && !charities.isEmpty()) {
-            for (int i = 0; i <= charities.size(); i++) {
+        while (charities != null && !charities.isEmpty()) {
                 remove(0);
-            }
         }
     }
 

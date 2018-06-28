@@ -50,6 +50,19 @@ public class MainUIActivity extends AppCompatActivity implements View.OnClickLis
     protected void onResume(){
         super.onResume();
         Log.d(TAG, "I'm back!");
+        if (currentFragment.equals(meFragment)) {
+            addOrShowFragment(getSupportFragmentManager().beginTransaction(), currentFragment);
+            charityImg.setImageResource(R.drawable.charity_gray);
+            charityTv.setTextColor(getResources().getColor(R.color.bottomtab_normal));
+            meImg.setImageResource(R.drawable.me);
+            meTv.setTextColor(getResources().getColor(R.color.bottomtab_press));
+        }else if(currentFragment.equals(charityFragment)){
+            addOrShowFragment(getSupportFragmentManager().beginTransaction(), currentFragment);
+            charityImg.setImageResource(R.drawable.charity);
+            charityTv.setTextColor(getResources().getColor(R.color.bottomtab_press));
+            meImg.setImageResource(R.drawable.me_gray);
+            meTv.setTextColor(getResources().getColor(R.color.bottomtab_normal));
+        }
     }
 
     /**
@@ -157,12 +170,32 @@ public class MainUIActivity extends AppCompatActivity implements View.OnClickLis
             meFragment = new MeFragment();
         }
 
+        // 设置底部tab变化
+//        currentFragment = meFragment;
         addOrShowFragment(getSupportFragmentManager().beginTransaction(), meFragment);
         charityImg.setImageResource(R.drawable.charity_gray);
         charityTv.setTextColor(getResources().getColor(R.color.bottomtab_normal));
         meImg.setImageResource(R.drawable.me);
         meTv.setTextColor(getResources().getColor(R.color.bottomtab_press));
 
+    }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        if (currentFragment.equals(meFragment)) {
+            addOrShowFragment(getSupportFragmentManager().beginTransaction(), currentFragment);
+            charityImg.setImageResource(R.drawable.charity_gray);
+            charityTv.setTextColor(getResources().getColor(R.color.bottomtab_normal));
+            meImg.setImageResource(R.drawable.me);
+            meTv.setTextColor(getResources().getColor(R.color.bottomtab_press));
+        }else if(currentFragment.equals(charityFragment)){
+            addOrShowFragment(getSupportFragmentManager().beginTransaction(), currentFragment);
+            charityImg.setImageResource(R.drawable.charity);
+            charityTv.setTextColor(getResources().getColor(R.color.bottomtab_press));
+            meImg.setImageResource(R.drawable.me_gray);
+            meTv.setTextColor(getResources().getColor(R.color.bottomtab_normal));
+        }
     }
 
     /**

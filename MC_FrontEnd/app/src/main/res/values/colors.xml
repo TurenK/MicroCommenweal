@@ -10,6 +10,9 @@
     <color name="alpha_blue">#406d95e5</color>
     <color name="gray">#ABABAB</color>
     <color name="background1">#FCFCFC</color>
-
+    <color name="unparticipate">#C0FF3E</color>
+    <color name="participated">#C1FFC1</color>
+    <color name="parfinished">#B4CDCD</color>
+    <color name="allfinished">#B5B5B5</color>
     <!--这个是半透明的-->
 </resources>
