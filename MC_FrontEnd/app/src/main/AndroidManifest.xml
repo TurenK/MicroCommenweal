@@ -45,7 +45,10 @@
         <activity android:name=".activity.CommitPerActivity" />
         <activity android:name=".activity.OrgInfoActivity" />
         <activity android:name=".activity.PersonInfoActivity" />
-        <activity android:name=".activity.CharityCommentListActivity"></activity>
+        <activity android:name=".activity.CharityCommentListActivity" />
+        <activity android:name=".activity.QuestionVarietyActivity" />
+        <activity android:name=".activity.QuestionChoseActivity" />
+        <activity android:name=".activity.QuestionJudgeActivity"></activity>
     </application>
 
 </manifest>
