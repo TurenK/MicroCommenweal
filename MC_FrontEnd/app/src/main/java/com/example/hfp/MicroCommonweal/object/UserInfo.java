@@ -13,6 +13,7 @@ public class UserInfo {
     private String uAddr;
     private String uMail;
     private String uIntro;
+    private String uGender;
     private int type;
 
     private static UserInfo userInfo = null;
@@ -110,5 +111,13 @@ public class UserInfo {
 
     public String getuIntro() {
         return uIntro;
+    }
+
+    public String getuGender() {
+        return uGender;
+    }
+
+    public void setuGender(String uGender) {
+        this.uGender = uGender;
     }
 }

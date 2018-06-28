@@ -23,6 +23,8 @@
     <string name="URL_CHARITY_COMMENT_LIST">/scoreOfAActivity.php</string>
     <string name="URL_UNCOMMENT_ACT">/evaluateGroupNeedList.php</string>
     <string name="URL_USER_INFO">/userInfoOther.php</string>
+    <string name="URL_USER_INFO_MODIFY">/userInfoModify.php</string>
+    <string name="URL_GROUP_INFO_MODIFY">/groupInfoModify.php</string>
     <string name="title_activity_tstst">tstst</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
