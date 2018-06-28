@@ -23,6 +23,7 @@ import com.example.hfp.MicroCommonweal.activity.OrgRateActivity;
 import com.example.hfp.MicroCommonweal.activity.PersonalInfoActivity;
 import com.example.hfp.MicroCommonweal.activity.PreRateActivity;
 import com.example.hfp.MicroCommonweal.activity.PublishedCharityActivity;
+import com.example.hfp.MicroCommonweal.activity.QuestionVarietyActivity;
 import com.example.hfp.MicroCommonweal.activity.RankActivity;
 import com.example.hfp.MicroCommonweal.activity.RegisterActivity;
 import com.example.hfp.MicroCommonweal.object.UserInfo;
@@ -103,6 +104,7 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
 //                }else{
 //                    startActivity(new Intent(getContext(),PreRateActivity.class));
 //                }
+                startActivity(new Intent(getContext(),QuestionVarietyActivity.class));
                 break;
             case R.id.button_orgMessage:
                 startActivity(new Intent(getContext(),MessageActivity.class));

@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.reg_text:
                 startActivity(new Intent(MainActivity.this,ChoseRoleActivity.class));
+//                startActivity(new Intent(MainActivity.this,QuestionJudgeActivity.class));
                 //切换界面效果
                 overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
                 finish();
