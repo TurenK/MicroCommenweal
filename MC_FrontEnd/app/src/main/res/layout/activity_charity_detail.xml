@@ -226,7 +226,7 @@
                     android:layout_alignParentLeft="true"
                     android:text="     大熊猫繁育基地科普教育志愿者"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
                 <!--岗位ID-->
                 <TextView
                     android:id="@+id/gangweiID"
@@ -236,7 +236,7 @@
                     android:text="岗位ID:"
                     android:layout_toRightOf="@+id/kongge"
                     android:textColor="@color/gray"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/str_ID"
@@ -246,7 +246,7 @@
                     android:layout_toRightOf="@+id/gangweiID"
                     android:text="1899023"
                     android:textColor="@color/gray"
-                    android:textSize="15sp" />
+                    android:textSize="13sp" />
                 <!--岗位描述-->
                 <TextView
                     android:id="@+id/gangweimiaoshu"
@@ -256,8 +256,8 @@
                     android:text="岗位描述:"
                     android:layout_toRightOf="@+id/kongge"
                     android:textColor="@color/gray"
-                    android:textSize="16sp" />
-
+                    android:textSize="15sp" />
+                <!--装饰用的空格-->
                 <TextView
                     android:id="@+id/kongge"
                     android:layout_width="wrap_content"
@@ -285,7 +285,7 @@
                     android:text="岗位条件:"
                     android:layout_toRightOf="@+id/kongge"
                     android:textColor="@color/gray"
-                    android:textSize="13sp" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/str_condition"
@@ -298,7 +298,45 @@
                     android:textColor="@color/gray"
                     android:textSize="13sp" />
 
+                <!--联系方式-->
+                <TextView
+                    android:id="@+id/lianxifangshi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/str_condition"
+                    android:text="联系方式:"
+                    android:layout_toRightOf="@+id/kongge"
+                    android:textColor="@color/gray"
+                    android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/str_tel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/str_condition"
+                    android:layout_toRightOf="@+id/lianxifangshi"
+                    android:text="13681368522"
+                    android:textColor="@color/gray"
+                    android:textSize="15sp" />
 
+                <!--地址-->
+                <TextView
+                    android:id="@+id/dizhi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/str_tel"
+                    android:text="联络地址:"
+                    android:layout_toRightOf="@+id/kongge"
+                    android:textColor="@color/gray"
+                    android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/str_connect_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/dizhi"
+                    android:layout_toRightOf="@+id/kongge"
+                    android:text="四川省都江堰大熊猫保护基地科技园3号楼"
+                    android:textColor="@color/gray"
+                    android:textSize="13sp" />
             </RelativeLayout>
 
 
