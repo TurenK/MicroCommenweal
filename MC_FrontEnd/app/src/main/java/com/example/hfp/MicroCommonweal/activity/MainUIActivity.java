@@ -99,14 +99,14 @@ public class MainUIActivity extends AppCompatActivity implements View.OnClickLis
 
 
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        String statuCar = intent.getStringExtra("statuCar");
-        if (!TextUtils.isEmpty(statuCar)) {
-            addOrShowFragment(getSupportFragmentManager().beginTransaction(), charityFragment);
-        }
-    }
+//    @Override
+//    protected void onNewIntent(Intent intent) {
+//        super.onNewIntent(intent);
+//        String statuCar = intent.getStringExtra("statuCar");
+//        if (!TextUtils.isEmpty(statuCar)) {
+//            addOrShowFragment(getSupportFragmentManager().beginTransaction(), charityFragment);
+//        }
+//    }
 
 
     @Override

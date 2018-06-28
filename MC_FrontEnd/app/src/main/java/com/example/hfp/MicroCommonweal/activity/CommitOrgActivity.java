@@ -84,13 +84,18 @@ public class CommitOrgActivity extends AppCompatActivity implements View.OnClick
                 Log.d("CharityDetailActivity", jsonObject.toString());
 
                 if (code == 200){
+                    JSONObject object = jsonObject.getJSONObject("data");
                     //TODO Intent
-                    charity_name.setText(jsonObject.getString("orgname"));
-                    activity_num.setText("发起过: "+jsonObject.getString("actnum")+"项活动");
-                    charity_description.setText(jsonObject.getString("orgdes"));
-                    getImages(jsonObject.getString("orgimg"),charity_iamge);
+                    String orgname = object.getString("orgname");
+                    String actnum = object.getString("actnum");
+                    String orgdes = object.getString("orgdes");
+                    String orgimg = object.getString("orgimg");
+                    charity_name.setText(orgname);
+                    activity_num.setText("发起过: "+actnum+"项活动");
+                    charity_description.setText(orgdes);
+                    getImages(orgimg,charity_iamge);
 
-                }else if(code == 403){
+                }else {
                     Toast.makeText(CommitOrgActivity.this, info, Toast.LENGTH_LONG).show();
                 }
             }

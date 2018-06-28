@@ -1,5 +1,6 @@
 package com.example.hfp.MicroCommonweal.activity;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.hfp.MicroCommonweal.R;
 import com.example.hfp.MicroCommonweal.Utils.AsyncHttpUtil;
 import com.example.hfp.MicroCommonweal.adapter.CharityAdapter;
@@ -82,6 +84,18 @@ public class JoinedCharityActivity extends AppCompatActivity implements SwipeRef
     private void initAdapter() {
         listadapter = new CharityAdapter(R.layout.charity_item,charityList,getApplicationContext());
         listadapter.openLoadAnimation();
+        // item添加监听
+        listadapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Charity charity = charityList.get(position);
+                //Toast.makeText(v.getContext(), "点击了", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent();
+                intent.setClass(JoinedCharityActivity.this, CharityDetailActivity.class);
+                intent.putExtra("activityID", charity.getaID());
+                getApplicationContext().startActivity(intent);
+            }
+        });
         recyclerView.setAdapter(listadapter);
         //  addHeadView();
     }
@@ -158,6 +172,7 @@ public class JoinedCharityActivity extends AppCompatActivity implements SwipeRef
                             charities.add(charity);
                         }
                     }
+                    listadapter.removeAllData();
                     listadapter.addData(charities);
                 }else{
                     Toast.makeText(JoinedCharityActivity.this, "获取活动失败！请稍后再试", Toast.LENGTH_LONG).show();

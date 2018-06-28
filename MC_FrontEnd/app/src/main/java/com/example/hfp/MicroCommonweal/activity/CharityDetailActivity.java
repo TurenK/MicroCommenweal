@@ -102,9 +102,9 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_back:
-                Intent mIntent = new Intent(this, MainUIActivity.class);
-                mIntent.putExtra("statuCar", "1");
-                startActivity(mIntent);
+//                Intent mIntent = new Intent(this, MainUIActivity.class);
+//                mIntent.putExtra("statuCar", "1");
+//                startActivity(mIntent);
                 finish();
                 break;
             case R.id.btn_share:

@@ -165,9 +165,6 @@ public class OrgInfoActivity extends AppCompatActivity implements SwipeRefreshLa
 
                     List<Charity> charities = getCharityInfo(objectdata);
 
-                    charityList.clear();
-                    charityList.addAll(charities);
-
                     adapter.removeAllData();
                     adapter.addData(charities);
 
