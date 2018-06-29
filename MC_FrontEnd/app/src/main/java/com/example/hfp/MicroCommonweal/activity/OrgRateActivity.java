@@ -56,6 +56,12 @@ public class OrgRateActivity extends AppCompatActivity implements SwipeRefreshLa
         initCharities();//初始化义工
     }
 
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        initCharities();
+    }
+
     /**
      * 刷新listView
      */

@@ -48,7 +48,11 @@
         <activity android:name=".activity.CharityCommentListActivity" />
         <activity android:name=".activity.QuestionVarietyActivity" />
         <activity android:name=".activity.QuestionChoseActivity" />
-        <activity android:name=".activity.QuestionJudgeActivity"></activity>
+        <activity android:name=".activity.QuestionJudgeActivity" />
+        <activity
+            android:name=".activity.VertifyPerActivity"
+            android:label="@string/title_activity_vertify_per"
+            android:theme="@style/AppTheme.NoActionBar.NoActionBar"></activity>
     </application>
 
 </manifest>

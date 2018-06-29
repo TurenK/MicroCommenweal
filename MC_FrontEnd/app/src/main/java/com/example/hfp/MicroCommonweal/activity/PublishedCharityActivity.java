@@ -89,7 +89,7 @@ public class PublishedCharityActivity extends AppCompatActivity implements Swipe
                 Charity charity = charityList.get(position);
                 //Toast.makeText(v.getContext(), "点击了", Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent();
-                intent.setClass(getApplicationContext(), CommitPerActivity.class);
+                intent.setClass(getApplicationContext(), CharityDetailActivity.class);
                 intent.putExtra("activityID", charity.getaID());
                 getApplicationContext().startActivity(intent);
             }

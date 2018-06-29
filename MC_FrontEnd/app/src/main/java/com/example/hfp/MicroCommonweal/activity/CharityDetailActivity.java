@@ -1,7 +1,9 @@
 package com.example.hfp.MicroCommonweal.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,7 +37,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class CharityDetailActivity extends AppCompatActivity  implements View.OnClickListener{
+public class CharityDetailActivity extends AppCompatActivity implements View.OnClickListener {
     private List<Recentjoin> recentjoinList = new ArrayList<>();
     private String JOINING = "报名中";
     private String JOINED = "已报名";
@@ -63,6 +65,8 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
     private String aID;
     private int uStatus;
     private String aStatus;
+    private int favStatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,11 +77,11 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
 
         //初始化控件
         VBackground = (ImageView) findViewById(R.id.VBackground);
-        button_back = (Button)findViewById(R.id.button_back);
-        btn_join = (Button)findViewById(R.id.btn_join);
-        btn_share = (ImageButton)findViewById(R.id.btn_share);
-        btn_chat = (ImageButton)findViewById(R.id.btn_chat);
-        btn_collect = (ImageButton)findViewById(R.id.btn_collect);
+        button_back = (Button) findViewById(R.id.button_back);
+        btn_join = (Button) findViewById(R.id.btn_join);
+        btn_share = (ImageButton) findViewById(R.id.btn_share);
+        btn_chat = (ImageButton) findViewById(R.id.btn_chat);
+        btn_collect = (ImageButton) findViewById(R.id.btn_collect);
         tv_title = findViewById(R.id.str_title);
         tv_joinNum = findViewById(R.id.str_numsign);
         tv_targetNum = findViewById(R.id.str_numaim);
@@ -97,12 +101,11 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
         initInfo(aID);
 //        initRecentjoin();//初始化消息
         //初始化消息列表的recycle和adapter
-        recyclerView = (RecyclerView)findViewById(R.id.rv_recent_join);
+        recyclerView = (RecyclerView) findViewById(R.id.rv_recent_join);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
     }
-
 
 
     @Override
@@ -118,12 +121,21 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
                 Toast.makeText(CharityDetailActivity.this, "分享", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_join:
-                if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_USER && uStatus == 0){
-                    joinActivity();
-                }else if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_USER && uStatus == 1){
-                    Toast.makeText(CharityDetailActivity.this, "您已报名此活动！", Toast.LENGTH_LONG).show();
-                }else{
-                    Toast.makeText(CharityDetailActivity.this, "组织用户无法报名！", Toast.LENGTH_SHORT).show();
+                if (UserInfo.getUserInfo().getuVerify() == UserInfo.VERTIFIED) {
+                    if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_USER && uStatus == 0) {
+                        joinActivity();
+                    } else if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_USER && uStatus == 1) {
+                        Toast.makeText(CharityDetailActivity.this, "您已报名此活动！", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(CharityDetailActivity.this, "组织用户无法报名！", Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    Toast.makeText(CharityDetailActivity.this, "您未进行验证！", Toast.LENGTH_LONG).show();
+                    if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_USER) {
+                        startActivity(new Intent(CharityDetailActivity.this, VertifyPerActivity.class));
+                    } else {
+                        startActivity(new Intent(CharityDetailActivity.this, IdentifyInfoActivity.class));
+                    }
                 }
 //                Toast.makeText(CharityDetailActivity.this, "报名", Toast.LENGTH_SHORT).show();
                 break;
@@ -131,13 +143,17 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
                 Toast.makeText(CharityDetailActivity.this, "聊天", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_collect:
-                favourite();
+                if (favStatus == 0){
+                    favourite();
+                }else if (favStatus == 1){
+                    cancelFavourite();
+                }
 //                Toast.makeText(CharityDetailActivity.this, "收藏", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.str_originator:
                 Intent intent = new Intent();
                 intent.putExtra("orgid", aID);
-                intent.setClass(CharityDetailActivity.this,OrgInfoActivity.class);
+                intent.setClass(CharityDetailActivity.this, OrgInfoActivity.class);
                 getApplicationContext().startActivity(intent);
                 //startActivity(new Intent(CharityDetailActivity.this,OrgInfoActivity.class));
                 // startActivity(new Intent(CharityDetailActivity.this,PersonInfoActivity.class));
@@ -147,10 +163,13 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
         }
     }
 
-    private void initInfo(String aID){
+    private void initInfo(String aID) {
         JSONObject detail_info = new JSONObject();
         detail_info.put("activityId", aID);
+        if(UserInfo.getUserInfo().getType()==UserInfo.CHARITY_USER)
         detail_info.put("userId", UserInfo.getUserInfo().getuId());
+        else
+            detail_info.put("groupId", UserInfo.getUserInfo().getuId());
         Log.d("CharityDetailActivity", detail_info.toString());
         StringEntity stringEntity = null;
         try {
@@ -168,7 +187,7 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
                 String info = jsonObject.getString("message");
                 Log.d("CharityDetailActivity", jsonObject.toString());
 
-                if (code == 200){
+                if (code == 200) {
                     //TODO Intent
 //                    Toast.makeText(CharityDetailActivity.this, "创建成功！", Toast.LENGTH_LONG).show();
                     JSONObject alldata = jsonObject.getJSONObject("data");
@@ -178,7 +197,7 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
                     String activityType = object.getString("activityType");
                     String activityName = object.getString("activityName");
                     String activityImage = object.getString("activityImage");
-                    imageUpAndDownUtil.testDownloadImage(activityImage,VBackground);
+                    imageUpAndDownUtil.testDownloadImage(activityImage, VBackground);
                     String activityReleaseTime = object.getString("activityReleaseTime");
                     String activityDeadline = object.getString("activityDeadline");
                     String activityStartTime = object.getString("activityStartTime");
@@ -189,37 +208,43 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
                     String aNeedNumOfPerson = object.getString("aNeedNumOfPerson");
                     String aSurplusQuota = object.getString("aSurplusQuota");
                     aStatus = object.getString("activityStatus");
+                    favStatus = object.getInteger("collectStatus");
+                    if (favStatus == 0){
+                        btn_collect.setBackgroundResource(R.drawable.btn_star);
+                    }else if (favStatus == 1){
+                        btn_collect.setBackgroundResource(R.drawable.star_white);
+                    }
                     tv_title.setText(activityName);
                     tv_detailInfo.setText(activityIntroduction);
-                    tv_joinNum.setText(String.valueOf(Integer.parseInt(aNeedNumOfPerson)-Integer.parseInt(aSurplusQuota)));
+                    tv_joinNum.setText(String.valueOf(Integer.parseInt(aNeedNumOfPerson) - Integer.parseInt(aSurplusQuota)));
                     tv_targetNum.setText(aNeedNumOfPerson);
                     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
                     String nowDate = df.format(new Date());// new Date()为获取当前系统时间
                     tv_dayLeft.setText(String.valueOf(daysBetween(nowDate, activityDeadline)));
-                    if(UserInfo.getUserInfo().getType()==UserInfo.CHARITY_USER){
+                    if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_USER) {
                         uStatus = object.getInteger("userStatus");
-                        if(aStatus.equals("1") && uStatus==0){
+                        if (aStatus.equals("1") && uStatus == 0) {
                             btn_join.setText(JOINING);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                 btn_join.setBackgroundColor(getColor(R.color.unparticipate));
                             }
-                        }else if(aStatus.equals("1") && uStatus==1){
+                        } else if (aStatus.equals("1") && uStatus == 1) {
                             btn_join.setText(JOINED);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                 btn_join.setBackgroundColor(getColor(R.color.participated));
                             }
-                        }else if (aStatus.equals("0")){
+                        } else if (aStatus.equals("0")) {
                             btn_join.setText(CLOSED);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                 btn_join.setBackgroundColor(getColor(R.color.allfinished));
                             }
-                        }else if (aStatus.equals("2")){
+                        } else if (aStatus.equals("2")) {
                             btn_join.setText(DUE);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                 btn_join.setBackgroundColor(getColor(R.color.parfinished));
                             }
                         }
-                    }else {
+                    } else {
                         switch (aStatus) {
                             case "1":
                                 btn_join.setText(OPENING);
@@ -242,29 +267,29 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
                         }
                     }
 
-                    JSONObject usersObj =alldata.getJSONObject("join");
-                    for (int i = 1; i <= 100; i++){
-                            if (usersObj.containsKey(String.valueOf(i))) {
-                                JSONObject userObj = usersObj.getJSONObject(String.valueOf(i));
-                                String uid = userObj.getString("userId");
-                                String avatar = userObj.getString("userImage");
-                                Recentjoin recentjoin = new Recentjoin();
-                                recentjoin.setAvatar(avatar);
-                                recentjoin.setUid(uid);
-                                recentjoinList.add(recentjoin);
-                            }else{
-                                break;
-                            }
+                    JSONObject usersObj = alldata.getJSONObject("join");
+                    for (int i = 1; i <= 100; i++) {
+                        if (usersObj.containsKey(String.valueOf(i))) {
+                            JSONObject userObj = usersObj.getJSONObject(String.valueOf(i));
+                            String uid = userObj.getString("userId");
+                            String avatar = userObj.getString("userImage");
+                            Recentjoin recentjoin = new Recentjoin();
+                            recentjoin.setAvatar(avatar);
+                            recentjoin.setUid(uid);
+                            recentjoinList.add(recentjoin);
+                        } else {
+                            break;
+                        }
                     }
 
                     RecentjoinAdapter adapter = new RecentjoinAdapter(recentjoinList);
                     recyclerView.setAdapter(adapter);
-                    Log.d("CharityDetailActivity", "join number"+recentjoinList.size()+"");
+                    Log.d("CharityDetailActivity", "join number" + recentjoinList.size() + "");
 
                     Log.d("CharityDetailActivity", activityName + " " + activityDeadline + " " + activityIntroduction + " "
-                            + (Integer.parseInt(aNeedNumOfPerson)-Integer.parseInt(aSurplusQuota)) + " " + daysBetween(nowDate, activityDeadline));
+                            + (Integer.parseInt(aNeedNumOfPerson) - Integer.parseInt(aSurplusQuota)) + " " + daysBetween(nowDate, activityDeadline));
 
-                }else if(code == 400){
+                } else if (code == 400) {
                     Toast.makeText(CharityDetailActivity.this, "获取信息失败！请稍后再试", Toast.LENGTH_LONG).show();
                 }
 //                super.onSuccess(content);
@@ -279,10 +304,10 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
         });
     }
 
-    private void joinActivity(){
+    private void joinActivity() {
         JSONObject join_info = new JSONObject();
         join_info.put("userId", UserInfo.getUserInfo().getuId());
-        join_info.put("activityId",aID);
+        join_info.put("activityId", aID);
 
         Log.d("CharityDetailActivity", join_info.toString());
 
@@ -302,14 +327,14 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
                 String info = jsonObject.getString("message");
                 Log.d("CharityDetailActivity", jsonObject.toString());
 
-                if (code == 200){
+                if (code == 200) {
                     //TODO Intent
                     Toast.makeText(CharityDetailActivity.this, "参与成功！", Toast.LENGTH_LONG).show();
                     btn_join.setText(JOINED);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         btn_join.setBackgroundColor(getColor(R.color.participated));
                     }
-                }else if(code == 403){
+                } else if (code == 403) {
                     Toast.makeText(CharityDetailActivity.this, "您已报名此活动！", Toast.LENGTH_LONG).show();
                 }
             }
@@ -323,21 +348,21 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
         });
     }
 
-    public static int daysBetween(String smdate,String bdate){
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+    public static int daysBetween(String smdate, String bdate) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar cal = Calendar.getInstance();
         long time1 = 0;
         long time2 = 0;
 
-        try{
+        try {
             cal.setTime(sdf.parse(smdate));
             time1 = cal.getTimeInMillis();
             cal.setTime(sdf.parse(bdate));
             time2 = cal.getTimeInMillis();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        long between_days=(time2-time1)/(1000*3600*24);
+        long between_days = (time2 - time1) / (1000 * 3600 * 24);
 
         return Integer.parseInt(String.valueOf(between_days));
     }
@@ -372,12 +397,10 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
                 if (code == 200){
                     //TODO Intent
                     Toast.makeText(CharityDetailActivity.this, "收藏成功！", Toast.LENGTH_LONG).show();
-//                    btn_join.setText(JOINED);
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                        btn_join.setBackgroundColor(getColor(R.color.participated));
-//                    }
-                }else if(code == 403){
-                    Toast.makeText(CharityDetailActivity.this, "您已收藏此活动！", Toast.LENGTH_LONG).show();
+                    btn_collect.setBackgroundResource(R.drawable.star_white);
+                    favStatus = 1;
+                }else if(code == 400){
+                    Toast.makeText(CharityDetailActivity.this, "收藏失败，请稍后再试！", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -390,4 +413,47 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
         });
     }
 
+    public void cancelFavourite(){
+        JSONObject join_info = new JSONObject();
+        if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_USER){
+            join_info.put("userId", UserInfo.getUserInfo().getuId());
+        }else if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_ORG){
+            join_info.put("groupId", UserInfo.getUserInfo().getuId());
+        }
+        join_info.put("activityId",aID);
+
+        Log.d("CharityDetailActivity", join_info.toString());
+
+        StringEntity stringEntity = null;
+        try {
+            stringEntity = new StringEntity(join_info.toString());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        AsyncHttpUtil.post(this, this.getString(R.string.URL_FAVOURITE_CANCEL), stringEntity, "application/json", new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(String content) {
+                JSONObject jsonObject = JSONObject.parseObject(content);
+                int code = jsonObject.getInteger("code");
+                String info = jsonObject.getString("message");
+                Log.d("CharityDetailActivity", jsonObject.toString());
+
+                if (code == 200){
+                    //TODO Intent
+                    Toast.makeText(CharityDetailActivity.this, "取消收藏成功！", Toast.LENGTH_LONG).show();
+                    btn_collect.setBackgroundResource(R.drawable.btn_star);
+                    favStatus = 0;
+                }else if(code == 400){
+                    Toast.makeText(CharityDetailActivity.this, "取消收藏失败，请稍后再试！", Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onFailure(Throwable error, String content) {
+                Log.d("PublishActivity", "cannot connect to server!");
+                Toast.makeText(CharityDetailActivity.this, "无法连接到服务器！", Toast.LENGTH_LONG).show();
+//                super.onFailure(error, content);
+            }
+        });
+    }
 }
