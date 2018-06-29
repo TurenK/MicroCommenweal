@@ -3,6 +3,8 @@ package com.example.hfp.MicroCommonweal.object;
 public class UserInfo {
     public static int CHARITY_USER = 1;
     public static int CHARITY_ORG = 2;
+    public static int VERTIFIED = 1;
+    public static int UNVERTIFY = 0;
     private String uId;
     private String uName;
     private String uPhone;
@@ -14,6 +16,7 @@ public class UserInfo {
     private String uMail;
     private String uIntro;
     private String uGender;
+    private int uVerify;
     private int type;
 
     private static UserInfo userInfo = null;
@@ -119,5 +122,13 @@ public class UserInfo {
 
     public void setuGender(String uGender) {
         this.uGender = uGender;
+    }
+
+    public int getuVerify() {
+        return uVerify;
+    }
+
+    public void setuVerify(int uVerify) {
+        this.uVerify = uVerify;
     }
 }

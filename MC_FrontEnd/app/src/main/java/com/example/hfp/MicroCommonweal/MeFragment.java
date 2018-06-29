@@ -27,10 +27,12 @@ import com.example.hfp.MicroCommonweal.activity.PublishedCharityActivity;
 import com.example.hfp.MicroCommonweal.activity.QuestionVarietyActivity;
 import com.example.hfp.MicroCommonweal.activity.RankActivity;
 import com.example.hfp.MicroCommonweal.activity.RegisterActivity;
+import com.example.hfp.MicroCommonweal.activity.VertifyPerActivity;
 import com.example.hfp.MicroCommonweal.object.UserInfo;
+import com.mob.wrappers.UMSSDKWrapper;
 
 
-public class MeFragment extends Fragment implements View.OnClickListener  {
+public class MeFragment extends Fragment implements View.OnClickListener {
 
     private View meLayout;
     private Button btn_collection;
@@ -43,28 +45,29 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
     private Button btn_approve_info;
     private Button button_logout;
     private TextView uname;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       // return inflater.inflate(R.layout.fragment_me, container, false);
+        // return inflater.inflate(R.layout.fragment_me, container, false);
         meLayout = inflater.inflate(R.layout.fragment_me, container, false);
 
         //获取控件id
-        btn_collection = (Button)meLayout.findViewById(R.id.button_like);
-        btn_initiate_project = (Button)meLayout.findViewById(R.id.button_useless);
-        btn_join_project= (Button)meLayout.findViewById(R.id.button_join);
-        button_logout = (Button)meLayout.findViewById(R.id.button_logout);
-        if(UserInfo.getUserInfo().getType()==UserInfo.CHARITY_ORG){
+        btn_collection = (Button) meLayout.findViewById(R.id.button_like);
+        btn_initiate_project = (Button) meLayout.findViewById(R.id.button_useless);
+        btn_join_project = (Button) meLayout.findViewById(R.id.button_join);
+        button_logout = (Button) meLayout.findViewById(R.id.button_logout);
+        if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_ORG) {
             btn_join_project.setText("发起的项目");
-        }else {
+        } else {
             btn_join_project.setText("参与的项目");
         }
-        btn_evaluate= (Button)meLayout.findViewById(R.id.button_orgContent);
-        btn_message= (Button)meLayout.findViewById(R.id.button_orgMessage);
-        btn_rank= (Button)meLayout.findViewById(R.id.button_orgRank);
-        btn_set_account= (Button)meLayout.findViewById(R.id.button_orgSetting);
-        btn_approve_info= (Button)meLayout.findViewById(R.id.button_orgAuthen);
+        btn_evaluate = (Button) meLayout.findViewById(R.id.button_orgContent);
+        btn_message = (Button) meLayout.findViewById(R.id.button_orgMessage);
+        btn_rank = (Button) meLayout.findViewById(R.id.button_orgRank);
+        btn_set_account = (Button) meLayout.findViewById(R.id.button_orgSetting);
+        btn_approve_info = (Button) meLayout.findViewById(R.id.button_orgAuthen);
         uname = meLayout.findViewById(R.id.str_name);
 
         //设置控件监听器
@@ -77,6 +80,11 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
         btn_set_account.setOnClickListener(this);
         btn_approve_info.setOnClickListener(this);
         button_logout.setOnClickListener(this);
+        if (UserInfo.getUserInfo().getuVerify() == UserInfo.UNVERTIFY) {
+            btn_approve_info.setText("      开始验证");
+        }else {
+            btn_approve_info.setText("      验证已通过");
+        }
         initInfo();
         return meLayout;
     }
@@ -84,22 +92,22 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.button_like:
-                startActivity(new Intent(getContext(),CollectionActivity.class));
+                startActivity(new Intent(getContext(), CollectionActivity.class));
                 break;
             case R.id.button_useless:
-                if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_ORG){
-                    startActivity(new Intent(getContext(),OrgRateActivity.class));
-                }else{
-                    startActivity(new Intent(getContext(),PreRateActivity.class));
+                if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_ORG) {
+                    startActivity(new Intent(getContext(), OrgRateActivity.class));
+                } else {
+                    startActivity(new Intent(getContext(), PreRateActivity.class));
                 }
                 break;
             case R.id.button_join:
-                if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_ORG){
-                    startActivity(new Intent(getContext(),PublishedCharityActivity.class));
-                }else{
-                    startActivity(new Intent(getContext(),JoinedCharityActivity.class));
+                if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_ORG) {
+                    startActivity(new Intent(getContext(), PublishedCharityActivity.class));
+                } else {
+                    startActivity(new Intent(getContext(), JoinedCharityActivity.class));
                 }
                 break;
             case R.id.button_orgContent:
@@ -108,7 +116,7 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
 //                }else{
 //                    startActivity(new Intent(getContext(),PreRateActivity.class));
 //                }
-                startActivity(new Intent(getContext(),QuestionVarietyActivity.class));
+                startActivity(new Intent(getContext(), QuestionVarietyActivity.class));
                 break;
             case R.id.button_logout:
 //                if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_ORG){
@@ -118,26 +126,45 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
 //                }
                 SharedPreferencesUtil mSharedPreferencesUtil = new SharedPreferencesUtil(getContext(), "user");
                 mSharedPreferencesUtil.clear();
-                startActivity(new Intent(getContext(),MainActivity.class));
+                startActivity(new Intent(getContext(), MainActivity.class));
                 getActivity().finish();
                 break;
             case R.id.button_orgMessage:
-                startActivity(new Intent(getContext(),MessageActivity.class));
+                startActivity(new Intent(getContext(), MessageActivity.class));
                 break;
             case R.id.button_orgRank:
-                startActivity(new Intent(getContext(),RankActivity.class));
+                startActivity(new Intent(getContext(), RankActivity.class));
                 break;
             case R.id.button_orgSetting:
-                startActivity(new Intent(getContext(),PersonalInfoActivity.class));
+                startActivity(new Intent(getContext(), PersonalInfoActivity.class));
                 break;
             case R.id.button_orgAuthen:
-                startActivity(new Intent(getContext(),IdentifyInfoActivity.class));
+                if (UserInfo.getUserInfo().getuVerify() == UserInfo.UNVERTIFY) {
+                    if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_USER) {
+                        startActivity(new Intent(getContext(), VertifyPerActivity.class));
+                    } else {
+                        startActivity(new Intent(getContext(), IdentifyInfoActivity.class));
+                    }
+                } else {
+                    Toast.makeText(getContext(), "您已通过验证！", Toast.LENGTH_LONG).show();
+                }
+                //startActivity(new Intent(getContext(),IdentifyInfoActivity.class));
                 break;
         }
 
     }
 
-    private void initInfo(){
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (UserInfo.getUserInfo().getuVerify() == UserInfo.UNVERTIFY) {
+            btn_approve_info.setText("      开始验证");
+        }else {
+            btn_approve_info.setText("      验证已通过");
+        }
+    }
+
+    private void initInfo() {
         uname.setText(String.format("%s\n", UserInfo.getUserInfo().getuName()));
     }
 
