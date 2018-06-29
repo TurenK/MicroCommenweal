@@ -30,7 +30,7 @@ import org.apache.http.entity.StringEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonInfoActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener,View.OnClickListener{
+public class PersonInfoActivity extends AppCompatActivity implements View.OnClickListener{
     private String JOINING = "报名中";
     private String CLOSED = "已结束";
     private String DUE = "已截止";
@@ -65,7 +65,7 @@ public class PersonInfoActivity extends AppCompatActivity implements SwipeRefres
         Log.d("123", uid);
 
         //初始化控件
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+//        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         image_avatar = findViewById(R.id.image_avatar);
         str_name = findViewById(R.id.str_name);
         str_intro = findViewById(R.id.str_intro);
@@ -79,26 +79,21 @@ public class PersonInfoActivity extends AppCompatActivity implements SwipeRefres
         init();
 //        initPersonal();//初始化消息
 //        initCharities();//初始化义工
-
-        //初始化义工列表的recycle和adapter
-        recyclerView_charity = (RecyclerView)findViewById(R.id.rv_charity);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView_charity.setLayoutManager(layoutManager);
     }
 
-    /**
-     * 刷新listView
-     */
-    @Override
-    public void onRefresh() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                init();
-                mSwipeRefreshLayout.setRefreshing(false);
-            }
-        }, 1000);
-    }
+//    /**
+//     * 刷新listView
+//     */
+//    @Override
+//    public void onRefresh() {
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                init();
+//                mSwipeRefreshLayout.setRefreshing(false);
+//            }
+//        }, 1000);
+//    }
 
     @Override
     public void onClick(View v) {
@@ -117,6 +112,15 @@ public class PersonInfoActivity extends AppCompatActivity implements SwipeRefres
         CommentPersonAdapter adapter_comment = new CommentPersonAdapter(R.layout.person_comment_list_item, personalList, this);
         adapter_comment.openLoadAnimation();
         recyclerView_comment.setAdapter(adapter_comment);
+    }
+
+    private void initCharity(){
+        //初始化义工列表的recycle和adapter
+        recyclerView_charity = (RecyclerView)findViewById(R.id.rv_charity);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView_charity.setLayoutManager(layoutManager);
+        CharityAdapter adapter_charity = new CharityAdapter(R.layout.charity_item,charityList,getApplicationContext());
+        recyclerView_charity.setAdapter(adapter_charity);
     }
 
     private void init(){
@@ -218,9 +222,7 @@ public class PersonInfoActivity extends AppCompatActivity implements SwipeRefres
                             charityList.add(charity);
                         }
                     }
-                    CharityAdapter adapter_charity = new CharityAdapter(R.layout.charity_item,charityList,getApplicationContext());
-                    recyclerView_charity.setAdapter(adapter_charity);
-//                    initView();
+                    initCharity();
                 }else if(code == 400){
                     Toast.makeText(PersonInfoActivity.this, "获取信息失败！请稍后再试", Toast.LENGTH_LONG).show();
                 }
