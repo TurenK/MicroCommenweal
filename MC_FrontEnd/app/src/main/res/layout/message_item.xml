@@ -54,7 +54,7 @@
                 android:layout_marginTop="13dp"
                 android:gravity="left"
                 android:text="联合国儿童基金委"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:textColor="@color/black" />
 
             <TextView

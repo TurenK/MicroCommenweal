@@ -14,14 +14,14 @@
 
     <RelativeLayout
         android:id="@+id/charity_category_it"
-        android:layout_width="125dp"
+        android:layout_width="155dp"
         android:layout_height="100dp">
 
 
 
         <ImageView
             android:id="@+id/id_index_gallery_item_image"
-            android:layout_width="120dp"
+            android:layout_width="150dp"
             android:layout_height="100dp"
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"

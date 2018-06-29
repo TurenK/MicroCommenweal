@@ -27,6 +27,9 @@
     <string name="URL_GROUP_INFO_MODIFY">/groupInfoModify.php</string>
     <string name="URL_VERTIFY_PER">/userVerify.php</string>
     <string name="URL_VERTIFY_ORG">/groupVerify.php</string>
+    <string name="URL_FAVOURITE">/star.php</string>
+    <string name="URL_FAVOURITE_CANCEL">/starCancel.php</string>
+    <string name="URL_GET_FAVOURITE">/returnStar.php</string>
     <string name="title_activity_tstst">tstst</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>

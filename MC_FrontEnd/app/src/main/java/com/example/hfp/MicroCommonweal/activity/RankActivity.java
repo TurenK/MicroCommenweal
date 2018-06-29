@@ -1,6 +1,4 @@
 package com.example.hfp.MicroCommonweal.activity;
-
-import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +35,12 @@ public class RankActivity extends AppCompatActivity implements SwipeRefreshLayou
         initView();
 
         initRank();//初始化消息
+        //初始化消息列表的recycle和adapter
+//        recyclerView = (RecyclerView)findViewById(R.id.rv_rank);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(layoutManager);
+//        RankAdapter adapter = new RankAdapter(rankList);
+//        recyclerView.setAdapter(adapter);
     }
 
     private void initView() {
@@ -48,7 +52,6 @@ public class RankActivity extends AppCompatActivity implements SwipeRefreshLayou
         // addHeadView();
         recyclerView.setAdapter(adapter);
     }
-
     /**
      * 刷新listView
      */
@@ -57,6 +60,7 @@ public class RankActivity extends AppCompatActivity implements SwipeRefreshLayou
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                initAdapter();
                 initRank();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
@@ -83,7 +87,6 @@ public class RankActivity extends AppCompatActivity implements SwipeRefreshLayou
 //            }
 //        });
     }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -99,7 +102,7 @@ public class RankActivity extends AppCompatActivity implements SwipeRefreshLayou
         List<Rank> ranks = new ArrayList<>();
         for(int i =0;i<10;i++){
             Rank rank = new Rank();
-            rank.setAvator(R.drawable.crown_avatar_normal);
+            rank.setAvatar(R.drawable.avatar1);
             rank.setDonatenumber("1000");
             rank.setRank(String.valueOf(i+1));
             ranks.add(rank);
