@@ -28,16 +28,19 @@
             android:textColor="#ffffff"
             android:textSize="20sp" />
     </RelativeLayout>
-
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title_layout">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_rank"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/title_layout"
         android:layout_above="@+id/my_rank_layout">
-
     </android.support.v7.widget.RecyclerView>
-
+    </android.support.v4.widget.SwipeRefreshLayout>
     <!--自己的排名-->
     <LinearLayout
         android:id="@+id/my_rank_layout"
