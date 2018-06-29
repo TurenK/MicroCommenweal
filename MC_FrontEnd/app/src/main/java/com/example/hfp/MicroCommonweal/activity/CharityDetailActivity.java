@@ -63,6 +63,7 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
     private String aID;
     private int uStatus;
     private String aStatus;
+    private int favStatus;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,7 +132,11 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
                 Toast.makeText(CharityDetailActivity.this, "聊天", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_collect:
-                favourite();
+                if (favStatus == 0){
+                    favourite();
+                }else if (favStatus == 1){
+                    cancelFavourite();
+                }
 //                Toast.makeText(CharityDetailActivity.this, "收藏", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.str_originator:
@@ -189,6 +194,12 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
                     String aNeedNumOfPerson = object.getString("aNeedNumOfPerson");
                     String aSurplusQuota = object.getString("aSurplusQuota");
                     aStatus = object.getString("activityStatus");
+                    favStatus = object.getInteger("collectStatus");
+                    if (favStatus == 0){
+                        btn_collect.setBackgroundResource(R.drawable.btn_star);
+                    }else if (favStatus == 1){
+                        btn_collect.setBackgroundResource(R.drawable.star_white);
+                    }
                     tv_title.setText(activityName);
                     tv_detailInfo.setText(activityIntroduction);
                     tv_joinNum.setText(String.valueOf(Integer.parseInt(aNeedNumOfPerson)-Integer.parseInt(aSurplusQuota)));
@@ -372,12 +383,10 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
                 if (code == 200){
                     //TODO Intent
                     Toast.makeText(CharityDetailActivity.this, "收藏成功！", Toast.LENGTH_LONG).show();
-//                    btn_join.setText(JOINED);
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                        btn_join.setBackgroundColor(getColor(R.color.participated));
-//                    }
-                }else if(code == 403){
-                    Toast.makeText(CharityDetailActivity.this, "您已收藏此活动！", Toast.LENGTH_LONG).show();
+                    btn_collect.setBackgroundResource(R.drawable.star_white);
+                    favStatus = 1;
+                }else if(code == 400){
+                    Toast.makeText(CharityDetailActivity.this, "收藏失败，请稍后再试！", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -390,4 +399,47 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
         });
     }
 
+    public void cancelFavourite(){
+        JSONObject join_info = new JSONObject();
+        if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_USER){
+            join_info.put("userId", UserInfo.getUserInfo().getuId());
+        }else if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_ORG){
+            join_info.put("groupId", UserInfo.getUserInfo().getuId());
+        }
+        join_info.put("activityId",aID);
+
+        Log.d("CharityDetailActivity", join_info.toString());
+
+        StringEntity stringEntity = null;
+        try {
+            stringEntity = new StringEntity(join_info.toString());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        AsyncHttpUtil.post(this, this.getString(R.string.URL_FAVOURITE_CANCEL), stringEntity, "application/json", new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(String content) {
+                JSONObject jsonObject = JSONObject.parseObject(content);
+                int code = jsonObject.getInteger("code");
+                String info = jsonObject.getString("message");
+                Log.d("CharityDetailActivity", jsonObject.toString());
+
+                if (code == 200){
+                    //TODO Intent
+                    Toast.makeText(CharityDetailActivity.this, "取消收藏成功！", Toast.LENGTH_LONG).show();
+                    btn_collect.setBackgroundResource(R.drawable.btn_star);
+                    favStatus = 0;
+                }else if(code == 400){
+                    Toast.makeText(CharityDetailActivity.this, "取消收藏失败，请稍后再试！", Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onFailure(Throwable error, String content) {
+                Log.d("PublishActivity", "cannot connect to server!");
+                Toast.makeText(CharityDetailActivity.this, "无法连接到服务器！", Toast.LENGTH_LONG).show();
+//                super.onFailure(error, content);
+            }
+        });
+    }
 }

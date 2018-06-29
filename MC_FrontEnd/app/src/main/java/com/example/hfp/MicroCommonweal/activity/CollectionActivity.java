@@ -81,6 +81,17 @@ public class CollectionActivity extends AppCompatActivity implements SwipeRefres
         listadapter = new CharityAdapter(R.layout.charity_item,charityList,getApplicationContext());
         listadapter.openLoadAnimation();
         recyclerView.setAdapter(listadapter);
+        listadapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                String actId = charityList.get(position).getaID();
+                //Toast.makeText(v.getContext(), "点击了", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent();
+                intent.setClass(CollectionActivity.this, CharityDetailActivity.class);
+                intent.putExtra("activityID", actId);
+                startActivity(intent);
+            }
+        });
         //  addHeadView();
     }
 

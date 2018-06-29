@@ -26,6 +26,7 @@
     <string name="URL_USER_INFO_MODIFY">/userInfoModify.php</string>
     <string name="URL_GROUP_INFO_MODIFY">/groupInfoModify.php</string>
     <string name="URL_FAVOURITE">/star.php</string>
+    <string name="URL_FAVOURITE_CANCEL">/starCancel.php</string>
     <string name="URL_GET_FAVOURITE">/returnStar.php</string>
     <string name="title_activity_tstst">tstst</string>
     <string name="title_home">Home</string>
