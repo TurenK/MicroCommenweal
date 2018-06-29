@@ -16,9 +16,11 @@ import java.util.List;
 
 public class PerCommitAdapter extends BaseQuickAdapter<Charity> {
     private Context context;
+    private List<Charity> charityList;
     public PerCommitAdapter(@LayoutRes int layoutResId, @Nullable List<Charity> data, Context context) {
         super(layoutResId, data);
         this.context = context;
+        this.charityList = data;
     }
 
     @Override
@@ -32,7 +34,14 @@ public class PerCommitAdapter extends BaseQuickAdapter<Charity> {
         //int position = helper.getLayoutPosition();
 
     }
+
     private void getImages(Charity charity, ImageView imageView){
         new ImageUpAndDownUtil(context).testDownloadImage(charity.getImagepath(),imageView);
+    }
+
+    public void removeAllData() {
+        while (charityList != null && !charityList.isEmpty()) {
+            remove(0);
+        }
     }
 }

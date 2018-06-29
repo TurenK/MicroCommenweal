@@ -141,6 +141,7 @@ public class OrgRateActivity extends AppCompatActivity implements SwipeRefreshLa
                 if (code == 200){
                     //TODO get more JSON objects!
                     JSONObject objectdata =jsonObject.getJSONObject("data");
+                    List<Charity> charities = new ArrayList<>();
                     for (int i = 1; i <= 10; i++){
                         if (objectdata.containsKey(String.valueOf(i))) {
                             JSONObject object = objectdata.getJSONObject(String.valueOf(i));
@@ -159,11 +160,12 @@ public class OrgRateActivity extends AppCompatActivity implements SwipeRefreshLa
                             charity.setImagepath(actImage);
                             charity.setPeoplenum("剩余"+aSQ+"人");
                             charity.setStatus("评论");
-                            charityList.add(charity);
+                            charities.add(charity);
                           //  }
 
                         }
-                        initAdapter();
+                        adapter.removeAllData();
+                        adapter.addData(charities);
                     }
                 }else if(code == 400){
                     Toast.makeText(OrgRateActivity.this, "获取活动失败！请稍后再试", Toast.LENGTH_LONG).show();
