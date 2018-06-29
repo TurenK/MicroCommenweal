@@ -24,6 +24,7 @@ import com.example.hfp.MicroCommonweal.adapter.RecentjoinAdapter;
 import com.example.hfp.MicroCommonweal.object.Recentjoin;
 import com.example.hfp.MicroCommonweal.object.UserInfo;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.mob.wrappers.UMSSDKWrapper;
 
 import org.apache.http.entity.StringEntity;
 
@@ -130,7 +131,8 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
                 Toast.makeText(CharityDetailActivity.this, "聊天", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_collect:
-                Toast.makeText(CharityDetailActivity.this, "收藏", Toast.LENGTH_SHORT).show();
+                favourite();
+//                Toast.makeText(CharityDetailActivity.this, "收藏", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.str_originator:
                 Intent intent = new Intent();
@@ -338,6 +340,54 @@ public class CharityDetailActivity extends AppCompatActivity  implements View.On
         long between_days=(time2-time1)/(1000*3600*24);
 
         return Integer.parseInt(String.valueOf(between_days));
+    }
+
+    public void favourite(){
+        JSONObject join_info = new JSONObject();
+        if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_USER){
+            join_info.put("userId", UserInfo.getUserInfo().getuId());
+        }else if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_ORG){
+            join_info.put("groupId", UserInfo.getUserInfo().getuId());
+        }
+        join_info.put("activityId",aID);
+
+        Log.d("CharityDetailActivity", join_info.toString());
+
+        StringEntity stringEntity = null;
+        try {
+            stringEntity = new StringEntity(join_info.toString());
+//            stringEntity.setContentEncoding("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        AsyncHttpUtil.post(this, this.getString(R.string.URL_FAVOURITE), stringEntity, "application/json", new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(String content) {
+                JSONObject jsonObject = JSONObject.parseObject(content);
+                int code = jsonObject.getInteger("code");
+                String info = jsonObject.getString("message");
+                Log.d("CharityDetailActivity", jsonObject.toString());
+
+                if (code == 200){
+                    //TODO Intent
+                    Toast.makeText(CharityDetailActivity.this, "收藏成功！", Toast.LENGTH_LONG).show();
+//                    btn_join.setText(JOINED);
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                        btn_join.setBackgroundColor(getColor(R.color.participated));
+//                    }
+                }else if(code == 403){
+                    Toast.makeText(CharityDetailActivity.this, "您已收藏此活动！", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable error, String content) {
+                Log.d("PublishActivity", "cannot connect to server!");
+                Toast.makeText(CharityDetailActivity.this, "无法连接到服务器！", Toast.LENGTH_LONG).show();
+//                super.onFailure(error, content);
+            }
+        });
     }
 
 }
