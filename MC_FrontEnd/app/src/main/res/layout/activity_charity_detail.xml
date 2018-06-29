@@ -218,15 +218,41 @@
                 android:background="@color/white"
                 android:layout_marginTop="4dp"
                 android:orientation="vertical">
+                <!--装饰用的空格-->
+                <TextView
+                    android:id="@+id/kongge0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:text="   "
+                    android:textColor="@color/gray"
+                    android:textSize="19sp" />
                 <!--标题-->
                 <TextView
                     android:id="@+id/str_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text="     大熊猫繁育基地科普教育志愿者"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/kongge0"
+                    android:layout_toRightOf="@+id/kongge0"
+                    android:text="大熊猫繁育基地科普教育志愿者"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
+
+                <!--装饰用的灰格-->
+                <TextView
+                    android:id="@+id/huitiao"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_alignBottom="@+id/str_title"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:text="   "
+                    android:textColor="#F2F2F2"
+                    android:textSize="19sp" />
+
                 <!--岗位ID-->
                 <TextView
                     android:id="@+id/gangweiID"
@@ -266,7 +292,17 @@
                     android:text="        "
                     android:textColor="@color/gray"
                     android:textSize="19sp" />
-
+                <!--装饰用的空格-->
+                <TextView
+                    android:id="@+id/kongge2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/str_ID"
+                    android:text="        "
+                    android:textColor="@color/gray"
+                    android:textSize="19sp" />
                 <TextView
                     android:id="@+id/str_introduction"
                     android:layout_width="wrap_content"
@@ -293,10 +329,12 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/gangweitiaojian"
                     android:layout_toRightOf="@+id/kongge"
+                    android:layout_toLeftOf="@+id/kongge2"
                     android:text="五官端正，着装整齐，身体健康，责任心强
 志愿者申请人需为年满14周岁（14至18周岁未成年人需监护人书面同意）的中国公民（通晓外语者更佳）"
                     android:textColor="@color/gray"
                     android:textSize="13sp" />
+
 
                 <!--联系方式-->
                 <TextView
