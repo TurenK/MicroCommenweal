@@ -41,7 +41,7 @@ public class UserInfo {
         this.uId = uId;
     }
 
-    public void setuLable(String uLabel) {
+    public void setuLabel(String uLabel) {
         this.uLabel = uLabel;
     }
 

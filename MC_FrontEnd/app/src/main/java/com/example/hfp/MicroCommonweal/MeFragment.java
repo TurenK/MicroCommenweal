@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hfp.MicroCommonweal.Utils.SharedPreferencesUtil;
 import com.example.hfp.MicroCommonweal.activity.CollectionActivity;
 import com.example.hfp.MicroCommonweal.activity.IdentifyInfoActivity;
 import com.example.hfp.MicroCommonweal.activity.JoinedCharityActivity;
@@ -115,6 +116,8 @@ public class MeFragment extends Fragment implements View.OnClickListener  {
 //                }else{
 //                    startActivity(new Intent(getContext(),PreRateActivity.class));
 //                }
+                SharedPreferencesUtil mSharedPreferencesUtil = new SharedPreferencesUtil(getContext(), "user");
+                mSharedPreferencesUtil.clear();
                 startActivity(new Intent(getContext(),MainActivity.class));
                 getActivity().finish();
                 break;
