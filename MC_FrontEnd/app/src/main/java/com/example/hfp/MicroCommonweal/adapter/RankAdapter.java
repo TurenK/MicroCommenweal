@@ -21,7 +21,7 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.ViewHolder>{
 
         public ViewHolder(View view){
             super(view);
-            avatarIamge = (ImageView) view.findViewById(R.id.image_touxiangkuang);
+            avatarIamge = (ImageView) view.findViewById(R.id.image_avatar);
             rank = (TextView)view.findViewById(R.id.str_ranking);
             donatenumber  = (TextView)view.findViewById(R.id.str_num_bean);
         }
@@ -43,7 +43,7 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.ViewHolder>{
     public void onBindViewHolder(ViewHolder holder,int position){
         Rank rank = mRankList.get(position);
         holder.rank.setText(rank.getRank());
-        holder.avatarIamge.setImageResource(rank.getAvator());
+        holder.avatarIamge.setImageResource(rank.getAvatar());
         holder.donatenumber.setText(rank.getDonatenumber());
 
     }

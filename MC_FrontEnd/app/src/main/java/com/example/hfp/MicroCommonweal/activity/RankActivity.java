@@ -51,7 +51,7 @@ public class RankActivity extends AppCompatActivity implements View.OnClickListe
     private  void initRank(){
         for(int i =0;i<10;i++){
             Rank rank = new Rank();
-            rank.setAvator(R.drawable.crown_avatar_normal);
+            rank.setAvatar(R.drawable.avatar1);
             rank.setDonatenumber("1000");
             rank.setRank(String.valueOf(i+1));
             rankList.add(rank);
