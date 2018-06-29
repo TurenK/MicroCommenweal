@@ -8,7 +8,7 @@ public class Question_Chose {
     private String answerC;
     private String answerD;
     private int answer;
-    private int selectanswer;
+    private int selectanswer = -1;
 
     public String getQuestion() {
         return question;

@@ -30,6 +30,9 @@
     <string name="URL_FAVOURITE">/star.php</string>
     <string name="URL_FAVOURITE_CANCEL">/starCancel.php</string>
     <string name="URL_GET_FAVOURITE">/returnStar.php</string>
+    <string name="URL_QUESTION_TOF">/questionTOF.php</string>
+    <string name="URL_QUESTION_CHOOSE">/questionChoose.php</string>
+    <string name="URL_SUBMIT_SCORE">/score.php</string>
     <string name="title_activity_tstst">tstst</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
