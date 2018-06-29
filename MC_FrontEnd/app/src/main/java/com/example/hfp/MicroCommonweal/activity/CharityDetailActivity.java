@@ -166,7 +166,10 @@ public class CharityDetailActivity extends AppCompatActivity implements View.OnC
     private void initInfo(String aID) {
         JSONObject detail_info = new JSONObject();
         detail_info.put("activityId", aID);
+        if(UserInfo.getUserInfo().getType()==UserInfo.CHARITY_USER)
         detail_info.put("userId", UserInfo.getUserInfo().getuId());
+        else
+            detail_info.put("groupId", UserInfo.getUserInfo().getuId());
         Log.d("CharityDetailActivity", detail_info.toString());
         StringEntity stringEntity = null;
         try {
