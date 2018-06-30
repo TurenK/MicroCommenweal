@@ -259,7 +259,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/str_title"
-                    android:text="岗位ID:"
+                    android:text="志愿类型:"
                     android:layout_toRightOf="@+id/kongge"
                     android:textColor="@color/gray"
                     android:textSize="14sp" />
@@ -279,7 +279,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/gangweiID"
-                    android:text="岗位描述:"
+                    android:text="开始时间:"
                     android:layout_toRightOf="@+id/kongge"
                     android:textColor="@color/gray"
                     android:textSize="15sp" />
@@ -318,7 +318,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/str_introduction"
-                    android:text="岗位条件:"
+                    android:text="结束时间:"
                     android:layout_toRightOf="@+id/kongge"
                     android:textColor="@color/gray"
                     android:textSize="15sp" />
@@ -330,8 +330,7 @@
                     android:layout_below="@+id/gangweitiaojian"
                     android:layout_toRightOf="@+id/kongge"
                     android:layout_toLeftOf="@+id/kongge2"
-                    android:text="五官端正，着装整齐，身体健康，责任心强
-志愿者申请人需为年满14周岁（14至18周岁未成年人需监护人书面同意）的中国公民（通晓外语者更佳）"
+                    android:text=""
                     android:textColor="@color/gray"
                     android:textSize="13sp" />
 
@@ -362,7 +361,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/str_tel"
-                    android:text="联络地址:"
+                    android:text="活动地点:"
                     android:layout_toRightOf="@+id/kongge"
                     android:textColor="@color/gray"
                     android:textSize="15sp" />

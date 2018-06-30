@@ -105,6 +105,7 @@ public class RankActivity extends AppCompatActivity implements SwipeRefreshLayou
             rank.setAvatar(R.drawable.avatar1);
             rank.setDonatenumber("1000");
             rank.setRank(String.valueOf(i+1));
+            rank.setUid("hfp");
             ranks.add(rank);
         }
         adapter.removeAllData();

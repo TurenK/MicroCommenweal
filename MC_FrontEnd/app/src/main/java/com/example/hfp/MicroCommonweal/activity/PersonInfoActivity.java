@@ -23,6 +23,7 @@ import com.example.hfp.MicroCommonweal.adapter.CommentPersonAdapter;
 import com.example.hfp.MicroCommonweal.adapter.PersonalAdapter;
 import com.example.hfp.MicroCommonweal.object.Charity;
 import com.example.hfp.MicroCommonweal.object.Personal;
+import com.example.hfp.MicroCommonweal.object.UserInfo;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.apache.http.entity.StringEntity;
@@ -150,6 +151,8 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
                     int comnum = alldata.getInteger("comnum");
                     int grade = alldata.getInteger("grade");
                     str_name.setText(uname);
+                    str_intro.setText(UserInfo.getUserInfo().getuIntro());
+//                    str_intro.setText(Us);
                     tv_comment_score.setText(String.valueOf(grade));
                     tv_total_time.setText(String.valueOf(totalTime));
                     tv_charity_num.setText(String.valueOf(actnum));

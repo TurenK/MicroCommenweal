@@ -5,6 +5,15 @@ public class Rank {
     private String rank;
     private  int avatar;
     private  String donatenumber;
+    private String uid;
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     public void setRank(String rank){ this.rank = rank; }
     public String getRank(){ return rank; }
