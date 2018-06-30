@@ -125,6 +125,7 @@ public class PersonalInfoActivity extends AppCompatActivity  implements View.OnC
         UserInfo recentRegister = UserInfo.getUserInfo();
         //创建网络访问对象
         imageUpAndDownUtil.testDownloadImage(recentRegister.getuAvatar(),iv_avator);
+        tv_userid.setText(recentRegister.getuId());
         tv_name.setText(recentRegister.getuName());
         tv_gender.setText(recentRegister.getuGender());
         tv_signature.setText(recentRegister.getuIntro());
