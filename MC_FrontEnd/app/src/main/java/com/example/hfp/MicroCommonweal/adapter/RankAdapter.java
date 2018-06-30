@@ -32,7 +32,8 @@ public class RankAdapter extends BaseQuickAdapter<Rank> {
     protected void convert(final BaseViewHolder baseViewHolder, final Rank rank) {
         baseViewHolder.setText(R.id.str_ranking, rank.getRank());
         baseViewHolder.setText(R.id.str_num_bean, rank.getDonatenumber());
-        baseViewHolder.setImageResource(R.id.image_touxiangkuang, rank.getAvatar());
+        baseViewHolder.setText(R.id.uid,rank.getUid());
+        baseViewHolder.setImageResource(R.id.image_avatar, rank.getAvatar());
 
     }
 
