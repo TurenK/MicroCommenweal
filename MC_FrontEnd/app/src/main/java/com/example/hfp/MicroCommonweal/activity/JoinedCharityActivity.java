@@ -175,7 +175,7 @@ public class JoinedCharityActivity extends AppCompatActivity implements SwipeRef
                     listadapter.removeAllData();
                     listadapter.addData(charities);
                 }else{
-                    Toast.makeText(JoinedCharityActivity.this, "获取活动失败！请稍后再试", Toast.LENGTH_LONG).show();
+                    Toast.makeText(JoinedCharityActivity.this, "还未参加过活动", Toast.LENGTH_LONG).show();
                 }
 //                super.onSuccess(content);
             }

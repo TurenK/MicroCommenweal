@@ -177,7 +177,6 @@ public class OrgRateActivity extends AppCompatActivity implements SwipeRefreshLa
                     Toast.makeText(OrgRateActivity.this, "获取活动失败！请稍后再试", Toast.LENGTH_LONG).show();
                 }else if(code == 203){
                     Toast.makeText(OrgRateActivity.this, "暂时没有待评价的用户！", Toast.LENGTH_LONG).show();
-
                 }
             }
 

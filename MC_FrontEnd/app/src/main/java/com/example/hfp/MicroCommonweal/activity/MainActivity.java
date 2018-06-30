@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     String uLabel = object.getString("userLabel");
                     String uAttention = object.getString("userAttention");
                     String uIntro = object.getString("userIntro");
-                    int uvertify = object.getIntValue("vertify");
+                    int uvertify = object.getIntValue("userVerify");
                     UserInfo userInfo = UserInfo.getUserInfo();
                     userInfo.setType(UserInfo.CHARITY_USER);
                     userInfo.setuVerify(uvertify);
@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     String gType = object.getString("groupType");
                     String gAttention = object.getString("groupAttention");
                     String gImage = object.getString("groupImage");
-                    int uvertify = object.getIntValue("vertify");
+                    int uvertify = object.getIntValue("groupVerify");
                     UserInfo userInfo = UserInfo.getUserInfo();
                     userInfo.setType(UserInfo.CHARITY_ORG);
                     userInfo.setuVerify(uvertify);

@@ -200,7 +200,7 @@ public class PersonalInfoActivity extends AppCompatActivity  implements View.OnC
         username = tv_name.getText().toString();
         usergender = tv_gender.getText().toString();
         userdesc = tv_signature.getText().toString();
-        userphone = Integer.valueOf(tv_phone.getText().toString());
+        //userphone = Integer.valueOf(tv_phone.getText().toString());
         userimage = imageUpAndDownUtil.getReceived_filepath();
 
         //创建网络访问对象

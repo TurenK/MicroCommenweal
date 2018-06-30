@@ -127,7 +127,7 @@ public class CommitPerActivity extends AppCompatActivity implements View.OnClick
                     }
                     initView();
                 }else if(code == 400){
-                    Toast.makeText(CommitPerActivity.this, "获取信息失败！请稍后再试", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CommitPerActivity.this, "没有数据", Toast.LENGTH_LONG).show();
                 }
             }
 

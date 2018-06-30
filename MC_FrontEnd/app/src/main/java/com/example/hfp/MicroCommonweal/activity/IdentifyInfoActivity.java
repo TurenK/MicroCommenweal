@@ -42,7 +42,6 @@ public class IdentifyInfoActivity extends AppCompatActivity implements View.OnCl
             case R.id.button_submit:
                 //todo...提交数据
                 sendInfo();
-                finish();
                 break;
         }
 

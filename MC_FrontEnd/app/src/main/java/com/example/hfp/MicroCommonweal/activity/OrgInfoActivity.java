@@ -173,7 +173,7 @@ public class OrgInfoActivity extends AppCompatActivity implements SwipeRefreshLa
                     adapter.addData(charities);
 
                 }else{
-                    Toast.makeText(OrgInfoActivity.this, "获取活动失败！请稍后再试", Toast.LENGTH_LONG).show();
+                    Toast.makeText(OrgInfoActivity.this, "没有数据", Toast.LENGTH_LONG).show();
                 }
 //                super.onSuccess(content);
             }

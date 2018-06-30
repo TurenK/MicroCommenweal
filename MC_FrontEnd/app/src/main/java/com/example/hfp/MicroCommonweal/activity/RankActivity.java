@@ -24,6 +24,7 @@ import com.example.hfp.MicroCommonweal.object.Question_Chose;
 import com.example.hfp.MicroCommonweal.object.Rank;
 import com.example.hfp.MicroCommonweal.object.UserInfo;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.mob.wrappers.UMSSDKWrapper;
 
 import org.apache.http.entity.StringEntity;
 
@@ -33,7 +34,7 @@ import java.util.List;
 
 public class RankActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener,View.OnClickListener{
     private List<Rank> rankList = new ArrayList<>();
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
     private Button button_back;
     private RankAdapter adapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -110,7 +111,12 @@ public class RankActivity extends AppCompatActivity implements SwipeRefreshLayou
     private  void initRank(){
         List<Rank> ranks = new ArrayList<>();
         JSONObject join_info = new JSONObject();
-        join_info.put("userId", UserInfo.getUserInfo().getuId());
+        if(UserInfo.getUserInfo().getType()==UserInfo.CHARITY_ORG){
+            join_info.put("groupId", UserInfo.getUserInfo().getuId());
+            //main_json.put("groupId", uid);
+        }
+        else
+            join_info.put("userId", UserInfo.getUserInfo().getuId());
         Log.d("RankActivity", join_info.toString());
 
         StringEntity stringEntity = null;
@@ -133,10 +139,13 @@ public class RankActivity extends AppCompatActivity implements SwipeRefreshLayou
                         JSONObject myObj = objectdata.getJSONObject("me");
                         int myrank = Integer.valueOf(myObj.getString("userRank"));
                         myrank++;
-                        tv_rank.setText(String.valueOf(myrank));
-                        tv_score.setText(myObj.getString("userScore"));
+                        tv_rank.setText(String.valueOf(myrank)+"名");
+                        tv_score.setText(myObj.getString("userScore")+"分");
                         new ImageUpAndDownUtil(RankActivity.this).testDownloadImage(myObj.getString("userImage"),image_avatar);
 
+                    }else {
+                        tv_rank.setText("没有名次");
+                        tv_score.setText(""+0+"分");
                     }
                     List<Charity> charities = new ArrayList<>();
                     for (int i = 0; i < 10; i++) {

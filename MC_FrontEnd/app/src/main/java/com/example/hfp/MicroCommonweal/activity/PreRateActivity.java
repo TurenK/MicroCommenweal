@@ -184,7 +184,7 @@ public class PreRateActivity extends AppCompatActivity implements SwipeRefreshLa
                     listadapter.removeAllData();
                     listadapter.addData(charities);
                 }else{
-                    Toast.makeText(getApplicationContext(), "获取活动失败！请稍后再试", Toast.LENGTH_LONG).show();
+                    Toast.makeText(PreRateActivity.this, "没有数据", Toast.LENGTH_LONG).show();
                 }
 //                super.onSuccess(content);
             }

@@ -374,7 +374,12 @@ public class CharityFragment extends Fragment {
                     currentcategoryname = category;
                     JSONObject objectdata =jsonObject.getJSONObject("data");
                     List<Charity> charityList = new ArrayList<>();
-                    for (int i = 0; i <= 10; i++){
+                    List<Charity> charityweibaoming = new ArrayList<>();
+                    List<Charity> charityyibaoming = new ArrayList<>();
+                    List<Charity> charityyijieshu = new ArrayList<>();
+                    List<Charity> charityyijiezhi = new ArrayList<>();
+
+                    for (int i = 0; i < 100; i++){
                         if (objectdata.containsKey(String.valueOf(i))) {
                             JSONObject object = objectdata.getJSONObject(String.valueOf(i));
                             String actID = object.getString("activityId");
@@ -405,12 +410,16 @@ public class CharityFragment extends Fragment {
                             int userStatus = object.getInteger("userStatus");
                             if(actStatus.equals("1") && userStatus==0){
                                 charity.setStatus(JOINING);
+                                charityweibaoming.add(charity);
                             }else if(actStatus.equals("1") && userStatus==1){
                                 charity.setStatus(JOINED);
+                                charityyibaoming.add(charity);
                             }else if (actStatus.equals("0")){
                                 charity.setStatus(CLOSED);
+                                charityyijieshu.add(charity);
                             }else if (actStatus.equals("2")){
                                 charity.setStatus(DUE);
+                                charityyijiezhi.add(charity);
                             }
                             }else {
                                 switch (actStatus) {
@@ -425,9 +434,12 @@ public class CharityFragment extends Fragment {
                                         break;
                                 }
                             }
-                            charityList.add(charity);
                         }
                     }
+                    charityList.addAll(charityweibaoming);
+                    charityList.addAll(charityyibaoming);
+                    charityList.addAll(charityyijiezhi);
+                    charityList.addAll(charityyijieshu);
                     listadapter.removeAllData();
                     listadapter.addData(charityList);
                 }else{

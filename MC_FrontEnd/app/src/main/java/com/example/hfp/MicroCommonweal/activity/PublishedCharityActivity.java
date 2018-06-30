@@ -146,7 +146,7 @@ public class PublishedCharityActivity extends AppCompatActivity implements Swipe
                     listadapter.addData(charities);
 
                 }else{
-                    Toast.makeText(PublishedCharityActivity.this, "获取活动失败！请稍后再试", Toast.LENGTH_LONG).show();
+                    Toast.makeText(PublishedCharityActivity.this, "没有数据", Toast.LENGTH_LONG).show();
                 }
 //                super.onSuccess(content);
             }
