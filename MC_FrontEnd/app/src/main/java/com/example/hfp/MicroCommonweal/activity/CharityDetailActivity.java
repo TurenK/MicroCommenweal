@@ -55,14 +55,21 @@ public class CharityDetailActivity extends AppCompatActivity implements View.OnC
     private ImageButton btn_collect;
     private ImageView VBackground;
     private TextView tv_title;
+    private TextView tv_main_title;
     private TextView tv_joinNum;
     private TextView tv_targetNum;
     private TextView tv_dayLeft;
     private TextView tv_detailInfo;
     private TextView str_originator;
+    private TextView tv_charityType;
+    private TextView tv_startTime;
+    private TextView tv_endTime;
+    private TextView tv_phone;
+    private TextView tv_addr;
     private ImageUpAndDownUtil imageUpAndDownUtil;
 
     private String aID;
+    private String gID;
     private int uStatus;
     private String aStatus;
     private int favStatus;
@@ -83,11 +90,17 @@ public class CharityDetailActivity extends AppCompatActivity implements View.OnC
         btn_chat = (ImageButton) findViewById(R.id.btn_chat);
         btn_collect = (ImageButton) findViewById(R.id.btn_collect);
         tv_title = findViewById(R.id.str_title);
+        tv_main_title = findViewById(R.id.title);
         tv_joinNum = findViewById(R.id.str_numsign);
         tv_targetNum = findViewById(R.id.str_numaim);
         tv_dayLeft = findViewById(R.id.str_dayleft);
         tv_detailInfo = findViewById(R.id.str_detail);
         str_originator = findViewById(R.id.str_originator);
+        tv_charityType = findViewById(R.id.str_ID);
+        tv_startTime = findViewById(R.id.str_introduction);
+        tv_endTime = findViewById(R.id.str_condition);
+        tv_phone = findViewById(R.id.str_tel);
+        tv_addr = findViewById(R.id.str_connect_address);
         imageUpAndDownUtil = new ImageUpAndDownUtil(getApplicationContext());
 
         //设置监听器
@@ -152,7 +165,7 @@ public class CharityDetailActivity extends AppCompatActivity implements View.OnC
                 break;
             case R.id.str_originator:
                 Intent intent = new Intent();
-                intent.putExtra("orgid", aID);
+                intent.putExtra("orgid", gID);
                 intent.setClass(CharityDetailActivity.this, OrgInfoActivity.class);
                 getApplicationContext().startActivity(intent);
                 //startActivity(new Intent(CharityDetailActivity.this,OrgInfoActivity.class));
@@ -214,13 +227,24 @@ public class CharityDetailActivity extends AppCompatActivity implements View.OnC
                     }else if (favStatus == 1){
                         btn_collect.setBackgroundResource(R.drawable.star_white);
                     }
+                    gID = activitySponsor;
                     tv_title.setText(activityName);
+                    tv_main_title.setText(activityName);
                     tv_detailInfo.setText(activityIntroduction);
                     tv_joinNum.setText(String.valueOf(Integer.parseInt(aNeedNumOfPerson) - Integer.parseInt(aSurplusQuota)));
                     tv_targetNum.setText(aNeedNumOfPerson);
+                    tv_charityType.setText(activityType);
+                    tv_startTime.setText(activityStartTime);
+                    tv_endTime.setText(activityEndTime);
+                    tv_phone.setText(activityTel);
+                    tv_addr.setText(activityAddress);
                     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
                     String nowDate = df.format(new Date());// new Date()为获取当前系统时间
-                    tv_dayLeft.setText(String.valueOf(daysBetween(nowDate, activityDeadline)));
+                    int dayLeft = daysBetween(nowDate, activityDeadline);
+                    if (dayLeft < 0){
+                        dayLeft = 0;
+                    }
+                    tv_dayLeft.setText(String.valueOf(dayLeft));
                     if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_USER) {
                         uStatus = object.getInteger("userStatus");
                         if (aStatus.equals("1") && uStatus == 0) {
