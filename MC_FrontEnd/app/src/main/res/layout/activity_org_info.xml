@@ -209,7 +209,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_charity_num"
                         android:layout_centerHorizontal="true"
-                        android:text="发起活动"
+                        android:text="收到评价"
                         android:textColor="@color/gray"
                         android:textSize="12sp" />
                 </RelativeLayout>

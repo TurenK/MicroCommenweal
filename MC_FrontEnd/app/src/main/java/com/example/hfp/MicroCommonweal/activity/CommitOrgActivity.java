@@ -134,14 +134,9 @@ public class CommitOrgActivity extends AppCompatActivity implements View.OnClick
         }
 
         Log.d("pengfeiwuer", join_info.toString());
+        
+        StringEntity stringEntity = new StringEntity(join_info.toString(), "UTF-8");
 
-        StringEntity stringEntity = null;
-        try {
-            stringEntity = new StringEntity(join_info.toString());
-//            stringEntity.setContentEncoding("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
 
         AsyncHttpUtil.post(this, this.getString(R.string.URL_SEND_P2OCOMMIT), stringEntity, "application/json", new AsyncHttpResponseHandler() {
             @Override

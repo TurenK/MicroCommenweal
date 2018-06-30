@@ -234,6 +234,7 @@ public class CharityCommentListActivity extends AppCompatActivity implements Swi
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                personalList.clear();
                 initData();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
