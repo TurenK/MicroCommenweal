@@ -51,6 +51,13 @@ public class CollectionActivity extends AppCompatActivity implements SwipeRefres
 
         initView();
     }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        initData();
+    }
+
     /**
      * 刷新listView
      */

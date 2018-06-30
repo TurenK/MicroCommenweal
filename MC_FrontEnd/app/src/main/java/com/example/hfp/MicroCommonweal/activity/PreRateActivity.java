@@ -175,6 +175,7 @@ public class PreRateActivity extends AppCompatActivity implements SwipeRefreshLa
                                 charity.setStatus(N_EVALUATE);
                             }else if(userStatus==1){
                                 charity.setStatus(EVALUATED);
+                                continue;
                             }
                             charities.add(charity);
                             Log.d(TAG, "i'm done");

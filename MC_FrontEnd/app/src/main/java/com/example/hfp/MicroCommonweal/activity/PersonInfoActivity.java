@@ -99,7 +99,7 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.button_back:
+            case R.id.btn_back_info:
                 finish();
                 break;
         }
