@@ -3,9 +3,10 @@ package com.example.hfp.MicroCommonweal.object;
 public class Rank {
 
     private String rank;
-    private  int avatar;
+    private String avatar;
     private  String donatenumber;
     private String uid;
+    private String uName;
 
     public String getUid() {
         return uid;
@@ -17,9 +18,16 @@ public class Rank {
 
     public void setRank(String rank){ this.rank = rank; }
     public String getRank(){ return rank; }
-    public void setAvatar(int avatar){this.avatar = avatar;}
-    public int getAvatar(){return  avatar;}
+    public void setAvatar(String avatar){this.avatar = avatar;}
+    public String getAvatar(){return  avatar;}
     public void setDonatenumber(String donatenumber){this.donatenumber = donatenumber;}
     public String getDonatenumber(){return donatenumber;}
 
+    public void setuName(String uName) {
+        this.uName = uName;
+    }
+
+    public String getuName() {
+        return uName;
+    }
 }

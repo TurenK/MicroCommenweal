@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.hfp.MicroCommonweal.R;
+import com.example.hfp.MicroCommonweal.Utils.ImageUpAndDownUtil;
 import com.example.hfp.MicroCommonweal.object.Charity;
 import com.example.hfp.MicroCommonweal.object.Rank;
 
@@ -32,9 +33,8 @@ public class RankAdapter extends BaseQuickAdapter<Rank> {
     protected void convert(final BaseViewHolder baseViewHolder, final Rank rank) {
         baseViewHolder.setText(R.id.str_ranking, rank.getRank());
         baseViewHolder.setText(R.id.str_num_bean, rank.getDonatenumber());
-        baseViewHolder.setText(R.id.uid,rank.getUid());
-        baseViewHolder.setImageResource(R.id.image_avatar, rank.getAvatar());
-
+        baseViewHolder.setText(R.id.uid,rank.getuName());
+        new ImageUpAndDownUtil(context).testDownloadImage(rank.getAvatar(),(ImageView) baseViewHolder.getView(R.id.image_avatar));
     }
 
     public void removeAllData() {
