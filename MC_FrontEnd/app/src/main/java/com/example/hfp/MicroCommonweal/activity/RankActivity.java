@@ -131,7 +131,9 @@ public class RankActivity extends AppCompatActivity implements SwipeRefreshLayou
                     JSONObject objectdata = jsonObject.getJSONObject("data");
                     if (objectdata.containsKey("me")) {
                         JSONObject myObj = objectdata.getJSONObject("me");
-//                        tv_rank.setText(myObj.getString());
+                        int myrank = Integer.valueOf(myObj.getString("userRank"));
+                        myrank++;
+                        tv_rank.setText(String.valueOf(myrank));
                         tv_score.setText(myObj.getString("userScore"));
                         new ImageUpAndDownUtil(RankActivity.this).testDownloadImage(myObj.getString("userImage"),image_avatar);
 

@@ -73,6 +73,8 @@ public class CharityDetailActivity extends AppCompatActivity implements View.OnC
     private int uStatus;
     private String aStatus;
     private int favStatus;
+    private String gPhone;
+    private String gAddr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,6 +168,8 @@ public class CharityDetailActivity extends AppCompatActivity implements View.OnC
             case R.id.str_originator:
                 Intent intent = new Intent();
                 intent.putExtra("orgid", gID);
+                intent.putExtra("orgAddr", gAddr);
+                intent.putExtra("orgPhone", gPhone);
                 intent.setClass(CharityDetailActivity.this, OrgInfoActivity.class);
                 getApplicationContext().startActivity(intent);
                 //startActivity(new Intent(CharityDetailActivity.this,OrgInfoActivity.class));
@@ -205,6 +209,7 @@ public class CharityDetailActivity extends AppCompatActivity implements View.OnC
 //                    Toast.makeText(CharityDetailActivity.this, "创建成功！", Toast.LENGTH_LONG).show();
                     JSONObject alldata = jsonObject.getJSONObject("data");
                     JSONObject object = alldata.getJSONObject("value");
+                    JSONObject gInfo = alldata.getJSONObject("groupinfo");
                     String activityId = object.getString("activityId");
                     String activitySponsor = object.getString("activitySponsor");
                     String activityType = object.getString("activityType");
@@ -222,12 +227,15 @@ public class CharityDetailActivity extends AppCompatActivity implements View.OnC
                     String aSurplusQuota = object.getString("aSurplusQuota");
                     aStatus = object.getString("activityStatus");
                     favStatus = object.getInteger("collectStatus");
+                    gPhone = gInfo.getString("groupTelephone");
+                    gAddr = gInfo.getString("groupAddress");
                     if (favStatus == 0){
                         btn_collect.setBackgroundResource(R.drawable.btn_star);
                     }else if (favStatus == 1){
                         btn_collect.setBackgroundResource(R.drawable.star_white);
                     }
                     gID = activitySponsor;
+                    str_originator.setText(gInfo.getString("groupName"));
                     tv_title.setText(activityName);
                     tv_main_title.setText(activityName);
                     tv_detailInfo.setText(activityIntroduction);

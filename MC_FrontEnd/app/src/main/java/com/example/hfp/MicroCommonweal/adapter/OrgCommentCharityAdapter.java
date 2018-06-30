@@ -29,7 +29,8 @@ public class OrgCommentCharityAdapter extends BaseQuickAdapter<Charity> {
         //可链式调用赋值
         helper.setText(R.id.charity_name, charity.getName());
         RatingBar ratingBar = (RatingBar) helper.getView(R.id.ratingbar);
-        ratingBar.setNumStars(charity.getActcom());
+//        ratingBar.setNumStars(charity.getActcom());
+        ratingBar.setRating(charity.getActcom());
                // .setImageResource(R.id.charity_iamge, R.drawable.background1);
 
         //获取当前条目position/

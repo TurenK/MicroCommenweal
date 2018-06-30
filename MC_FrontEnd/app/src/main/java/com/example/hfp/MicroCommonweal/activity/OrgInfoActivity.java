@@ -42,6 +42,8 @@ public class OrgInfoActivity extends AppCompatActivity implements SwipeRefreshLa
     private Button button_back;
     private String TAG = "OrgInfoActivity";
     private String OrgId;
+    private String gAddr;
+    private String gPhone;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     RecyclerView recyclerView;
@@ -64,6 +66,8 @@ public class OrgInfoActivity extends AppCompatActivity implements SwipeRefreshLa
         button_back = (Button)findViewById(R.id.button_back);
         button_back.setOnClickListener(this);
         OrgId = getIntent().getStringExtra("orgid");
+        gAddr = getIntent().getStringExtra("orgAddr");
+        gPhone = getIntent().getStringExtra("orgPhone");
 
         initView();
 
@@ -238,7 +242,7 @@ public class OrgInfoActivity extends AppCompatActivity implements SwipeRefreshLa
 
     private void displayOrgInfo(Organization organization){
         str_name.setText(organization.getOrgname());
-        str_address.setText("北京");
+        str_address.setText(gAddr);
         str_intro.setText(organization.getDescription());
         tv_comment_score.setText(""+organization.getGrade()+"分");
         tv_total_time.setText(""+organization.getTotalTime()+"小时");
