@@ -1,12 +1,16 @@
 package com.example.hfp.MicroCommonweal.activity;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,12 +27,16 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.hfp.MicroCommonweal.R;
 import com.example.hfp.MicroCommonweal.Utils.AsyncHttpUtil;
 import com.example.hfp.MicroCommonweal.Utils.ImageUpAndDownUtil;
+import com.example.hfp.MicroCommonweal.Utils.Utils;
 import com.example.hfp.MicroCommonweal.object.Charity;
+import com.example.hfp.MicroCommonweal.object.FileStorage;
+import com.example.hfp.MicroCommonweal.object.PermissionsChecker;
 import com.example.hfp.MicroCommonweal.object.UserInfo;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.apache.http.entity.StringEntity;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +44,17 @@ import java.util.List;
 public class PersonalInfoActivity extends AppCompatActivity  implements View.OnClickListener {
 
     private static final int IMAGE_REQUEST_CODE = 0;
+    protected static final int CHOOSE_PICTURE = 10; //相册选取
+    protected static final int TAKE_PICTURE = 30; //拍照
+    private static final int REQUEST_PERMISSION = 40;  //权限请求
+    private static final int CROP_SMALL_PICTURE = 20; //剪裁图片
+    protected static Uri tempUri;
+    private PermissionsChecker mPermissionsChecker;
+    static final String[] PERMISSIONS = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA};
+    private boolean isClickCamera;
+
     private final String TAG = "PersonalInfoActivity";
     private TextView tv_userid;
     private TextView tv_name;
@@ -85,6 +104,9 @@ public class PersonalInfoActivity extends AppCompatActivity  implements View.OnC
         tv_phone.setOnClickListener(this);
         iv_avator.setOnClickListener(this);
         btn_back.setOnClickListener(this);
+
+        mPermissionsChecker = new PermissionsChecker(this);
+
         setInfo();
     }
 
@@ -98,6 +120,7 @@ public class PersonalInfoActivity extends AppCompatActivity  implements View.OnC
                 if (resultCode == RESULT_OK) {//resultcode是setResult里面设置的code值
                     try {
                         Uri selectedImage = data.getData(); //获取系统返回的照片的Uri
+                        Log.d(TAG,selectedImage.toString());
                         String[] filePathColumn = {MediaStore.Images.Media.DATA};
                         Cursor cursor = getContentResolver().query(selectedImage,
                                 filePathColumn, null, null, null);//从系统表中查询指定Uri对应的照片
@@ -117,6 +140,28 @@ public class PersonalInfoActivity extends AppCompatActivity  implements View.OnC
                         e.printStackTrace();
                     }
                 }
+                break;
+            case CHOOSE_PICTURE://选择图片
+                startPhotoZoom(data.getData()); // 开始对图片进行裁剪处理
+                break;
+            case CROP_SMALL_PICTURE://裁剪完成
+                if (data != null) {
+                    setImageToView(data); // 让刚才选择裁剪得到的图片显示在界面上
+                }
+                break;
+            case REQUEST_PERMISSION://权限请求
+                if (resultCode == PermissionsActivity.PERMISSIONS_DENIED) {
+                    finish();
+                } else {
+                    if (isClickCamera) {
+                        openCamera();
+                    } else {
+                        selectFromAlbum();
+                    }
+                }
+                break;
+            case TAKE_PICTURE://拍照
+                startPhotoZoom(tempUri); // 开始对图片进行裁剪处理
                 break;
         }
     }
@@ -182,9 +227,10 @@ public class PersonalInfoActivity extends AppCompatActivity  implements View.OnC
             case R.id.tv_phone:
                 break;
             case R.id.iv_avator:
-                Intent intent = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, IMAGE_REQUEST_CODE);
+//                Intent intent = new Intent(Intent.ACTION_PICK,
+//                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                startActivityForResult(intent, IMAGE_REQUEST_CODE);
+                showChoosePicDialog();
                 break;
             case R.id.btn_back:
                 //提交信息
@@ -260,6 +306,134 @@ public class PersonalInfoActivity extends AppCompatActivity  implements View.OnC
 //                super.onFailure(error, content);
             }
         });
-
     }
+    protected void showChoosePicDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("设置头像");
+        String[] items = { "选择本地照片", "拍照" };
+        builder.setNegativeButton("取消", null);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0: // 选择本地照片
+                        Log.d(TAG,"local");
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            if (mPermissionsChecker.lacksPermissions(PERMISSIONS)) {
+                                Log.d(TAG,"check permission");
+                                startPermissionsActivity();
+                            } else {
+                                Log.d(TAG,"start choose");
+                                selectFromAlbum();
+                            }
+                        } else {
+                            Log.d(TAG,"start choose");
+                            selectFromAlbum();
+                        }
+                        isClickCamera = false;
+                        break;
+                    case 1: // 拍照
+                        //检查权限(6.0以上做权限判断)
+                        Log.d(TAG,"photo");
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            if (mPermissionsChecker.lacksPermissions(PERMISSIONS)) {
+                                //Toast.makeText(InformationActivity.this, "版本太高了", Toast.LENGTH_LONG).show();
+                                Log.d(TAG,"request");
+                                startPermissionsActivity();
+                            } else {
+                                // Toast.makeText(InformationActivity.this, "请输入完整手机号码", Toast.LENGTH_LONG).show();
+                                Log.d(TAG,"opencamera");
+                                openCamera();
+                            }
+                        } else {
+                            //Toast.makeText(InformationActivity.this, "版本低", Toast.LENGTH_LONG).show();
+                            Log.d(TAG,"opencamera");
+                            openCamera();
+                        }
+                        isClickCamera = true;
+                        break;
+                }
+            }
+        });
+        builder.create().show();
+    }
+
+    private void selectFromAlbum(){
+        Log.d(TAG,"choosing");
+        Intent openAlbumIntent = new Intent(
+                Intent.ACTION_PICK);
+        openAlbumIntent.setType("image/*");
+        startActivityForResult(openAlbumIntent, CHOOSE_PICTURE);
+    }
+
+    private void openCamera(){
+        Log.d(TAG, "open camera");
+
+        File file = new FileStorage().createIconFile();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            tempUri = FileProvider.getUriForFile(PersonalInfoActivity.this, "com.example.hfp.MicroCommonweal.activity.fileprovider", file);//通过FileProvider创建一个content类型的Uri
+        } else {
+            tempUri = Uri.fromFile(file);
+        }
+        Intent intent = new Intent();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件
+        }
+        intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);//设置Action为拍照
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);//将拍取的照片保存到指定URI
+        startActivityForResult(intent, TAKE_PICTURE);
+    }
+
+    private void startPermissionsActivity() {
+        PermissionsActivity.startActivityForResult(this, REQUEST_PERMISSION,
+                PERMISSIONS);
+    }
+
+    protected void startPhotoZoom(Uri uri) {
+        if (uri == null) {
+            Log.i("tag", "The uri is not exist.");
+        }else{
+            Log.d(TAG, uri.toString());
+        }
+        Log.d(TAG, "start zooming");
+        tempUri = uri;
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
+        intent.setDataAndType(uri, "image/*");
+        // 设置裁剪
+        intent.putExtra("crop", "true");
+        // aspectX aspectY 是宽高的比例
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        // outputX outputY 是裁剪图片宽高
+        intent.putExtra("outputX", 150);
+        intent.putExtra("outputY", 150);
+        intent.putExtra("return-data", true);
+        startActivityForResult(intent, CROP_SMALL_PICTURE);
+    }
+
+    protected void setImageToView(Intent data) {
+        Log.d(TAG, "save image");
+        Bundle extras = data.getExtras();
+        if (extras != null) {
+            Bitmap photo = extras.getParcelable("data");
+            photo = Utils.toRoundBitmap(photo, tempUri); // 这个时候的图片已经被处理成圆形的了
+            iv_avator.setImageBitmap(photo);
+
+            String imagePath = Utils.savePhoto(photo, Environment.getExternalStorageDirectory().getAbsolutePath(), "avatar");
+//            uploadPic(imagePath);
+            imageUpAndDownUtil.testPostImage(imagePath);
+        }
+//        Bundle extras = data.getExtras();
+//        if (extras != null) {
+//            Bitmap photo = extras.getParcelable("data");
+//            photo = Utils.toRoundBitmap(photo, tempUri); // 这个时候的图片已经被处理成圆形的了
+//            headImage.setImageBitmap(photo);
+//            uploadPic(photo);
+//        }
+    }
+
 }

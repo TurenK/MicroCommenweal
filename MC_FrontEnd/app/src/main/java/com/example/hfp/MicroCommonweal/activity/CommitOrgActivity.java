@@ -134,7 +134,7 @@ public class CommitOrgActivity extends AppCompatActivity implements View.OnClick
         }
 
         Log.d("pengfeiwuer", join_info.toString());
-        
+
         StringEntity stringEntity = new StringEntity(join_info.toString(), "UTF-8");
 
 
