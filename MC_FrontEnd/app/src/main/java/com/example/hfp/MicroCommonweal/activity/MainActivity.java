@@ -164,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     userInfo.setuAttention(uAttention);
                     userInfo.setuIntro(uIntro);
                     mSharedPreferencesUtil.setValue("uType","user");
+                    mSharedPreferencesUtil.setValue("uVertify", String.valueOf(uvertify));
                     mSharedPreferencesUtil.setValue("uId",uId);
                     mSharedPreferencesUtil.setValue("uName", uName);
                     mSharedPreferencesUtil.setValue("uPhone", uPhone);
@@ -201,6 +202,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     userInfo.setuAttention(gAttention);
                     userInfo.setuAvatar(gImage);
                     mSharedPreferencesUtil.setValue("uType","org");
+                    mSharedPreferencesUtil.setValue("uVertify", String.valueOf(uvertify));
                     mSharedPreferencesUtil.setValue("uId",gId);
                     mSharedPreferencesUtil.setValue("uName", gName);
                     mSharedPreferencesUtil.setValue("uMail", gMail);
@@ -244,6 +246,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             UserInfo userInfo = UserInfo.getUserInfo();
             if(uType.equals("user")){
                 userInfo.setType(UserInfo.CHARITY_USER);
+                userInfo.setuVerify(Integer.valueOf(mSharedPreferencesUtil.getValue("uVertify","")));
                 userInfo.setuId(mSharedPreferencesUtil.getValue("uId", ""));
                 userInfo.setuName(mSharedPreferencesUtil.getValue("uName", ""));
                 userInfo.setuPhone(mSharedPreferencesUtil.getValue("uPhone", ""));
@@ -255,6 +258,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }else if(uType.equals("org")){
                 userInfo.setType(UserInfo.CHARITY_ORG);
                 userInfo.setType(UserInfo.CHARITY_ORG);
+                userInfo.setuVerify(Integer.valueOf(mSharedPreferencesUtil.getValue("uVertify","")));
                 userInfo.setuId(mSharedPreferencesUtil.getValue("uId", ""));
                 userInfo.setuName(mSharedPreferencesUtil.getValue("uName", ""));
                 userInfo.setuMail(mSharedPreferencesUtil.getValue("uMail", ""));
