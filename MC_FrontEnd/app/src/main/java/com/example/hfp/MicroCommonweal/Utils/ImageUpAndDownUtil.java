@@ -134,6 +134,9 @@ public class ImageUpAndDownUtil {
                     @Override
                     public void inProgress(float progress, long total , int id) {
 //                        Log.i("pengfeiwuer",String.valueOf(progress));
+                        Picasso.with(context)
+                                .load(R.drawable.jiazaizhong)
+                                .into(imageView);
                     }
 
                     @Override

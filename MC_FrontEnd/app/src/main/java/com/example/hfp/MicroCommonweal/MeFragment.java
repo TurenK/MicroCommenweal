@@ -10,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hfp.MicroCommonweal.Utils.ImageUpAndDownUtil;
 import com.example.hfp.MicroCommonweal.Utils.SharedPreferencesUtil;
 import com.example.hfp.MicroCommonweal.activity.CollectionActivity;
 import com.example.hfp.MicroCommonweal.activity.IdentifyInfoActivity;
@@ -45,6 +47,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
     private Button btn_approve_info;
     private Button button_logout;
     private TextView uname;
+    private ImageView userAva;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,6 +57,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
         meLayout = inflater.inflate(R.layout.fragment_me, container, false);
 
         //获取控件id
+        userAva = meLayout.findViewById(R.id.userAva);
         btn_collection = (Button) meLayout.findViewById(R.id.button_like);
         btn_initiate_project = (Button) meLayout.findViewById(R.id.button_useless);
         btn_join_project = (Button) meLayout.findViewById(R.id.button_join);
@@ -176,6 +180,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 
     private void initInfo() {
         uname.setText(String.format("%s\n", UserInfo.getUserInfo().getuName()));
+        new ImageUpAndDownUtil(getContext()).testDownloadImage(UserInfo.getUserInfo().getuAvatar(),userAva);
     }
 
 }

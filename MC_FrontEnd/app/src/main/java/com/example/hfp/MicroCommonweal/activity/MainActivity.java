@@ -37,6 +37,8 @@ import java.io.UnsupportedEncodingException;
 
 import okhttp3.internal.http2.Header;
 
+import static com.mob.MobSDK.getContext;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView reg_text;
     private Button btn_login;
@@ -75,9 +77,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         0);
             }
         }
+        getPermission();
         checkLogin();
     }
 
+    private void getPermission() {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                ||ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                ||ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    1);
+        }
+    }
 
     @Override
     public void onClick(View v) {

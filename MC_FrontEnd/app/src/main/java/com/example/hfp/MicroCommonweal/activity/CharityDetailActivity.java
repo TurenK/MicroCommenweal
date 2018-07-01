@@ -50,8 +50,8 @@ public class CharityDetailActivity extends AppCompatActivity implements View.OnC
     //声明控件
     private Button button_back;
     private Button btn_join;
-    private ImageButton btn_share;
-    private ImageButton btn_chat;
+    //private ImageButton btn_share;
+    //private ImageButton btn_chat;
     private ImageButton btn_collect;
     private ImageView VBackground;
     private TextView tv_title;
@@ -88,8 +88,8 @@ public class CharityDetailActivity extends AppCompatActivity implements View.OnC
         VBackground = (ImageView) findViewById(R.id.VBackground);
         button_back = (Button) findViewById(R.id.button_back);
         btn_join = (Button) findViewById(R.id.btn_join);
-        btn_share = (ImageButton) findViewById(R.id.btn_share);
-        btn_chat = (ImageButton) findViewById(R.id.btn_chat);
+        //btn_share = (ImageButton) findViewById(R.id.btn_share);
+        //btn_chat = (ImageButton) findViewById(R.id.btn_chat);
         btn_collect = (ImageButton) findViewById(R.id.btn_collect);
         tv_title = findViewById(R.id.str_title);
         tv_main_title = findViewById(R.id.title);
@@ -107,9 +107,9 @@ public class CharityDetailActivity extends AppCompatActivity implements View.OnC
 
         //设置监听器
         button_back.setOnClickListener(this);
-        btn_share.setOnClickListener(this);
+        //btn_share.setOnClickListener(this);
         btn_join.setOnClickListener(this);
-        btn_chat.setOnClickListener(this);
+        //btn_chat.setOnClickListener(this);
         btn_collect.setOnClickListener(this);
         str_originator.setOnClickListener(this);
 
@@ -132,9 +132,9 @@ public class CharityDetailActivity extends AppCompatActivity implements View.OnC
 //                startActivity(mIntent);
                 finish();
                 break;
-            case R.id.btn_share:
-                Toast.makeText(CharityDetailActivity.this, "分享", Toast.LENGTH_SHORT).show();
-                break;
+//            case R.id.btn_share:
+//                Toast.makeText(CharityDetailActivity.this, "分享", Toast.LENGTH_SHORT).show();
+//                break;
             case R.id.btn_join:
                 if (UserInfo.getUserInfo().getuVerify() == UserInfo.VERTIFIED) {
                     if (UserInfo.getUserInfo().getType() == UserInfo.CHARITY_USER && uStatus == 0) {
@@ -154,9 +154,9 @@ public class CharityDetailActivity extends AppCompatActivity implements View.OnC
                 }
 //                Toast.makeText(CharityDetailActivity.this, "报名", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.btn_chat:
-                Toast.makeText(CharityDetailActivity.this, "聊天", Toast.LENGTH_SHORT).show();
-                break;
+//            case R.id.btn_chat:
+//                Toast.makeText(CharityDetailActivity.this, "聊天", Toast.LENGTH_SHORT).show();
+//                break;
             case R.id.btn_collect:
                 if (favStatus == 0){
                     favourite();

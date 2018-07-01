@@ -81,11 +81,11 @@ public class CharityFragment extends Fragment {
     };
     //存放图片的标题
     private String[] titles = new String[]{
-            "轮播1",
-            "轮播2",
-            "轮播3",
-            "轮播4",
-            "轮播5"
+            "爱心捐助",
+            "爱心行动",
+            "爱心传播",
+            "为爱付出",
+            "点滴公益"
     };
     private TextView title;
     private ViewPagerAdapter adapter;
@@ -223,8 +223,8 @@ public class CharityFragment extends Fragment {
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutorService.scheduleWithFixedDelay(
                 new ViewPageTask(),
-                2,
-                2,
+                4,
+                4,
                 TimeUnit.SECONDS);
         requireCharity(currentcategoryname);
     }
@@ -425,12 +425,15 @@ public class CharityFragment extends Fragment {
                                 switch (actStatus) {
                                     case "1":
                                         charity.setStatus(OPENING);
+                                        charityweibaoming.add(charity);
                                         break;
                                     case "0":
                                         charity.setStatus(CLOSED);
+                                        charityyijieshu.add(charity);
                                         break;
                                     case "2":
                                         charity.setStatus(DUE);
+                                        charityyijiezhi.add(charity);
                                         break;
                                 }
                             }

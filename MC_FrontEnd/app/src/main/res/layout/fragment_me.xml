@@ -22,38 +22,44 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentTop="true"
-
+                android:gravity="center"
                 >
 
                 <ImageView
                     android:id="@+id/background"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="245dp"
                     android:scaleType="fitXY"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:src="@drawable/back_org"
+                    android:src="@drawable/sky_world"
                     tools:ignore="RtlCompat"
                     android:adjustViewBounds="true"/>
+                <ImageView
+                    android:id="@+id/userAva"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerInParent="true"
+                    />
                 <TextView
                     android:id="@+id/str_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
                     android:layout_alignParentBottom="true"
                     android:gravity="center"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
+                    android:textColor="@color/black"
                     android:textSize="26sp"
-                    android:text="联合国儿童基金会\n" />
-                <TextView
-                    android:id="@+id/str_follow"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:text="粉丝:1000 关注：20\n" />
+                    android:text="联合国儿童基金会" />
+                <!--<TextView-->
+                    <!--android:id="@+id/str_follow"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentBottom="true"-->
+                    <!--android:gravity="center"-->
+                    <!--android:textColor="@color/white"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:text="粉丝:1000 关注：20\n" />-->
 
 
             </RelativeLayout>
