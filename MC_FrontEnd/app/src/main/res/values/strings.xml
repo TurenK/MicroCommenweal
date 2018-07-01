@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">点拾成金</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_message">MessageActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="URL_SERVER">http://39.106.113.247/dscj</string>
+    <string name="URL_REG">/personRegistered.php</string>
+    <string name="URL_LOGIN">/login.php</string>
+    <string name="URL_MAIN_FRAME">/mainframelist.php</string>
+    <string name="URL_PUBLISH">/activityCreate.php</string>
+    <string name="URL_JOIN">/applyJoin.php</string>
+    <string name="URL_GROUP_REG">/groupRegistered.php</string>
+    <string name="URL_DETAIL_ACTIVITY">/detailInfor.php</string>
+    <string name="URL_MY_JOIN">/historyListUser.php</string>
+    <string name="URL_GROUP_PUBLISH">/historyListGroup.php</string>
+    <string name="URL_ORG_COMMIT_RATING">/groupToManyUser.php</string>
+    <string name="URL_PRE_RATE">/evaluateUserHistoryList.php</string>
+    <string name="URL_GET_ORGINFO">/numOfActivity.php</string>
+    <string name="URL_SEND_P2OCOMMIT">/evaluateUserToGroup.php</string>
+    <string name="URL_ORG_INFO">/groupInfoOther.php</string>
+    <string name="URL_CHARITY_COMMENT_LIST">/scoreOfAActivity.php</string>
+    <string name="URL_UNCOMMENT_ACT">/evaluateGroupNeedList.php</string>
+    <string name="URL_USER_INFO">/userInfoOther.php</string>
+    <string name="URL_USER_INFO_MODIFY">/userInfoModify.php</string>
+    <string name="URL_GROUP_INFO_MODIFY">/groupInfoModify.php</string>
+    <string name="URL_VERTIFY_PER">/userVerify.php</string>
+    <string name="URL_VERTIFY_ORG">/groupVerify.php</string>
+    <string name="URL_FAVOURITE">/star.php</string>
+    <string name="URL_FAVOURITE_CANCEL">/starCancel.php</string>
+    <string name="URL_GET_FAVOURITE">/returnStar.php</string>
+    <string name="URL_QUESTION_TOF">/questionTOF.php</string>
+    <string name="URL_QUESTION_CHOOSE">/questionChoose.php</string>
+    <string name="URL_SUBMIT_SCORE">/score.php</string>
+    <string name="URL_RANK_LIST">/ranklist.php</string>
+    <string name="title_activity_tstst">tstst</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_commit_per">CommitPerActivity</string>
+    <string name="title_activity_vertify_per">VertifyPerActivity</string>
+</resources>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.hfp.MicroCommonweal">
+
+    <!-- if you want to load images from the internet -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- if you want to load images from a file OR from the internet -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.RegisterActivity" />
+        <activity
+            android:name=".activity.MainUIActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".activity.MessageActivity" />
+        <activity android:name=".activity.CharityDetailActivity" />
+        <activity android:name=".activity.PublishActivity" />
+        <activity android:name=".activity.PersonalInfoActivity" />
+        <activity android:name=".activity.IdentifyInfoActivity" />
+        <activity android:name=".activity.RankActivity" />
+        <activity android:name=".activity.CollectionActivity" />
+        <activity android:name=".activity.PublishedCharityActivity" />
+        <activity android:name=".activity.JoinedCharityActivity" />
+        <activity android:name=".activity.ChoseRoleActivity" />
+        <activity android:name=".activity.RegisterTeamActivity" />
+        <activity android:name=".activity.OrgRateActivity" />
+        <activity android:name=".activity.PreRateActivity" />
+        <activity android:name=".activity.CommitOrgActivity" />
+        <activity android:name=".activity.CommitPerActivity" />
+        <activity android:name=".activity.OrgInfoActivity" />
+        <activity android:name=".activity.PersonInfoActivity" />
+        <activity android:name=".activity.CharityCommentListActivity" />
+        <activity android:name=".activity.QuestionVarietyActivity" />
+        <activity android:name=".activity.QuestionChoseActivity" />
+        <activity android:name=".activity.QuestionJudgeActivity" />
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.hfp.MicroCommonweal.activity.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        <activity
+            android:name=".activity.VertifyPerActivity"
+            android:label="@string/title_activity_vertify_per"
+            android:theme="@style/AppTheme.NoActionBar.NoActionBar"></activity>
+    </application>
+
+</manifest>
