@@ -1,5 +1,5 @@
 <?php
-
+header("Content-type:text/html;charset=utf8");
 class db{
 	static private $_instance;
 	static private $_connectSource;
@@ -20,7 +20,12 @@ class db{
 			if(!self::$_connectSource){
 				die('mysql connect error' . mysqli_error);
 			}
+			mysqli_set_charset(self::$_connectSource,"utf8");
 			mysqli_query(self::$_connectSource, "set names UTF8");
+			mysqli_query(self::$_connectSource,"set names ’utf8’ ");  
+			mysqli_query(self::$_connectSource,"set character_set_client=utf8");   
+			mysqli_query(self::$_connectSource,"set character_set_results=utf8");
+
 		}
 		return self::$_connectSource;
 	}

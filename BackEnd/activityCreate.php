@@ -3,42 +3,48 @@
 	require_once('./response.php');
 
 	// 创建连接
-	$conn = db::connect();
+	$connect = db::connect();
 
 	$json = file_get_contents('php://input');
 	$arr = json_decode($json, true);
 	//test
-	$arr = array("activitySponsor"=>1,"activityName"=> "玉福敬老院","activityImage"=>"aaaa",
-	"activityDeadline"=>"2018-10-01" ,"activityTime"=>"2018-10-02","activityAddress"=>"玉福敬老院" ,"activityIntroduction"=>"xxxxxxxxx",
-	"aNeedNumOfPerson"=>30,"aSurplusQuota"=>3 ,"activityStatus"=>1 ,"activityRemarks"=>"备注" );
+	//$arr = array("activitySponsor"=>1,"activityType"=>"篮球","activityName"=> "篮球赛a",
+	//"activityImage"=>"lujing","activityDeadline"=>"2018-10-01" ,"activityStartTime"=>"2018-10-02","activityEndTime"=>"2018-10-02","activityAddress"=>"玉福敬老院" ,
+	//"activityTel"=>"2333333","activityIntroduction"=>"xxxxxxxxx",
+	//"aNeedNumOfPerson"=>30);
 	
 	$activitySponsor = $arr['activitySponsor'];
+	$activityType = $arr['activityType'];
 	$activityName = $arr['activityName'];
+//	return response::show(200, 'true', $arr);
 	$activityImage = $arr['activityImage'];
 	$activityDeadline = $arr['activityDeadline'];
-	$activityTime = $arr['activityTime'];
+	$activityStartTime = $arr['activityStartTime'];
+	$activityEndTime = $arr['activityEndTime'];
 	$activityAddress = $arr['activityAddress'];
+	$activityTel = $arr['activityTel'];
 	$activityIntroduction = $arr['activityIntroduction'];
 	$aNeedNumOfPerson = $arr['aNeedNumOfPerson'];
-	$aSurplusQuota = $arr['aSurplusQuota'];
-	$activityStatus = $arr['activityStatus'];
-	$activityRemarks = $arr['activityRemarks'];
 
-	$sql = "INSERT INTO activity 
-	(activitySponsor,activityName,activityImage,activityDeadline,activityTime,activityAddress,activityIntroduction,aNeedNumOfPerson,
-	aSurplusQuota,activityStatus,activityRemarks)
-	VALUES ( '".$activitySponsor."' , '".$activityName."' ,'".$activityImage."', 
-	 '".$activityDeadline."' ,'".$activityTime."', '".$activityAddress."' , '".$activityIntroduction."' ,'".$aNeedNumOfPerson."' , '".$aSurplusQuota."','".$activityStatus."','".$activityRemarks."')";
+	$find_repeat = "select * from activity where activitySponsor='".$activitySponsor."' and activityName='".$activityName."'";
+	$result = mysqli_query ( $connect, $find_repeat );
 
-	if ($conn->query($sql) === TRUE) {
-		$response['code'] = 200;
-		$response['mseeage'] = "success";
-		$response['data'] = "group registered success";
-		echo json_encode($response);
-	} else {
-		$response['data'] = "Error: " . $sql . "<br>" . $conn->error;
-		echo json_encode($response);
+	if(mysqli_num_rows($result) != 0){
+		return Response::show(405, 'false',"data repeat");
+	}else if(mysqli_num_rows($result) == 0){
+		$sql = "INSERT INTO activity 
+		(activitySponsor,activityType,activityName,activityImage,activityDeadline,activityStartTime,
+		activityEndTime,activityAddress,activityTel,activityIntroduction,aNeedNumOfPerson,aSurplusQuota,activityAttention)
+		VALUES ( '".$activitySponsor."' , '".$activityType."', '".$activityName."' , '".$activityImage."' , 
+		 '".$activityDeadline."' ,'".$activityStartTime."', '".$activityEndTime."',
+		 '".$activityAddress."' , '".$activityTel."','".$activityIntroduction."' ,
+		 '".$aNeedNumOfPerson."','".$aNeedNumOfPerson."',0)";
+
+		if ($connect->query($sql) === TRUE) {
+			return response::show(200, 'true', "success");
+		} else {
+			return response::show(400, 'false', "data deliver fail");
+		}
 	}
-
-	$conn->close();
+	$connect->close();
 ?> 

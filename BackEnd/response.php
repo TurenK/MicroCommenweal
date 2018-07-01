@@ -1,4 +1,5 @@
-<?php
+<?php
+header("Content-type:text/html;charset=utf8");
 class Response{
 	/**
 	*按json方式输出通信信息
@@ -11,12 +12,15 @@ class Response{
 		if(!is_numeric($code)){
 			return '';
 		}
+
 		$result = array(
 		'code' => $code,
 		'message' => $message,
 		'data' => $data);
 		
-		echo json_encode($result,JSON_UNESCAPED_UNICODE);
+		ob_clean();
+		echo trim(str_replace(array('[',']'),null,json_encode($result)));
+		//echo json_encode($result,JSON_UNESCAPED_UNICODE);
 		exit;
 	}
 }

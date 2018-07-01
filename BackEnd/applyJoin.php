@@ -1,37 +1,44 @@
 <?php
+header("Content-type:text/html;charset=utf8");
 	require_once('./db.php');
 	require_once('./response.php');
 	$conn = Db::connect();
-	/*
+	
 	$json = file_get_contents('php://input');
 	$arr = json_decode($json, true);
-	*/
-	// ÕâÊÇÎÒ×Ô¼º²âÊÔÓÃµÄ    
-	$arr = array("userId" => 1,"activityId" => 1);
+	
+	// è¿™æ˜¯æˆ‘è‡ªå·±æµ‹è¯•ç”¨çš„    
+//	$arr = array("userId" => 1,"activityId" => 1);
 
 	$userId = $arr['userId'];
-	echo $userId;
+//	echo $userId;
 	$activityId = $arr['activityId'];
-	echo $activityId; 
+//	echo $activityId; 
 
-	$sql = "INSERT INTO participate (userId, activityId)
-	VALUES ( $userId, $activityId);";
-
-	$sql .= "update activity set aSurplusQuota = aSurplusQuota - 1
-	where activityId = $activityId";
-
-
-	$response = array("code"=>"404","mseeage"=>"failed","data"=>"none");
-
-	if ($conn->multi_query($sql) === TRUE) {
-		$response['code'] = 200;
-		$response['mseeage'] = "success";
-		$response['data'] = "apply join success";
-		echo json_encode($response);
+	$sql = "select pId from participate where userId = $userId and activityId = $activityId";
+	$result = $conn->query($sql);
+	
+	if ($result->num_rows > 0) {
+		   return response::show(403,'false','you have join the activity');
 	} else {
-		$response['data'] = "Error: " . $sql . "<br>" . $conn->error;
-		echo json_encode($response);
-	}
 
+		$sql = "INSERT INTO participate (userId, activityId)
+		VALUES ( $userId, $activityId);";
+
+		$sql .= "update activity set aSurplusQuota = aSurplusQuota - 1
+		where activityId = $activityId;";
+
+		$sql .= "update activity set activityAttention = activityAttention + 1
+			where activityId = $activityId;";
+		
+		//$response = array("code"=>"404","message"=>"failed","data"=>"none");
+
+		if ($conn->multi_query($sql) === TRUE) {
+			return response::show(200,'true','success');
+		} else {
+			return response::show(400,'false','data deliver fail');
+		}
+	}
+	
 	$conn->close();
 ?> 
