@@ -149,8 +149,8 @@ public class QuestionChoseActivity extends AppCompatActivity implements View.OnC
 
         StringEntity stringEntity = null;
         try {
-            stringEntity = new StringEntity(join_info.toString());
-        } catch (UnsupportedEncodingException e) {
+            stringEntity = new StringEntity(join_info.toString(),"UTF-8");
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

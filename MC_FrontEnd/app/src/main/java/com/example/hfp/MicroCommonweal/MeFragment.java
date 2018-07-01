@@ -89,7 +89,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
         }else {
             btn_approve_info.setText("      验证已通过");
         }
-        initInfo();
+        //initInfo();
         return meLayout;
     }
 
@@ -161,6 +161,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
+        initInfo();
         if (UserInfo.getUserInfo().getuVerify() == UserInfo.UNVERTIFY) {
             btn_approve_info.setText("      开始验证");
         }else {

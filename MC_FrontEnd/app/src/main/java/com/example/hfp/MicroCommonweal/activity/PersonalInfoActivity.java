@@ -252,11 +252,13 @@ public class PersonalInfoActivity extends AppCompatActivity  implements View.OnC
         //创建网络访问对象
         JSONObject main_json = new JSONObject();
         if(UserInfo.getUserInfo().getType()==UserInfo.CHARITY_USER){
+            main_json.put("userId", UserInfo.getUserInfo().getuId());
             main_json.put("userName", username);
             main_json.put("userImage", userimage);
             main_json.put("userIntro", userdesc);
             main_json.put("userGender", usergender);
         }else {
+            main_json.put("groupId", UserInfo.getUserInfo().getuId());
             main_json.put("groupName", username);
             main_json.put("groupImage", userimage);
             main_json.put("groupIntro", userdesc);
@@ -266,8 +268,8 @@ public class PersonalInfoActivity extends AppCompatActivity  implements View.OnC
 
         StringEntity stringEntity = null;
         try {
-            stringEntity = new StringEntity(main_json.toJSONString());
-        } catch (UnsupportedEncodingException e) {
+            stringEntity = new StringEntity(main_json.toJSONString(),"UTF-8");
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

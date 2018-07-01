@@ -147,8 +147,8 @@ public class OrgInfoActivity extends AppCompatActivity implements SwipeRefreshLa
 
         StringEntity stringEntity = null;
         try {
-            stringEntity = new StringEntity(main_json.toJSONString());
-        } catch (UnsupportedEncodingException e) {
+            stringEntity = new StringEntity(main_json.toJSONString(),"UTF-8");
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

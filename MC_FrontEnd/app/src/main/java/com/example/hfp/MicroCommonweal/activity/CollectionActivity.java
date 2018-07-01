@@ -123,9 +123,8 @@ public class CollectionActivity extends AppCompatActivity implements SwipeRefres
 
         StringEntity stringEntity = null;
         try {
-            stringEntity = new StringEntity(join_info.toString());
-//            stringEntity.setContentEncoding("UTF-8");
-        } catch (UnsupportedEncodingException e) {
+            stringEntity = new StringEntity(join_info.toString(),"UTF-8");
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
